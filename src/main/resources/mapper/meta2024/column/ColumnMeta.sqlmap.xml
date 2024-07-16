@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ColumnMeta">
+	
+	<select id="selectColumnMetaSno" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* ColumnMeta.selectColumnMetaSno */ NEXTVAL('META.TB004_SEQ') AS COLUMN_META_SNO
+	</select>
+	
+	<insert id="insertColumnMeta">
+		INSERT INTO /* ColumnMeta.insertColumnMeta */
+		    META.TB004(
+		        테이블메타일련번호,
+		        컬럼메타일련번호,
+		        컬럼명,
+		        컬럼카멜명,
+		        컬럼스네이크명,
+		        시스템생성자,
+		        시스템수정자,
+		        시스템생성일,
+		        시스템수정일
+		    )
+		VALUES
+		    ( 
+		    #{tableMetaSno} :: INTEGER, 
+		    #{columnMetaSno} :: INTEGER, 
+		    #{columnName}, 
+		    #{columnCamelName}, 
+		    #{columnSnakeName}, 
+		    #{sysCreator}, 
+		    #{sysCreator}, 
+		    now(), 
+		    now())
+	</insert>
+	
+	<select id="selectColumnMeta" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* ColumnMeta.selectColumnMeta */
+		    테이블메타일련번호 AS TABLE_META_SNO,
+		    컬럼메타일련번호 AS COLUMN_META_SNO,
+		    컬럼명 AS COLUMN_NAME,
+		    컬럼카멜명 AS COLUMN_CAMEL_NAME,
+		    컬럼스네이크명 AS COLUMN_SNAKE_NAME,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM
+		    META.TB004
+		WHERE 1 = 1
+			AND 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+			AND 컬럼메타일련번호 = #{columnMetaSno} :: INTEGER  
+	</select>
+	
+	<select id="selectColumnMetaInfo" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* ColumnMeta.selectColumnMetaInfo */
+			TB003.테이블메타일련번호 AS TABLE_META_SNO
+			, TB004.컬럼메타일련번호 AS COLUMN_META_SNO
+			, TB003.소유자명 AS OWNER_NAME
+			, TB003.테이블명 AS TABLE_NAME
+			, TB003.테이블설명 AS TABLE_DESC
+			, TB004.컬럼명 AS COLUMN_NAME
+			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
+			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
+			, TO_CHAR(TB003.시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT
+			, TO_CHAR(TB003.시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM 
+			META.TB003 TB003, 
+			META.TB004 TB004
+		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
+		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
+	</select>
+	
+	<select id="selectColumnMetaInfoList" parameterType="CustomMap" resultType="CustomMap">
+		
+		SELECT
+			*
+		FROM
+		(
+		SELECT /* ColumnMeta.selectColumnMetaInfoList */
+			TB003.테이블메타일련번호 AS TABLE_META_SNO
+			, TB004.컬럼메타일련번호 AS COLUMN_META_SNO
+			, TB003.소유자명 AS OWNER_NAME
+			, TB003.테이블명 AS TABLE_NAME
+			, TB003.테이블설명 AS TABLE_DESC
+			, TB004.컬럼명 AS COLUMN_NAME
+			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
+			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
+			, TO_CHAR(TB003.시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT
+			, TO_CHAR(TB003.시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+			, (
+				SELECT COUNT(1)	
+				FROM 
+				META.TB003 TB003, 
+				META.TB004 TB004
+				WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
+				<if test="columnName != null and columnName != ''">
+				AND TB004.컬럼명 LIKE '%'||#{columnName}||'%'
+				</if>
+				<if test="columnCamelName != null and columnCamelName != ''">
+				AND TB004.컬럼카멜명 LIKE '%'||#{columnCamelName}||'%'
+				</if>
+				<if test="columnSnakeName != null and columnSnakeName != ''">
+				AND TB004.컬럼스네이크명 LIKE '%'||#{columnSnakeName}||'%'
+				</if>
+				<if test="ownerName != null and ownerName != ''">
+				AND TB003.소유자명 LIKE '%'||#{ownerName}||'%'
+				</if>
+				<if test="tableName != null and tableName != ''">
+				AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
+				</if>
+				<if test="tableDesc != null and tableDesc != ''">
+				AND TB003.테이블설명 LIKE '%'||#{tableDesc}||'%'
+				</if>
+			) AS COUNT
+		FROM 
+		META.TB003 TB003, 
+		META.TB004 TB004
+		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
+		<if test="columnName != null and columnName != ''">
+		AND TB004.컬럼명 LIKE '%'||#{columnName}||'%'
+		</if>
+		<if test="columnCamelName != null and columnCamelName != ''">
+		AND TB004.컬럼카멜명 LIKE '%'||#{columnCamelName}||'%'
+		</if>
+		<if test="columnSnakeName != null and columnSnakeName != ''">
+		AND TB004.컬럼스네이크명 LIKE '%'||#{columnSnakeName}||'%'
+		</if>
+		<if test="ownerName != null and ownerName != ''">
+		AND TB003.소유자명 LIKE '%'||#{ownerName}||'%'
+		</if>
+		<if test="tableName != null and tableName != ''">
+		AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
+		</if>
+		<if test="tableDesc != null and tableDesc != ''">
+		AND TB003.테이블설명 LIKE '%'||#{tableDesc}||'%'
+		</if>
+		ORDER BY TB004.테이블메타일련번호 DESC, TB004.컬럼메타일련번호 ASC
+		) A
+		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
+		LIMIT #{rowAmountPerPage} :: INTEGER
+	</select>
+	
+	<update id="updateColumnMetaInfo" parameterType="CustomMap">
+		UPDATE META.TB004 /* ColumnMeta.updateColumnMetaInfo */
+		SET 시스템수정자 = #{sysModifier}
+		<if test="columnName != null and columnName != ''">
+		, 컬럼명 = #{columnName}
+		</if>
+		<if test="columnCamelName != null and columnCamelName != ''">
+		, 컬럼카멜명 = #{columnCamelName}
+		</if>
+		<if test="columnSnakeName != null and columnSnakeName != ''">
+		, 컬럼스네이크명 = #{columnSnakeName}
+		</if>
+		, 시스템수정일 = now()
+		WHERE 1 = 1
+			AND 테이블메타일련번호 = #{tableMetaSno}
+			AND 컬럼메타일련번호 = #{columnMetaSno}  
+			
+	</update>
+	
+	<update id="alterColumnName" parameterType="CustomMap">
+		ALTER TABLE ${ownerName}.${tableName} RENAME COLUMN ${oldColumnName} TO ${columnName}
+	</update>
+	
+	<update id="deleteColumnMetaInfo" parameterType="CustomMap">
+		DELETE /* ColumnMeta.deleteColumnMetaInfo */
+		FROM META.TB004
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+	</update>
+	
+</mapper>

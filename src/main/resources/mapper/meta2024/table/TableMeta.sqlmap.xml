@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TableMeta">
+	
+	<select id="selectTableMetaSno" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* TableMeta.selectTableMetaSno */ NEXTVAL('META.TB003_SEQ') AS TABLE_META_SNO
+	</select>
+	
+	<select id="selectTableMetaInfoList" parameterType="CustomMap" resultType="CustomMap">
+		
+		SELECT
+			*
+		FROM
+		(
+		SELECT /* TableMeta.selectTableMetaInfoList */
+			TB003.테이블메타일련번호 AS TABLE_META_SNO
+			, TB003.소유자명 AS OWNER_NAME
+			, TB003.테이블명 AS TABLE_NAME
+			, TB003.테이블설명 AS TABLE_DESC
+			, TO_CHAR(TB003.시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT
+			, TO_CHAR(TB003.시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+			, (
+				SELECT COUNT(1)	
+				FROM 
+				META.TB003 TB003 
+				WHERE 1 = 1
+				<if test="ownerName != null and ownerName != ''">
+				AND TB003.소유자명 LIKE '%'||#{ownerName}||'%'
+				</if>
+				<if test="tableName != null and tableName != ''">
+				AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
+				</if>
+				<if test="tableDesc != null and tableDesc != ''">
+				AND TB003.테이블설명 LIKE '%'||#{tableDesc}||'%'
+				</if>
+			) AS COUNT
+		FROM 
+		META.TB003 TB003 
+		WHERE 1 = 1
+		<if test="ownerName != null and ownerName != ''">
+		AND TB003.소유자명 LIKE '%'||#{ownerName}||'%'
+		</if>
+		<if test="tableName != null and tableName != ''">
+		AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
+		</if>
+		<if test="tableDesc != null and tableDesc != ''">
+		AND TB003.테이블설명 LIKE '%'||#{tableDesc}||'%'
+		</if>
+		ORDER BY TB003.테이블메타일련번호 DESC
+		) A
+		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
+		LIMIT #{rowAmountPerPage} :: INTEGER
+	</select>
+	
+	<insert id="insertTableMeta">
+		INSERT INTO /* TableMeta.insertTableMeta */
+		    META.TB003(
+		        테이블메타일련번호,
+		        소유자명,
+		        테이블명,
+		        테이블설명,
+		        시스템생성자,
+		        시스템수정자,
+		        시스템생성일,
+		        시스템수정일
+		    )
+		VALUES
+		    ( 
+		    #{tableMetaSno} :: INTEGER, 
+		    #{ownerName}, 
+		    #{tableName}, 
+		    #{tableDesc}, 
+		    #{sysCreator}, 
+		    #{sysCreator}, 
+		    now(), 
+		    now())
+	</insert>
+	
+	<select id="selectTableMeta" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* TableMeta.selectTableMeta */
+		    테이블메타일련번호 AS TABLE_META_SNO,
+		    소유자명 AS OWNER_NAME,
+		    테이블명 AS TABLE_NAME,
+		    테이블설명 AS TABLE_DESC,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM
+		    META.TB003
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER  
+	</select>
+	
+	<update id="createTable" parameterType="CustomMap">
+		CREATE TABLE ${ownerName}.${tableName} /* TableMeta.createTable */
+		(
+			<foreach item="pkColumn" collection="pkColumnNameList">
+			${pkColumn} BIGINT NOT NULL,
+			</foreach>
+			<foreach item="column" collection="columnNameList">
+			<if test="column.endsWith('일련번호')">
+            ${column} BIGINT,
+            </if>
+            <if test="!column.endsWith('일련번호')">
+            ${column} CHARACTER VARYING(200),
+            </if>	
+			</foreach>
+		    시스템생성자 CHARACTER VARYING(200) NOT NULL,
+		    시스템수정자 CHARACTER VARYING(200) NOT NULL,
+		    시스템생성일 TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+		    시스템수정일 TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+		    CONSTRAINT ${tableName}_PK PRIMARY KEY (<foreach item="pkColumn" collection="pkColumnNameList" separator=",">${pkColumn}</foreach>)
+		)
+	</update>
+	
+    <update id="addTableComment" parameterType="CustomMap">
+        COMMENT /* TableMeta.addTableComments */ ON TABLE ${ownerName}.${tableName} IS '${tableDesc}'
+    </update>
+    
+	<update id="createPkIndex" parameterType="CustomMap">
+		CREATE /* TableMeta.createPkIndex */ UNIQUE INDEX ${tableName}P ON ${ownerName}.${tableName}(<foreach item="pkColumn" collection="pkColumnNameList" separator=",">${pkColumn}</foreach>)
+	</update>
+	
+	<select id="selectSchemaNameList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* TableMeta.selectSchemaNameList */
+			UPPER(SCHEMA_NAME) AS SCHEMA_NAME
+		FROM INFORMATION_SCHEMA.SCHEMATA
+		WHERE UPPER(SCHEMA_NAME) NOT IN ('PUBLIC', 'INFORMATION_SCHEMA', 'PG_CATALOG', 'PG_TOAST')
+		ORDER BY UPPER(SCHEMA_NAME)
+	</select>
+	
+	<update id="dropTable" parameterType="CustomMap">
+		DROP /* TableMeta.dropTable */ TABLE ${ownerName}.${tableName}
+	</update>
+	
+	<update id="deleteTableMetaInfo" parameterType="CustomMap">
+		DELETE /* TableMeta.deleteTableMetaInfo */
+		FROM META.TB003
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+	</update>
+	
+</mapper>

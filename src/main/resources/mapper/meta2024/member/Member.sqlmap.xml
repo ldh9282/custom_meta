@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+	
+	<select id="selectMemSno" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Member.selectMemSno */ NEXTVAL('META.TB001_SEQ') AS MEM_SNO
+	</select>
+	
+	<select id="selectMemAuthSno" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Member.selectMemAuthSno */ NEXTVAL('META.TB002_SEQ') AS MEM_AUTH_SNO
+	</select>
+	
+	<select id="selectMember" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Member.selectMember */ 
+			회원일련번호 AS MEM_SNO,
+		    회원아이디 AS MEM_ID,
+		    회원비밀번호 AS MEM_PW,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM META.TB001
+		WHERE 회원아이디 = #{memId}
+		
+	</select>
+	
+	<select id="selectMemberAuthList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Member.selectMemberAuthList */ 
+			회원일련번호 AS MEM_SNO,
+		    회원권한일련번호 AS MEM_AUTH_SNO,
+		    회원아이디 AS MEM_ID,
+		    회원권한 AS MEM_AUTH,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM META.TB002
+		WHERE 회원아이디 = #{memId}
+	</select>
+	
+	<insert id="insertMember">
+		INSERT INTO 
+			META.TB001 (
+				회원일련번호
+				, 회원아이디
+				, 회원비밀번호
+				, 시스템생성자
+				, 시스템수정자
+				, 시스템생성일
+				, 시스템수정일
+				)
+			VALUES (
+				#{memSno} :: INTEGER
+				, #{memId}
+				, #{memPw}
+				, #{sysCreator}
+				, #{sysCreator}
+				, now()
+				, now()
+			)
+	</insert>
+	<insert id="insertMemberAuth">
+		INSERT INTO 
+			META.TB002 (
+				회원일련번호
+				, 회원권한일련번호
+				, 회원아이디
+				, 회원권한
+				, 시스템생성자
+				, 시스템수정자
+				, 시스템생성일
+				, 시스템수정일
+				)
+			VALUES (
+				#{memSno} :: INTEGER
+				, #{memAuthSno} :: INTEGER
+				, #{memId}
+				, #{memAuth}
+				, #{sysCreator}
+				, #{sysCreator}
+				, now()
+				, now()
+			)
+	</insert>
+	
+	<select id="selectMemberCnt" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Member.selectMemberCnt */ 
+		    count(1) AS CNT
+		FROM META.TB001
+		WHERE 회원아이디 = #{memId}	
+	</select>
+</mapper>
