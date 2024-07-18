@@ -194,24 +194,38 @@ const timerUtils = {
 		
 		let diffMillis = new Date(endTimeStr).getTime() - new Date(startTimeStr).getTime();
 		
-		let interval = setInterval(function() {
-			
-			
-			let displayTime = timerUtils.getDisplayTime(diffMillis);
-			
-			if (callback) {
-				callback(displayTime);
+		let displayTime = timerUtils.getDisplayTime(diffMillis);
+		
+		if (callback) { // setInterval 처음시작시 delay 보정 ::: callback 즉시실행 
+			callback(displayTime);
+		}
+		if (diffMillis <= 0) { // 남은시간 0일때 ::: endCallback 즉시실행  
+			if (endCallback) {
+				endCallback(displayTime);
 			}
-			
-			if (displayTime.day == '00' && displayTime.hour == '00' && displayTime.min == '00' && displayTime.sec == '00') {
-				clearInterval(interval);
-				if (endCallback) {
-					endCallback(displayTime);
-				}
-			}
-			
+		} else { // 남은시간 있을때 ::: setInterval
 			diffMillis -= delay;
-		}, delay);
+			
+			let interval = setInterval(function() {
+				
+				
+				let displayTime = timerUtils.getDisplayTime(diffMillis);
+				
+				
+				if (callback) {
+					callback(displayTime);
+				}
+				
+				if (diffMillis <= 0) {
+					clearInterval(interval);
+					if (endCallback) {
+						endCallback(displayTime);
+					}
+				}
+				
+				diffMillis -= delay;
+			}, delay);
+		}
 	}
 	, getDisplayTime: function(diffMillis) {
 		let result = {};
