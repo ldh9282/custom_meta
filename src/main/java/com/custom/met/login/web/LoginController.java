@@ -23,7 +23,7 @@ public class LoginController extends CustomController {
 	
 	@GetMapping("/METLG01")
 	public ModelAndView metlg01(ModelAndView modelAndView) {
-		modelAndView.setViewName("meta2024/login/login1");
+		modelAndView.setViewName("/login/login1");
 		
 		return modelAndView;
 	}
@@ -31,7 +31,7 @@ public class LoginController extends CustomController {
 	
 	@GetMapping("/METLG02")
 	public String metlg02(HttpServletRequest request) {
-		return "meta2024/login/register1";
+		return "/login/register1";
 	}
 	
 	@PostMapping("/METLG03")
