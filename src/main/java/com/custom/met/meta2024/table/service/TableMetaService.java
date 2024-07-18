@@ -81,7 +81,7 @@ public class TableMetaService {
 		try {
 			CustomMap tableMap = new CustomMap();
 			
-			tableMap.put("ownerName", customMap.getString("ownerName"));
+			tableMap.put("schemaName", customMap.getString("schemaName"));
 			tableMap.put("tableName", customMap.getString("tableName"));
 			tableMap.put("tableDesc", customMap.getString("tableDesc"));
 			
@@ -104,7 +104,7 @@ public class TableMetaService {
 			CustomMap tableMetaSnoMap = tableMetaDao.selectTableMetaSno();
 			
 			requestMap.put("tableMetaSno", tableMetaSnoMap.getString("tableMetaSno"));
-			requestMap.put("ownerName", customMap.getString("ownerName"));
+			requestMap.put("schemaName", customMap.getString("schemaName"));
 			requestMap.put("tableName", customMap.getString("tableName"));
 			requestMap.put("tableDesc", customMap.getString("tableDesc"));
 			requestMap.put("sysCreator", "SYSTEM");
@@ -258,7 +258,7 @@ public class TableMetaService {
 			 * 1. 시퀀스메타기본정보조회
 			 */
 			CustomMap seqMetaInfoDetail = seqMetaDao.selectSeqMetaInfoDetail(customMap);
-			customMap.put("ownerName", seqMetaInfoDetail.getString("ownerName"));
+			customMap.put("schemaName", seqMetaInfoDetail.getString("schemaName"));
 			customMap.put("seqName", seqMetaInfoDetail.getString("seqName"));
 			
 			/***
@@ -276,7 +276,7 @@ public class TableMetaService {
 			 * 4. 테이블메타기본정보 상세조회
 			 */
 			CustomMap tableMeta = tableMetaDao.selectTableMeta(customMap);
-			customMap.put("ownerName", tableMeta.getString("ownerName"));
+			customMap.put("schemaName", tableMeta.getString("schemaName"));
 			customMap.put("tableName", tableMeta.getString("tableName"));
 			/***
 			 * 5. 테이블삭제 및 테이블메타기본정보삭제

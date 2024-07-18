@@ -18,14 +18,14 @@
 		<ul class="sidebar-nav" id="sidebar-nav">
 			
 			<li class="nav-heading">
-				<timer-element name="<%= SecurityUtils.getUsername() %>"></timer-element>
+				<timer-element id="sidebar-timer-element" name="<%= SecurityUtils.getUsername() %>"></timer-element>
 				<br><br>
 				스키마
 			</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METTB02' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METTB02');">
+				<a class="nav-link ${url == 'METSC02' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METSC02');">
 					<i class="bi bi-grid"></i>
-					<span>소유자생성</span>
+					<span>스키마생성</span>
 				</a>
 			</li>
 			<li class="nav-item">

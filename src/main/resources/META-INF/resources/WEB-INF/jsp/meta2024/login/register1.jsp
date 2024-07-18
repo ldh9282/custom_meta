@@ -4,9 +4,9 @@
 <html>
 <head>
   	<title>회원가입 | 메타관리시스템</title>
-   	<jsp:include page="/WEB-INF/views/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/scriptHeader.jsp"></jsp:include>
+   	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
 
 </head>
 
@@ -134,7 +134,7 @@
 	    		, memPw: $('#memPw').val().trim()
 	    	};
 	    	
-	    	ajax('${pageContext.request.contextPath}/METLG03', requestMap, function(response) {
+	    	ajax('METLG03', requestMap, function(response) {
 	    		if (response.header && response.header.status == '0000') {
 	    			alertUtils.showAlert('회원등록이 완료되었습니다');
 	    			location.href = '${pageContext.request.contextPath}/METLG01';
@@ -151,7 +151,7 @@
     });
   </script>
 
-	<jsp:include page="/WEB-INF/views/cmmn/scriptBody.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
 </body>
 
 </html>

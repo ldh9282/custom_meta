@@ -3,6 +3,8 @@ package com.custom.met.meta2024.table.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +25,16 @@ import com.custom.met.meta2024.table.service.TableMetaService;
 
 import lombok.extern.log4j.Log4j2;
 
-@Controller @RequestMapping("/v2") @CrossOrigin(origins = "${allowed-cross-origin}") @Log4j2
+/***
+ * <pre>
+ * 클래스명: TableMetaController2
+ * 설명: TableMetaController v2
+ * ========================================
+ * 프론트: JSP(asis) => React(tobe)
+ * </pre>
+ */
+@Controller @Log4j2
+@RequestMapping("/v2") @CrossOrigin(origins = "${allowed-cross-origin}")
 public class TableMetaController2 extends CustomController {
 
 	@Autowired

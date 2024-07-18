@@ -7,20 +7,20 @@
 <head>
 	<title>${columnMetaInfo.columnName} | 메타관리시스템</title>
 	
-	<jsp:include page="/WEB-INF/views/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/scriptHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
 
 </head>
 
 <body>
 
 	<!-- ======= Header ======= -->
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 	<!-- End Header -->
 	
 	<!-- ======= Sidebar ======= -->
-	<jsp:include page="/WEB-INF/views/sidebar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/sidebar.jsp"></jsp:include>
 	<!-- End Sidebar-->
 	
 	<main id="main" class="main">
@@ -44,8 +44,8 @@
 				            </div>
 			            	<div class="col-md-4">
 				                <div class="form-floating">
-				                    <input type="text" class="form-control" id="ownerName" name="ownerName" value="${columnMetaInfo.ownerName}" readonly>
-				                    <label for="ownerName">소유자명</label>
+				                    <input type="text" class="form-control" id="schemaName" name="schemaName" value="${columnMetaInfo.schemaName}" readonly>
+				                    <label for="schemaName">스키마명</label>
 				                </div>
 			                </div>
 				            <div class="col-md-4">
@@ -125,10 +125,10 @@
 	</script>
 
 
-	<jsp:include page="/WEB-INF/views/cmmn/scriptBody.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
 
 	<!-- ======= Footer ======= -->
-    <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 	<!-- End Footer -->
 	
 </body>

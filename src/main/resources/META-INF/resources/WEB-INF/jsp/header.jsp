@@ -29,7 +29,7 @@
 	        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 	          <li class="dropdown-header">
 	            <h6 id="auth"></h6>
-	            <timer-element></timer-element>
+	            <timer-element id="header-timer-element"></timer-element>
 	          </li>                 
 			  <li>
 	          	<hr class="dropdown-divider">

@@ -15,7 +15,7 @@
 		(
 		SELECT /* TableMeta.selectTableMetaInfoList */
 			TB003.테이블메타일련번호 AS TABLE_META_SNO
-			, TB003.소유자명 AS OWNER_NAME
+			, TB003.스키마명 AS SCHEMA_NAME
 			, TB003.테이블명 AS TABLE_NAME
 			, TB003.테이블설명 AS TABLE_DESC
 			, TO_CHAR(TB003.시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT
@@ -25,8 +25,8 @@
 				FROM 
 				META.TB003 TB003 
 				WHERE 1 = 1
-				<if test="ownerName != null and ownerName != ''">
-				AND TB003.소유자명 LIKE '%'||#{ownerName}||'%'
+				<if test="schemaName != null and schemaName != ''">
+				AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
 				</if>
 				<if test="tableName != null and tableName != ''">
 				AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
@@ -38,8 +38,8 @@
 		FROM 
 		META.TB003 TB003 
 		WHERE 1 = 1
-		<if test="ownerName != null and ownerName != ''">
-		AND TB003.소유자명 LIKE '%'||#{ownerName}||'%'
+		<if test="schemaName != null and schemaName != ''">
+		AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
 		</if>
 		<if test="tableName != null and tableName != ''">
 		AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
@@ -57,7 +57,7 @@
 		INSERT INTO /* TableMeta.insertTableMeta */
 		    META.TB003(
 		        테이블메타일련번호,
-		        소유자명,
+		        스키마명,
 		        테이블명,
 		        테이블설명,
 		        시스템생성자,
@@ -68,7 +68,7 @@
 		VALUES
 		    ( 
 		    #{tableMetaSno} :: INTEGER, 
-		    #{ownerName}, 
+		    #{schemaName}, 
 		    #{tableName}, 
 		    #{tableDesc}, 
 		    #{sysCreator}, 
@@ -80,7 +80,7 @@
 	<select id="selectTableMeta" parameterType="CustomMap" resultType="CustomMap">
 		SELECT /* TableMeta.selectTableMeta */
 		    테이블메타일련번호 AS TABLE_META_SNO,
-		    소유자명 AS OWNER_NAME,
+		    스키마명 AS SCHEMA_NAME,
 		    테이블명 AS TABLE_NAME,
 		    테이블설명 AS TABLE_DESC,
 		    시스템생성자 AS SYS_CREATOR,
@@ -93,7 +93,7 @@
 	</select>
 	
 	<update id="createTable" parameterType="CustomMap">
-		CREATE TABLE ${ownerName}.${tableName} /* TableMeta.createTable */
+		CREATE TABLE ${schemaName}.${tableName} /* TableMeta.createTable */
 		(
 			<foreach item="pkColumn" collection="pkColumnNameList">
 			${pkColumn} BIGINT NOT NULL,
@@ -115,11 +115,11 @@
 	</update>
 	
     <update id="addTableComment" parameterType="CustomMap">
-        COMMENT /* TableMeta.addTableComments */ ON TABLE ${ownerName}.${tableName} IS '${tableDesc}'
+        COMMENT /* TableMeta.addTableComments */ ON TABLE ${schemaName}.${tableName} IS '${tableDesc}'
     </update>
     
 	<update id="createPkIndex" parameterType="CustomMap">
-		CREATE /* TableMeta.createPkIndex */ UNIQUE INDEX ${tableName}P ON ${ownerName}.${tableName}(<foreach item="pkColumn" collection="pkColumnNameList" separator=",">${pkColumn}</foreach>)
+		CREATE /* TableMeta.createPkIndex */ UNIQUE INDEX ${tableName}P ON ${schemaName}.${tableName}(<foreach item="pkColumn" collection="pkColumnNameList" separator=",">${pkColumn}</foreach>)
 	</update>
 	
 	<select id="selectSchemaNameList" parameterType="CustomMap" resultType="CustomMap">
@@ -131,7 +131,7 @@
 	</select>
 	
 	<update id="dropTable" parameterType="CustomMap">
-		DROP /* TableMeta.dropTable */ TABLE ${ownerName}.${tableName}
+		DROP /* TableMeta.dropTable */ TABLE ${schemaName}.${tableName}
 	</update>
 	
 	<update id="deleteTableMetaInfo" parameterType="CustomMap">

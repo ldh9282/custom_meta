@@ -9,9 +9,9 @@
 <head>
   	<title>로그인 | 메타관리시스템</title>
   	
-  	<jsp:include page="/WEB-INF/views/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/scriptHeader.jsp"></jsp:include>
+  	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
 </head>
 
 <body>
@@ -118,7 +118,7 @@
     });
   </script>
   
-  <jsp:include page="/WEB-INF/views/cmmn/scriptBody.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
 
 </body>
 

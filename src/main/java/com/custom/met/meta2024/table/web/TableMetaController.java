@@ -64,6 +64,7 @@ public class TableMetaController extends CustomController {
 		modelAndView.setViewName("meta2024/table/tableMetaList");
 		return modelAndView;
 	}
+	
 	/***
 	 * <pre>
 	 * 메서드명: mettb02

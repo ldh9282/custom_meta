@@ -7,20 +7,20 @@
 <head>
 	<title>테이블목록 | 메타관리시스템</title>
 	
-	<jsp:include page="/WEB-INF/views/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/cmmn/scriptHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
 
 </head>
 
 <body>
 
 	<!-- ======= Header ======= -->
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 	<!-- End Header -->
 	
 	<!-- ======= Sidebar ======= -->
-	<jsp:include page="/WEB-INF/views/sidebar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/sidebar.jsp"></jsp:include>
 	<!-- End Sidebar-->
 	
 	<main id="main" class="main">
@@ -41,7 +41,7 @@
 									<option value="100" ${pagingCreator.rowAmountPerPage == '100' ? 'selected' : ''}>100개</option>
 								</select>
 								</p>
-								<input type="hidden" id="theownerName" name="ownerName" value="${requestMap.ownerName}">
+								<input type="hidden" id="theschemaName" name="schemaName" value="${requestMap.schemaName}">
 								<input type="hidden" id="theTableName" name="tableName" value="${requestMap.tableName}">
 								<input type="hidden" id="theTableDesc" name="tableDesc" value="${requestMap.tableDesc}">
 							</form>
@@ -51,14 +51,14 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="input-group mb-3">
-									    <span class="input-group-text">소유자명</span>
-									    <input type="text" class="form-control" id="ownerName" name="ownerName" value="${requestMap.ownerName}">
+									    <span class="input-group-text">스키마명</span>
+									    <input type="text" class="form-control" id="schemaName" name="schemaName" value="${requestMap.schemaName}" oninput="this.value = this.value.toUpperCase()">
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="input-group mb-3">
 									    <span class="input-group-text">테이블명</span>
-									    <input type="text" class="form-control" id="tableName" name="tableName" value="${requestMap.tableName}">
+									    <input type="text" class="form-control" id="tableName" name="tableName" value="${requestMap.tableName}" oninput="this.value = this.value.toUpperCase()">
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -87,7 +87,7 @@
 								<thead>
 									<tr>
 										<th scope="col" class="text-center">테이블메타일련번호</th>
-										<th scope="col" class="text-center">소유자명</th>
+										<th scope="col" class="text-center">스키마명</th>
 										<th scope="col" class="text-center">테이블명</th>
 										<th scope="col" class="text-center">테이블설명</th>
 										<th scope="col" class="text-center">테이블삭제</th>
@@ -104,8 +104,8 @@
 												 --%>
 												<c:out value="${tableMetaInfo.tableMetaSno}" />
 											</th>
-											<td class="ownerName text-center">
-												<c:out value="${tableMetaInfo.ownerName}" />
+											<td class="schemaName text-center">
+												<c:out value="${tableMetaInfo.schemaName}" />
 											</td>
 											<td class="tableName text-center">
 												<c:out value="${tableMetaInfo.tableName}" />
@@ -130,7 +130,7 @@
 			</div>
 			
 			<!-- ======= pagingCreator ======= -->
-			<jsp:include page="/WEB-INF/views/cmmn/pagingCreator.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/jsp/cmmn/pagingCreator.jsp"></jsp:include>
 			<!-- End pagingCreator-->
 			
 			</div>
@@ -208,10 +208,10 @@
 	</script>
 
 
-	<jsp:include page="/WEB-INF/views/cmmn/scriptBody.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
 
 	 <!-- ======= Footer ======= -->
-    <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 	<!-- End Footer -->
 	
 </body>

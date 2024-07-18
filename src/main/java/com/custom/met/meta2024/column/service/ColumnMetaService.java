@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
@@ -47,13 +49,14 @@ public class ColumnMetaService {
 			resultMap = columnMetaDao.selectColumnMetaInfo(requestMap);
 			
 		} catch (Exception e) {
-			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"컬럼메타정보상세"});
+			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"컬럼메타정보상세"}, e);
 		}
 		
 		
 		return resultMap;
 	}
 	
+	@Transactional
 	public CustomMap updateColumnMetaInfo(CustomMap customMap) throws CustomException {
 		CustomMap resultMap = new CustomMap();
 		
@@ -63,12 +66,15 @@ public class ColumnMetaService {
 			customMap.put("sysModifier", SecurityUtils.getUsername());
 			customMap.put("oldColumnName", columnMeta.getString("columnName"));
 			
-			columnMetaDao.alterColumnName(customMap);
+			if (!customMap.getString("oldColumnName").equals(customMap.getString("columnName"))) {
+				columnMetaDao.alterColumnName(customMap);
+			}
 			
 			columnMetaDao.updateColumnMetaInfo(customMap);
 			
 		} catch (Exception e) {
-			throw new CustomException(CustomExceptionCode.ERR531, new String[] {"컬럼메타정보상세"});
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			throw new CustomException(CustomExceptionCode.ERR531, new String[] {"컬럼메타정보상세"}, e);
 		}
 		
 		
