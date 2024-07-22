@@ -18,8 +18,8 @@
 		    회원비밀번호 AS MEM_PW,
 		    시스템생성자 AS SYS_CREATOR,
 		    시스템수정자 AS SYS_MODIFIER,
-		    TO_CHAR(시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT,
-		    TO_CHAR(시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
 		FROM META.TB001
 		WHERE 회원아이디 = #{memId}
 		
@@ -33,8 +33,8 @@
 		    회원권한 AS MEM_AUTH,
 		    시스템생성자 AS SYS_CREATOR,
 		    시스템수정자 AS SYS_MODIFIER,
-		    TO_CHAR(시스템생성일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_CREATED_AT,
-		    TO_CHAR(시스템수정일, 'YYYY.MM.DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
 		FROM META.TB002
 		WHERE 회원아이디 = #{memId}
 	</select>

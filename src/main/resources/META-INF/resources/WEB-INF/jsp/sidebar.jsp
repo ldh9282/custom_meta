@@ -23,43 +23,43 @@
 				스키마
 			</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METSC02' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METSC02');">
+				<a class="nav-link ${url == 'METSC02' ? '' : 'collapsed'}" href="javascript:gotoURL('METSC02');">
 					<i class="bi bi-grid"></i>
 					<span>스키마생성</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METTB02' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METTB02');">
+				<a class="nav-link ${url == 'METTB02' ? '' : 'collapsed'}" href="javascript:gotoURL('METTB02');">
 					<i class="bi bi-grid"></i>
 					<span>테이블생성</span>
 				</a>
 			</li>
 			<li class="nav-heading">DB오브젝트관리</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METTB01' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METTB01');">
+				<a class="nav-link ${url == 'METTB01' ? '' : 'collapsed'}" href="javascript:gotoURL('METTB01');">
 					<i class="bi bi-grid"></i>
 					<span>테이블조회</span>
 				</a>
-				<a class="nav-link ${url == 'METCU01' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METCU01');">
+				<a class="nav-link ${url == 'METCU01' ? '' : 'collapsed'}" href="javascript:gotoURL('METCU01');">
 					<i class="bi bi-grid"></i>
 					<span>컬럼조회</span>
 				</a>
-				<a class="nav-link ${url == 'METSE01' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METSE01');">
+				<a class="nav-link ${url == 'METSE01' ? '' : 'collapsed'}" href="javascript:gotoURL('METSE01');">
 					<i class="bi bi-grid"></i>
 					<span>시퀀스조회</span>
 				</a>
 			</li>
 			<li class="nav-heading">엑셀유틸</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METCE01' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METCE01');">
+				<a class="nav-link ${url == 'METCE01' ? '' : 'collapsed'}" href="javascript:gotoURL('METCE01');">
 					<i class="bi bi-grid"></i>
 					<span>컬럼영문명</span>
 				</a>
-				<a class="nav-link ${url == 'METUT01' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METUT01');">
+				<a class="nav-link ${url == 'METUT01' ? '' : 'collapsed'}" href="javascript:gotoURL('METUT01');">
 					<i class="bi bi-grid"></i>
 					<span>sql2ExcelConverter</span>
 				</a>
-				<a class="nav-link ${url == 'METUT02' ? '' : 'collapsed'}" href="#none" onclick="gotoURL('METUT02');">
+				<a class="nav-link ${url == 'METUT02' ? '' : 'collapsed'}" href="javascript:gotoURL('METUT02');">
 					<i class="bi bi-grid"></i>
 					<span>camel2Snake</span>
 				</a>

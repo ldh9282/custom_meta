@@ -81,4 +81,19 @@ public class DateUtils {
 			throw new IllegalArgumentException("Unsupported object type");
 		}
 	}
+	
+	/***
+	 * <pre>
+	 * 메서드명: format
+	 * 설명: format 형식의 {@code String} 반환
+	 * </pre>
+	 * @param date
+	 * @param format
+	 * @return 
+	 */
+	public static String format(Date date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		
+		return sdf.format(date);
+	}
 }

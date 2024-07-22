@@ -15,8 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import com.custom.met.cmmn.constant.URLConstant;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -29,6 +32,9 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
 
 	@Autowired
 	private AuthenticationFailureHandler authenticationFailureHandler; 
+	
+	@Autowired
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
 	
 	@Autowired
 	private AccessDeniedHandler accessDeniedHandler;
@@ -49,22 +55,12 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
     }
     
     
-    private static final String STATIC_RESOURCE_PATH = "/resources/**";
-    private static final String LOGIN_PAGE_URL = "/METLG01";
-    private static final String LOGIN_PROC_URL = "/login";
-    private static final String LOGIN_SUCC_URL = "/";
-    
-    private static final String LOGOUT_PROC_URL = "/logout";
-    private static final String LOGOUT_SUCC_URL = LOGIN_PAGE_URL;
-    
-    private static final String REGISTER_PAGE_URL = "/METLG02";
-    private static final String REGISTER_PROC_URL = "/METLG03";
 	
     private static final String[] whiteList = {
-    		STATIC_RESOURCE_PATH
-    		, LOGIN_PAGE_URL
-    		, REGISTER_PAGE_URL
-    		, REGISTER_PROC_URL
+    		URLConstant.STATIC_RESOURCE_PATH
+    		, URLConstant.LOGIN_PAGE_URL
+    		, URLConstant.REGISTER_PAGE_URL
+    		, URLConstant.REGISTER_PROC_URL
     		, "/v2/*"
     };
 	@Override
@@ -79,18 +75,19 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
 			
 		// formLogin
 		http.formLogin()
-			.loginPage(LOGIN_PAGE_URL)
-			.loginProcessingUrl(LOGIN_PROC_URL)
+			.loginPage(URLConstant.LOGIN_PAGE_URL)
+			.loginProcessingUrl(URLConstant.LOGIN_PROC_URL)
 			.usernameParameter("username")
 			.passwordParameter("password")
-			.defaultSuccessUrl(LOGIN_SUCC_URL)
+//			.defaultSuccessUrl(URLConstant.LOGIN_SUCC_URL)
+			.successHandler(authenticationSuccessHandler) // CustomAuthenticationSuccessHandler
 			.failureHandler(authenticationFailureHandler) // CustomAuthenticationFailureHandler
 			.permitAll();
 			
 		// logout
 		http.logout()
-			.logoutUrl(LOGOUT_PROC_URL)
-			.logoutSuccessUrl(LOGOUT_SUCC_URL)
+			.logoutUrl(URLConstant.LOGOUT_PROC_URL)
+			.logoutSuccessUrl(URLConstant.LOGOUT_SUCC_URL)
 			.invalidateHttpSession(true)
 			.permitAll();
 		

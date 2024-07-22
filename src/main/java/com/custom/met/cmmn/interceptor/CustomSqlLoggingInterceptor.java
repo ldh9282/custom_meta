@@ -37,7 +37,6 @@ public class CustomSqlLoggingInterceptor implements Interceptor {
 	
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
-		if ((sqlLoggingBeforeBinding || sqlLoggingAfterBinding) && log.isDebugEnabled()) {log.debug("Start CustomSqlLoggingInterceptor.intercept");}
 		
 		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
         String originalSql = statementHandler.getBoundSql().getSql();
@@ -47,10 +46,9 @@ public class CustomSqlLoggingInterceptor implements Interceptor {
         Object[] objectArr = changeObjectListToArr(objectList);
         String paramSql = getParamSql(originalSql, objectArr);
         
-        if (sqlLoggingBeforeBinding && log.isDebugEnabled()) {log.debug("바인딩 전 쿼리 \n" + originalSql.replaceAll("\n\t\t", "\n"));}
-        if ((sqlLoggingBeforeBinding || sqlLoggingAfterBinding) && log.isDebugEnabled()) {log.debug("바인딩 파라미터 \n" + (parameterObject == null ? "empty parameterObject" : parameterObject));}
-        if (sqlLoggingAfterBinding && log.isDebugEnabled()) {log.debug("바인딩 후 쿼리 \n" + paramSql.replaceAll("\n\t\t", "\n"));}
-        if ((sqlLoggingBeforeBinding || sqlLoggingAfterBinding) && log.isDebugEnabled()) {log.debug("End CustomSqlLoggingInterceptor.intercept");}
+        if (sqlLoggingBeforeBinding && log.isDebugEnabled()) {log.debug("바인딩 전 쿼리\n" + originalSql.replaceAll("\n\t\t", "\n"));}
+        if ((sqlLoggingBeforeBinding || sqlLoggingAfterBinding) && log.isDebugEnabled()) {log.debug("바인딩 파라미터\n" + (parameterObject == null ? "empty parameterObject" : parameterObject));}
+        if (sqlLoggingAfterBinding && log.isDebugEnabled()) {log.debug("바인딩 후 쿼리\n" + paramSql.replaceAll("\n\t\t", "\n"));}
         
         return invocation.proceed();
 	}
@@ -90,11 +88,11 @@ public class CustomSqlLoggingInterceptor implements Interceptor {
 				String propertyName = parameterMapping.getProperty();
 				
 				if (PropertyUtils.isReadable(parameterObject, propertyName)) {
-					// VO 객체인 경우 해당 필드 값을 가져와서 리스트에 추가
+					// DTO 객체인 경우 해당 필드 값을 가져와서 리스트에 추가
 					Object object = PropertyUtils.getProperty(parameterObject, propertyName);
 					objectList.add(object);
 				} else { 
-					// VO 객체가 아닌 경우 처리
+					// DTO 객체가 아닌 경우 처리
 					if (parameterObject instanceof Map) { 
 						// Map 형태인 경우 해당 필드 값을 가져와서 리스트에 추가 
 						Object object = ((Map<?, ?>) parameterObject).get(propertyName);

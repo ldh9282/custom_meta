@@ -29,3 +29,9 @@
     <li>예외코드와 예외메시지 변수바인딩하는 커스텀 예외 정의</li>
     <li>도메인별로 폴더구조 분리</li>
 </ul>
+<br>
+<h3>화면단 구분</h3>
+<ul>
+    <li>버전1: jsp (레포지터리 >>> custom_meta)</li>
+    <li>버전2: react (레포지터리 >>> custom_meta_react)</li>
+</ul>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,6 +25,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	private long endTime = 0L;
 	private String requsetUrl;
 	private String requsetMethod;
+	private String viewName;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -80,6 +82,20 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 		return true;
 		
 	}
+	
+	
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+        if (!isAjaxRequest && modelAndView != null) {
+        	viewName = modelAndView.getViewName();
+        }
+	}
+
+
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
@@ -106,6 +122,10 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String methodName = handlerMethod.getMethod().getName();
 				
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session);
+				boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+				if (!isAjaxRequest && viewName != null) {
+					log.debug("<<< viewName  ::: " + viewName);
+				}
 				log.debug("<<< execution time  ::: " + (endTime - startTime) + "ms");
 				log.debug("<<< End Controller ::: " + className + "." + methodName);
 				

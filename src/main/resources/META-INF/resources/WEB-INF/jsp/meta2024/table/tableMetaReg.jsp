@@ -159,7 +159,7 @@
 		    });
 		    // 검색 버튼을 클릭했을 때 해당 컬럼 입력 필드를 검색
 		    $(document).on('click', '.btnSearchColumn', function() {
-		    	alert('검색미구현')
+		    	alertUtils.showAlert('검색 미구현');
 		    });
 		    // 컬럼카멜명 입력시 컬럼스네이크명 자동입력 
 		    $(document).on('input', '.columnCamelName', function() {

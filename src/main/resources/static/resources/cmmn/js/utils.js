@@ -149,7 +149,7 @@ const alertUtils = {
 	        var modal = new bootstrap.Modal(alertModal);
 	        modal.show();
 	        if (callback) {
-		        $('#btnCloseAlertModal').one('click', function() {
+		        $('#btnCloseAlertModal').off('click').one('click', function() {
                 	callback();
             	})
 			}
@@ -232,8 +232,7 @@ const timerUtils = {
 		
 		if (diffMillis <= 0) {
 			result = {
-				day: '00'
-				, hour: '00'
+				hour: '00'
 				, min: '00'
 				, sec: '00'
 			};
@@ -248,12 +247,10 @@ const timerUtils = {
 		
 		let displaySeconds = (diffSeconds % 60).toString().padStart(2, '0');
 		let displayMinutes = (diffMinutes % 60).toString().padStart(2, '0');
-		let displayHours = (diffHours % 60).toString().padStart(2, '0');
-		let displayDays = (diffDays % 60).toString().padStart(2, '0');
+		let displayHours = (diffHours).toString().padStart(2, '0');
 		
 		result = {
-			day: displayDays
-			, hour: displayHours
+			hour: displayHours
 			, min: displayMinutes
 			, sec: displaySeconds
 		};

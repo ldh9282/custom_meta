@@ -26,7 +26,6 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="${pageContext.request.contextPath}/" class="logo d-flex align-items-center w-auto">
-                  <img src="${pageContext.request.contextPath}/resources/NiceAdmin/assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">메타관리시스템</span>
                 </a>
               </div><!-- End Logo -->

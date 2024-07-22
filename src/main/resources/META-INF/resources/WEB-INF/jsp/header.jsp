@@ -1,9 +1,15 @@
+<%@page import="com.custom.met.cmmn.utils.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
-    
+
+<%
+	
+	request.setAttribute("loginTime", StringUtils.NVL(session.getAttribute("loginTime").toString(), ""));
+	
+%>    
 	<header id="header" class="header fixed-top d-flex align-items-center">
 	  <div class="d-flex align-items-center justify-content-between">
 	    <a href="${pageContext.request.contextPath}/" class="logo d-flex align-items-center">
@@ -28,8 +34,7 @@
 	
 	        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 	          <li class="dropdown-header">
-	            <h6 id="auth"></h6>
-	            <timer-element id="header-timer-element"></timer-element>
+	            <div>접속시간: <span id="connectTime"></span></div>
 	          </li>                 
 			  <li>
 	          	<hr class="dropdown-divider">
@@ -52,9 +57,11 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-		    
-		    $('#btnLogout').click(function(e) {
-		    	
+			
+			updateConnectTime();
+			setInterval(updateConnectTime, 1000);
+			
+		    $('#btnLogout').click(function() {
 		    	alertUtils.showConfirm('로그아웃 하시겠습니까?', function() {
 	    			gotoURL('logout');
 		    	});
@@ -62,5 +69,10 @@
 		    
 		});
 		
-		
+		const updateConnectTime = function() {
+			let diffMillis = new Date().getTime() - new Date('${loginTime}').getTime();
+			let displayTime = timerUtils.getDisplayTime(diffMillis);
+			
+			$('#connectTime').text(displayTime.hour + ':' + displayTime.min + ':' + displayTime.sec);
+		};
 	</script>
