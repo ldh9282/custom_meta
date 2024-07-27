@@ -25,6 +25,6 @@ $(document).ready(function() {
     };
 
 	// 드래그 복사중에 클릭이벤트 방지적용
-    $('tr').preventClickWhileDrag(function() {
+    $('.rownum').preventClickWhileDrag(function() {
     });
 });

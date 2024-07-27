@@ -164,7 +164,7 @@
 		    // 컬럼카멜명 입력시 컬럼스네이크명 자동입력 
 		    $(document).on('input', '.columnCamelName', function() {
 		    	$(this).val($(this).val().charAt(0).toLowerCase() + $(this).val().slice(1))
-		    	$(this).closest('.pkColumnInput, .columnInput').find('.columnSnakeName').val(camel2Snake($(this).val()).toUpperCase())
+		    	$(this).closest('.pkColumnInput, .columnInput').find('.columnSnakeName').val(camel2Snake($(this).val()))
 		    	
 		    });
 		    // 등록버튼

@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j2;
  * </pre>
  */
 @Controller @Log4j2
-@RequestMapping("/v2") @CrossOrigin(origins = "${allowed-cross-origin}")
+@CrossOrigin(origins = "${allowed-cross-origin}")
 public class TableMetaController2 extends CustomController {
 
 	@Autowired
@@ -49,7 +49,7 @@ public class TableMetaController2 extends CustomController {
 	 * @return
 	 * @throws CustomException 
 	 */
-	@RequestMapping("/METTB01")
+	@RequestMapping("/v2/METTB01")
 	@ResponseBody
 	public Object mettb01(@RequestParam Map<String, Object> map) throws CustomException {
 		CustomMap resultMap = new CustomMap();
@@ -85,7 +85,7 @@ public class TableMetaController2 extends CustomController {
 	 * @return
 	 * @throws CustomException 
 	 */
-	@GetMapping("/METTB02")
+	@GetMapping("/v2/METTB02")
 	@ResponseBody
 	public Object mettb02(@RequestParam Map<String, Object> map) throws CustomException {
 		CustomMap resultMap = new CustomMap();
@@ -110,7 +110,7 @@ public class TableMetaController2 extends CustomController {
 	 * @return
 	 * @throws CustomException
 	 */
-	@GetMapping("/METTB03")
+	@GetMapping("/v2/METTB03")
 	public ModelAndView mettb03(@RequestParam String tableMetaSno, ModelAndView modelAndView) throws CustomException {
 		
 		CustomMap requestMap = new CustomMap();
@@ -137,7 +137,7 @@ public class TableMetaController2 extends CustomController {
 	 * @return
 	 * @throws CustomException
 	 */
-	@PostMapping("/METTB04")
+	@PostMapping("/v2/METTB04")
 	@ResponseBody
 	public Object mettb04(@RequestBody CustomMap customMap) throws CustomException {
 		if (log.isDebugEnabled()) {log.debug(customMap);}
@@ -162,7 +162,7 @@ public class TableMetaController2 extends CustomController {
 	 * @return
 	 * @throws CustomException
 	 */
-	@PostMapping("/METTB05")
+	@PostMapping("/v2/METTB05")
 	@ResponseBody
 	public Object mettb05(@RequestBody CustomMap customMap) throws CustomException {
 		if (log.isDebugEnabled()) {log.debug(customMap);}

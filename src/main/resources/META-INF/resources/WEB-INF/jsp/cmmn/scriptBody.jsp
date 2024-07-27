@@ -16,13 +16,13 @@
 		 });
 		 
 		$("#tbody tr").hover(function() {
-			$(this).find('.title').css({ "text-decoration": "underline" });
-			$(this).css({ "background-color": "lightgray" })
+			$(this).find('.rownum').css({ "text-decoration": "underline" });
+// 			$(this).css({ "background-color": "lightgray" })
 			
 		}, function() {
-			$(this).find('.title').css({ "text-decoration-line" : "none" });
+			$(this).find('.rownum').css({ "text-decoration-line" : "none" });
 			
-			$(this).css({ "background-color": "" });
+// 			$(this).css({ "background-color": "" });
 		});
 	});
 	

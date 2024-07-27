@@ -29,7 +29,7 @@
             	<div class="card">
 				    <div class="card-body">
 				    	
-				        <h5 class="card-title">컬럼수정<button type="button" class="btn btn-primary float-end" id="btnUpdate">수정</button></h5>
+				        <h5 class="card-title">컬럼수정</h5>
 						
 				        <form class="row g-3" id="frm" method="post">
 				        	<input type="hidden" name="tableMetaSno" value="${columnMetaInfo.tableMetaSno}">
@@ -76,7 +76,12 @@
 			                
 				            
 				        </form><!-- End floating Labels Form -->
-					    
+					    <div class="row">
+				            <div class="text-end">
+						        <button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
+						        <button type="button" class="btn btn-secondary mx-3" id="btnList" onclick="gotoURL('METCU01')">목록</button>
+				            </div>
+			            </div>
 				
 				    </div>
 				</div>

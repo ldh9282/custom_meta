@@ -261,7 +261,7 @@ const timerUtils = {
 
 function camel2Snake(str) {
     str = str.charAt(0).toLowerCase() + str.substr(1, str.length);
-    return str.replace(/([A-Z])/g, (word) => '_' + word.toLowerCase());
+    return str.replace(/([A-Z])/g, (word) => '_' + word.toLowerCase()).toUpperCase();
 }
 
 function snake2Camel(str) {

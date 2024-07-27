@@ -167,7 +167,7 @@
 
 		$(document).ready(function() {
 			
-			$("#tbody tr").dblclick(function() {
+			$("#tbody tr .rownum").click(function() {
 				let tableMetaSno = $(this).find('input[name=tableMetaSno]').val();
 				let columnMetaSno = $(this).find('input[name=columnMetaSno]').val();
 				gotoURL('METCU02?tableMetaSno=' + tableMetaSno + '&columnMetaSno=' + columnMetaSno);

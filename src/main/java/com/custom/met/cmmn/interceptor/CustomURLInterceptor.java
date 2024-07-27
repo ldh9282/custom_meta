@@ -69,7 +69,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				Enumeration<String> parameterNames = request.getParameterNames();
 				while (parameterNames.hasMoreElements()) {
 					String paramName = parameterNames.nextElement();
-					log.debug(">>> param ::: " + paramName + " ::: " + request.getParameter(paramName));
+//					log.debug(">>> param ::: " + paramName + " ::: " + request.getParameter(paramName));
 				}
 				
 			} catch (Exception e) {
