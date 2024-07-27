@@ -25,6 +25,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	private long endTime = 0L;
 	private String requsetUrl;
 	private String requsetMethod;
+	private boolean isAjaxRequest;
 	private String viewName;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -88,7 +89,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+		isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
         if (!isAjaxRequest && modelAndView != null) {
         	viewName = modelAndView.getViewName();
@@ -122,7 +123,6 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String methodName = handlerMethod.getMethod().getName();
 				
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session);
-				boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 				if (!isAjaxRequest && viewName != null) {
 					log.debug("<<< viewName  ::: " + viewName);
 				}

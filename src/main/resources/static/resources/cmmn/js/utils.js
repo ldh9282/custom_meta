@@ -269,7 +269,7 @@ function snake2Camel(str) {
     return str.replace(/_./g, (word) => word.charAt(1).toUpperCase());
 }
 
-function chanegeCase(str) {
+function changeCase(str) {
     if (str === str.toLowerCase()) {
         return str.toUpperCase();
     } else if (str === str.toUpperCase()) {

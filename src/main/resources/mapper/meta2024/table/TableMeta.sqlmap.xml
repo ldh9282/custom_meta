@@ -25,6 +25,9 @@
 				FROM 
 				META.TB003 TB003 
 				WHERE 1 = 1
+				<if test="tableMetaSno != null and tableMetaSno != ''">
+				AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+				</if>
 				<if test="schemaName != null and schemaName != ''">
 				AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
 				</if>
@@ -38,6 +41,9 @@
 		FROM 
 		META.TB003 TB003 
 		WHERE 1 = 1
+		<if test="tableMetaSno != null and tableMetaSno != ''">
+		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		</if>
 		<if test="schemaName != null and schemaName != ''">
 		AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
 		</if>
