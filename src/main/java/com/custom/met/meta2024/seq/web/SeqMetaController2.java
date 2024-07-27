@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.custom.met.cmmn.exception.CustomException;
@@ -15,11 +17,21 @@ import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.paging.PagingCreator;
 import com.custom.met.cmmn.web.CustomController;
 import com.custom.met.meta2024.seq.service.SeqMetaService;
+import com.custom.met.meta2024.table.web.TableMetaController2;
 
 import lombok.extern.log4j.Log4j2;
 
+/***
+ * <pre>
+ * 클래스명: SeqMetaController2
+ * 설명: SeqMetaController v2
+ * ========================================
+ * 프론트: JSP(asis) => React(tobe)
+ * </pre>
+ */
 @Controller @Log4j2
-public class SeqMetaController extends CustomController {
+@CrossOrigin(origins = "${allowed-cross-origin}")
+public class SeqMetaController2 extends CustomController {
 
 	@Autowired
 	private SeqMetaService seqMetaService;
@@ -33,10 +45,11 @@ public class SeqMetaController extends CustomController {
 	 * @return
 	 * @throws CustomException
 	 */
-	@RequestMapping("/METSE01")
-	public ModelAndView metse01(ModelAndView modelAndView, @RequestParam Map<String, Object> map) throws CustomException {
+	@RequestMapping("/v2/METSE01")
+	@ResponseBody
+	public Object metse01(@RequestParam Map<String, Object> map) throws CustomException {
 		
-		
+		CustomMap resultMap = new CustomMap();
 		CustomMap requestMap = new CustomMap(map);
 		if (log.isDebugEnabled()) { log.debug("METSE01 ::: " + requestMap); }
 		
@@ -46,16 +59,15 @@ public class SeqMetaController extends CustomController {
 			List<CustomMap> seqMetaInfoList = seqMetaInfoListMap.getCustomMapList("seqMetaInfoList");
 			requestMap.put("count", seqMetaInfoListMap.getString("count"));
 			CustomMap pagingCreator = new PagingCreator(requestMap).toCustomMap();
-			modelAndView.addObject("pagingCreator", pagingCreator);
-			modelAndView.addObject("seqMetaInfoList", seqMetaInfoList);
-			modelAndView.addObject("requestMap", requestMap);
+			resultMap.put("pagingCreator", pagingCreator);
+			resultMap.put("seqMetaInfoList", seqMetaInfoList);
+			resultMap.put("requestMap", requestMap);
 		} catch (CustomException e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		} catch (Exception e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		}
 		
-		modelAndView.setViewName("meta2024/seq/seqMetaList");
-		return modelAndView;
+		return getResponse(resultMap);
 	}
 }

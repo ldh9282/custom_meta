@@ -64,13 +64,13 @@
 
         function camel2Snake(str) {
             str = str.charAt(0).toLowerCase() + str.substr(1, str.length);
-            return str.replace(/([A-Z])/g, (word) => '_' + word.toLowerCase());
+            return str.replace(/([A-Z])/g, (word) => '_' + word.toLowerCase()).toUpperCase();
         }
         function snake2Camel(str) {
             str = str.toLowerCase();
             return str.replace(/_./g, (word) => word.charAt(1).toUpperCase());
         }
-        function chanegeCase(str) {
+        function changeCase(str) {
             if (str === str.toLowerCase()) {
                 return str.toUpperCase();
             } else if (str === str.toUpperCase()) {
