@@ -87,8 +87,10 @@ public class ColumnMetaController2 extends CustomController {
 	 * @throws CustomException
 	 */
 	@GetMapping("/v2/METCU02")
-	public ModelAndView metcu02(ModelAndView modelAndView, @RequestParam Map<String, Object> map) throws CustomException {
+	@ResponseBody
+	public Object metcu02(@RequestParam Map<String, Object> map) throws CustomException {
 		
+		CustomMap resultMap = new CustomMap();
 		CustomMap requestMap = new CustomMap(map);
 		if (log.isDebugEnabled()) { log.debug("METCU02 ::: " + requestMap); }
 		
@@ -96,7 +98,7 @@ public class ColumnMetaController2 extends CustomController {
 			CustomMap columnMetaInfo = columnMetaService.getColumnMetaInfo(requestMap);
 			
 			
-			modelAndView.addObject("columnMetaInfo", columnMetaInfo);
+			resultMap.put("columnMetaInfo", columnMetaInfo);
 		} catch (CustomException e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		} catch (Exception e) {
@@ -104,9 +106,7 @@ public class ColumnMetaController2 extends CustomController {
 		}
 		
 		
-		
-		modelAndView.setViewName("meta2024/column/columnMetaDetail");
-		return modelAndView;
+		return getResponse(resultMap);
 	}
 	
 	/***
