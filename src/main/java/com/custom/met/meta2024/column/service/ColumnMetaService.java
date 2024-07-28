@@ -11,6 +11,7 @@ import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.security.utils.SecurityUtils;
+import com.custom.met.cmmn.utils.StringUtils;
 
 @Service
 public class ColumnMetaService {
@@ -63,7 +64,7 @@ public class ColumnMetaService {
 		
 		try {
 			CustomMap columnMeta = columnMetaDao.selectColumnMetaInfo(customMap);
-			customMap.put("sysModifier", SecurityUtils.getUsername());
+			customMap.put("sysModifier", StringUtils.NVL(SecurityUtils.getUsername(), "SYSTEM"));
 			customMap.put("oldColumnName", columnMeta.getString("columnName"));
 			
 			if (!customMap.getString("oldColumnName").equals(customMap.getString("columnName"))) {
