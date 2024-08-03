@@ -59,7 +59,7 @@ public class TableMetaService {
 		return resultMap;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: insertTableMetaInfo
 	 * 설명: 테이블메타정보 등록
@@ -173,7 +173,7 @@ public class TableMetaService {
 	}
 	
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: getSchemaNameList
 	 * 설명: 스키마명 정보조회
@@ -194,7 +194,7 @@ public class TableMetaService {
 		return resultMap;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: createColumnMap
 	 * 설명: 컬럼맵 생성
@@ -212,7 +212,7 @@ public class TableMetaService {
 	    return column;
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: getTableMetaInfoList
 	 * 설명: 테이블메타정보 목록조회
@@ -254,31 +254,31 @@ public class TableMetaService {
 		CustomMap resultMap = new CustomMap();
 		
 		try {
-			/***
+			/**
 			 * 1. 시퀀스메타기본정보조회
 			 */
 			CustomMap seqMetaInfoDetail = seqMetaDao.selectSeqMetaInfoDetail(customMap);
 			customMap.put("schemaName", seqMetaInfoDetail.getString("schemaName"));
 			customMap.put("seqName", seqMetaInfoDetail.getString("seqName"));
 			
-			/***
+			/**
 			 * 2. 시퀀스삭제 및 시퀀스메타기본정보삭제
 			 */
 			seqMetaDao.dropSeq(customMap);
 			seqMetaDao.deleteSeqMeta(customMap);
 			
-			/***
+			/**
 			 * 3. 컬럼메타기본정보삭제
 			 */
 			columnMetaDao.deleteColumnMetaInfo(customMap);
 			
-			/***
+			/**
 			 * 4. 테이블메타기본정보 상세조회
 			 */
 			CustomMap tableMeta = tableMetaDao.selectTableMeta(customMap);
 			customMap.put("schemaName", tableMeta.getString("schemaName"));
 			customMap.put("tableName", tableMeta.getString("tableName"));
-			/***
+			/**
 			 * 5. 테이블삭제 및 테이블메타기본정보삭제
 			 */
 			tableMetaDao.dropTable(customMap);

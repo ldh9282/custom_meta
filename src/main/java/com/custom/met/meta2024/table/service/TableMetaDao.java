@@ -14,7 +14,7 @@ public class TableMetaDao {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectTableMetaSno
 	 * 설명: 테이블메타일련번호 조회
@@ -25,7 +25,7 @@ public class TableMetaDao {
 		return sst.selectOne("TableMeta.selectTableMetaSno");
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: insertTableMeta
 	 * 설명: 테이블메타기본정보 등록
@@ -37,7 +37,7 @@ public class TableMetaDao {
 		return sst.insert("TableMeta.insertTableMeta", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectTableMeta
 	 * 설명: 테이블메타기본정보 상세조회
@@ -49,7 +49,7 @@ public class TableMetaDao {
 		return sst.selectOne("TableMeta.selectTableMeta", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: createTable
 	 * 설명: 테이블생성
@@ -61,7 +61,7 @@ public class TableMetaDao {
 		return sst.update("TableMeta.createTable", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: addTableComment
 	 * 설명: 테이블코멘트생성
@@ -73,7 +73,7 @@ public class TableMetaDao {
 		return sst.update("TableMeta.addTableComment", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: createPkIndex
 	 * 설명: Pk인덱스생성
@@ -86,7 +86,7 @@ public class TableMetaDao {
 	}
 	
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectSchemaNameList
 	 * 설명: 스키마명 목록조회
@@ -98,7 +98,7 @@ public class TableMetaDao {
 		return sst.selectList("TableMeta.selectSchemaNameList", customMap);
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectTableMetaInfoList
 	 * 설명: 테이블메타 목록조회
@@ -110,7 +110,7 @@ public class TableMetaDao {
 		return sst.selectList("TableMeta.selectTableMetaInfoList", customMap);
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: dropTable
 	 * 설명: 테이블삭제
@@ -122,7 +122,7 @@ public class TableMetaDao {
 		return sst.update("TableMeta.dropTable", customMap);
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: deleteTableMetaInfo
 	 * 설명: 테이블메타기본정보삭제

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class SecurityUtils {
 
-	/***
+	/**
 	 * <pre>
 	 * 메소드명: getUsername
 	 * 설명: 회원명 조회
@@ -27,7 +27,7 @@ public class SecurityUtils {
         return null;
     }
     
-    /***
+    /**
      * <pre>
      * 메소드명: getAuthorities
      * 설명: 회원권한 목록조회

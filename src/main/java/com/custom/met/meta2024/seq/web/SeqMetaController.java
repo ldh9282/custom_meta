@@ -23,7 +23,7 @@ public class SeqMetaController extends CustomController {
 
 	@Autowired
 	private SeqMetaService seqMetaService;
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metse01
 	 * 설명: 시퀀스메타 목록페이지

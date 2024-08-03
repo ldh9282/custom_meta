@@ -35,6 +35,11 @@
 		       .submit();
 	}
 	
+	function logout() {
+		alertUtils.showConfirm('로그아웃 하시겠습니까?', function() {
+			gotoURL('logout');
+    	});
+	}
 	const ajax = function(url, data, successCb, errorCb) {
 		$.ajax({
 	        type: 'POST',

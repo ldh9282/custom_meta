@@ -25,7 +25,7 @@ public class ColumnExcelController extends CustomController {
 	@Autowired
 	private ColumnExcelService columnExcelService;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metce01
 	 * 설명: 컬럼메타엑셀업로드1페이지 (다건업데이트)
@@ -48,7 +48,7 @@ public class ColumnExcelController extends CustomController {
 		return modelAndView;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metce01
 	 * 설명: 컬럼메타엑셀다건업데이트요청

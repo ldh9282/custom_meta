@@ -12,7 +12,7 @@ public class SchemaMetaDao {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: createSchema
 	 * 설명: 스키마 생성

@@ -94,6 +94,9 @@
 				META.TB003 TB003, 
 				META.TB004 TB004
 				WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
+				<if test="talbeMetaSno != null and talbeMetaSno != ''">
+				AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: INTEGER
+				</if>
 				<if test="columnMetaSno != null and columnMetaSno != ''">
 				AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
 				</if>
@@ -120,6 +123,9 @@
 		META.TB003 TB003, 
 		META.TB004 TB004
 		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
+		<if test="talbeMetaSno != null and talbeMetaSno != ''">
+		AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: INTEGER
+		</if>
 		<if test="columnMetaSno != null and columnMetaSno != ''">
 		AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
 		</if>

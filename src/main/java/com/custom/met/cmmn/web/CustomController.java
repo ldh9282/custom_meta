@@ -2,7 +2,7 @@ package com.custom.met.cmmn.web;
 
 import com.custom.met.cmmn.model.CustomMap;
 
-/***
+/**
  * <pre>
  * 클래스명: CustomController
  * 설명: 공통처리를 위해 상속한다
@@ -10,7 +10,7 @@ import com.custom.met.cmmn.model.CustomMap;
  */
 public class CustomController {
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: getResponse
 	 * 설명: ajax 성공응답
@@ -36,7 +36,7 @@ public class CustomController {
 		return response;
         
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: getErrorResponse
 	 * 설명: ajax 실패응답

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Domain">
+	
+	<select id="selectDomainSno" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Domain.selectDomainSno */ NEXTVAL('META.TB007_SEQ') AS DOMAIN_SNO
+	</select>
+	
+	<insert id="insertDomain">
+		INSERT INTO /* Domain.insertDomain */
+		    META.TB007(
+		        도메인일련번호,
+		        도메인명,
+		        도메인타입,
+		        시스템생성자,
+		        시스템수정자,
+		        시스템생성일,
+		        시스템수정일
+		    )
+		VALUES
+		    ( 
+		    #{domainSno} :: INTEGER, 
+		    #{domainName}, 
+		    #{domainType}, 
+		    #{sysCreator}, 
+		    #{sysCreator}, 
+		    now(), 
+		    now())
+	</insert>
+	
+	<select id="selectDomain" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Domain.selectDomain */
+		    도메인일련번호 AS DOMAIN_SNO,
+		    도메인명 AS DOMAIN_NAME,
+		    도메인타입 AS DOMAIN_TYPE,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM
+		    META.TB007
+		WHERE 1 = 1
+			AND 도메인일련번호 = #{domainSno} :: INTEGER
+	</select>
+	
+	<select id="selectDomainList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT
+			*
+		FROM
+		(
+		SELECT /* Domain.selectDomainList */
+		    도메인일련번호 AS DOMAIN_SNO,
+		    도메인명 AS DOMAIN_NAME,
+		    도메인타입 AS DOMAIN_TYPE,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
+		    (
+		    	SELECT COUNT(1)
+		    	FROM META.TB007
+		    	WHERE 1 = 1
+		    	<if test="domainSno != null and domainSno != ''">
+				AND 도메인일련번호 = #{domainSno} :: INTEGER
+				</if>
+		    	<if test="domainName != null and domainName != ''">
+				AND 도메인명 LIKE '%'||#{domainName}||'%'
+				</if>
+		    	<if test="domainType != null and domainType != ''">
+				AND 도메인타입 LIKE '%'||#{domainType}||'%'
+				</if>
+		    )
+		FROM
+		    META.TB007
+		WHERE 1 = 1
+			<if test="domainSno != null and domainSno != ''">
+			AND 도메인일련번호 = #{domainSno} :: INTEGER
+			</if>
+	    	<if test="domainName != null and domainName != ''">
+			AND 도메인명 LIKE '%'||#{domainName}||'%'
+			</if>
+	    	<if test="domainType != null and domainType != ''">
+			AND 도메인타입 LIKE '%'||#{domainType}||'%'
+			</if>
+		ORDER BY 도메인일련번호 DESC
+		) A
+		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
+		LIMIT #{rowAmountPerPage} :: INTEGER
+	</select>
+	
+	<select id="selectDomainScList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Domain.selectDomainScList */
+		    도메인일련번호 AS DOMAIN_SNO,
+		    도메인명 AS DOMAIN_NAME,
+		    도메인타입 AS DOMAIN_TYPE,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM
+		    META.TB007
+		WHERE 1 = 1
+		ORDER BY 도메인명 ASC
+	</select>
+	
+	<select id="selectDomainRegAbleYn" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Domain.selectDomainRegAbleYn */
+		    CASE WHEN COUNT(1) >= 1 THEN 'N'
+		         ELSE 'Y'
+		    END AS DOMAIN_REG_ABLE_YN
+		FROM 
+		    META.TB007
+		WHERE 
+		    도메인명 = #{domainName}
+	</select>
+	
+</mapper>

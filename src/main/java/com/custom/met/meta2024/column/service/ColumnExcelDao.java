@@ -12,7 +12,7 @@ public class ColumnExcelDao {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: updateColumnMetaInfo
 	 * 설명: 컬럼메타정보수정

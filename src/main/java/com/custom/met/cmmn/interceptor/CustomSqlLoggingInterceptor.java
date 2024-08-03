@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import lombok.extern.log4j.Log4j2;
 
-/***
+/**
  * <pre>
  * 클래스명: CustomSqlLoggingInterceptor
  * 설명: SQL 로깅용 인터셉터

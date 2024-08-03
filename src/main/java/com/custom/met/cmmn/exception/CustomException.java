@@ -13,7 +13,7 @@ public class CustomException extends Exception {
 	
 	private final CustomExceptionCode customExceptionCode;
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: CustomException 
 	 * 설명: 기본 에러메시지를 가지는 예외
@@ -26,7 +26,7 @@ public class CustomException extends Exception {
         if (log.isDebugEnabled()) { printStackTrace(); }
         
     }
-    /***
+    /**
      * <pre>
      * 메서드명: CustomException 
      * 설명: 기본 에러메시지를 가지며 원인 예외를 함께 출력하는 예외
@@ -39,7 +39,7 @@ public class CustomException extends Exception {
         this.customExceptionCode = customExceptionCode;
         if (log.isDebugEnabled()) { e.printStackTrace(); }
     }
-    /***
+    /**
      * <pre>
      * 메서드명: CustomException 
      * 설명: 변수 바인딩한 에러메시지를 가지는 예외
@@ -52,7 +52,7 @@ public class CustomException extends Exception {
     	this.customExceptionCode = customExceptionCode;
     	if (log.isDebugEnabled()) { printStackTrace(); }
     }
-    /***
+    /**
      * <pre>
      * 메서드명: CustomException 
      * 설명: 변수 바인딩한 에러메시지를 가지며 원인 예외를 함께 출력하는 예외

@@ -40,7 +40,7 @@
 	          	<hr class="dropdown-divider">
 	          </li>
 	          <li>
-	            <a class="dropdown-item d-flex align-items-center" href="#" id="btnLogout">
+	            <a class="dropdown-item d-flex align-items-center" href="javascript:logout();">
 	              <i class="bi bi-box-arrow-right"></i>
 	              <span>로그아웃</span>
 	            </a>
@@ -60,12 +60,6 @@
 			
 			updateConnectTime();
 			setInterval(updateConnectTime, 1000);
-			
-		    $('#btnLogout').click(function() {
-		    	alertUtils.showConfirm('로그아웃 하시겠습니까?', function() {
-	    			gotoURL('logout');
-		    	});
-		    });
 		    
 		});
 		

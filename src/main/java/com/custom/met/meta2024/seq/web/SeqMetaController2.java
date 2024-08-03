@@ -21,7 +21,7 @@ import com.custom.met.meta2024.table.web.TableMetaController2;
 
 import lombok.extern.log4j.Log4j2;
 
-/***
+/**
  * <pre>
  * 클래스명: SeqMetaController2
  * 설명: SeqMetaController v2
@@ -35,7 +35,7 @@ public class SeqMetaController2 extends CustomController {
 
 	@Autowired
 	private SeqMetaService seqMetaService;
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metse01
 	 * 설명: 시퀀스메타 목록페이지

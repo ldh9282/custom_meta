@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.support.JdbcUtils;
 
-/***
+/**
  * <pre>
  * 클래스명: CustomMap
  * 설명: 공통모델로 사용하기 위한 커스텀맵

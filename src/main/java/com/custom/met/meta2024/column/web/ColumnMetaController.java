@@ -28,7 +28,7 @@ public class ColumnMetaController extends CustomController {
 	@Autowired
 	private ColumnMetaService columnMetaService;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metcu01
 	 * 설명: 컬럼메타 목록페이지
@@ -66,7 +66,7 @@ public class ColumnMetaController extends CustomController {
 		return modelAndView;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metcu02
 	 * 설명: 컬럼메타 상세페이지
@@ -99,7 +99,7 @@ public class ColumnMetaController extends CustomController {
 		return modelAndView;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metcu03
 	 * 설명: 컬럼메타 수정요청
