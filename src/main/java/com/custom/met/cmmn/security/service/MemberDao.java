@@ -14,7 +14,7 @@ public class MemberDao {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectMemSno
 	 * 설명: 회원일련번호 조회
@@ -26,7 +26,7 @@ public class MemberDao {
 		return sst.selectOne("Member.selectMemSno");
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectMemAuthSno
 	 * 설명: 회원권한일련번호 조회
@@ -38,7 +38,7 @@ public class MemberDao {
 		return sst.selectOne("Member.selectMemAuthSno");
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectMember
 	 * 설명: 회원 조회
@@ -50,7 +50,7 @@ public class MemberDao {
 		return sst.selectOne("Member.selectMember", customMap);
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectMemberAuthList
 	 * 설명: 회원권한 목록조회
@@ -62,7 +62,7 @@ public class MemberDao {
 		return sst.selectList("Member.selectMemberAuthList", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: insertMember
 	 * 설명: 회원 등록
@@ -74,7 +74,7 @@ public class MemberDao {
 		return sst.insert("Member.insertMember", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: insertMember
 	 * 설명: 회원권한 등록
@@ -86,7 +86,7 @@ public class MemberDao {
 		return sst.insert("Member.insertMemberAuth", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectMemberCnt
 	 * 설명: 회원중복 조회

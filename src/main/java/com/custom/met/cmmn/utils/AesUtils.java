@@ -13,7 +13,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-/***
+/**
  * <pre>
  * 클래스명: AESUtil
  * 설명: AES 양방향 암호화유틸
@@ -24,7 +24,7 @@ public class AESUtils {
 	private static String ALGORITHM = "AES";
 	private static Charset CHARSET = StandardCharsets.UTF_8;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: createKey
 	 * 설명: 암호화 및 복호화에 사용하는 키생성
@@ -41,7 +41,7 @@ public class AESUtils {
 		return new SecretKeySpec(the256bits, ALGORITHM);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: encrypt
 	 * 설명: 키값으로 암호화
@@ -75,7 +75,7 @@ public class AESUtils {
 		return resultStr;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: decrypt
 	 * 설명: 키값으로 복호화

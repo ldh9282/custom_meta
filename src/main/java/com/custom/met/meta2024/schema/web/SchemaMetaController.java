@@ -25,7 +25,7 @@ public class SchemaMetaController extends CustomController {
 	@Autowired
 	private SchemaMetaService schemaMetaService;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metsc02
 	 * 설명: 스키마메타 등록페이지
@@ -45,7 +45,7 @@ public class SchemaMetaController extends CustomController {
 		return modelAndView;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metsc04
 	 * 설명: 스키마메타 등록요청

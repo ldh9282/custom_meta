@@ -56,6 +56,9 @@
 				META.TB003 TB003, 
 				META.TB005 TB005
 				WHERE TB003.테이블메타일련번호 = TB005.테이블메타일련번호
+				<if test="tableMetaSno != null and tableMetaSno != ''">
+				AND TB005.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+				</if>
 				<if test="seqMetaSno != null and seqMetaSno != ''">
 				AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: INTEGER
 				</if>
@@ -76,6 +79,9 @@
 		META.TB003 TB003, 
 		META.TB005 TB005
 		WHERE TB003.테이블메타일련번호 = TB005.테이블메타일련번호
+		<if test="tableMetaSno != null and tableMetaSno != ''">
+		AND TB005.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		</if>
 		<if test="seqMetaSno != null and seqMetaSno != ''">
 		AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: INTEGER
 		</if>

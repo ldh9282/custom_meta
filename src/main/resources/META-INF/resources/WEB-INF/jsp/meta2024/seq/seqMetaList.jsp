@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>시퀀스목록 | 메타관리시스템</title>
+	<title>시퀀스 조회 | 메타관리시스템</title>
 	
 	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
@@ -30,7 +30,7 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">시퀀스목록</h5>
+							<h5 class="card-title">시퀀스 조회</h5>
 							<form id="defaultForm">
 								<p>
 								<input type="hidden" id="thePageNum" name="pageNum" value="${pagingCreator.pageNum}">
@@ -41,6 +41,8 @@
 									<option value="100" ${pagingCreator.rowAmountPerPage == '100' ? 'selected' : ''}>100개</option>
 								</select>
 								</p>
+								<input type="hidden" id="theTableMetaSno" name="tableMetaSno" value="${requestMap.tableMetaSno}">
+								<input type="hidden" id="theSeqMetaSno" name="seqMetaSno" value="${requestMap.seqMetaSno}">
 								<input type="hidden" id="theSeqName" name="seqName" value="${requestMap.seqName}">
 								<input type="hidden" id="theschemaName" name="schemaName" value="${requestMap.schemaName}">
 								<input type="hidden" id="theTableName" name="tableName" value="${requestMap.tableName}">
@@ -49,6 +51,20 @@
 							<form id="searchForm">
 							<input type="hidden" id="pageNum" name="pageNum" value="1">
 							<input type="hidden" id="rowAmountPerPage" name="rowAmountPerPage" value="${pagingCreator.rowAmountPerPage}">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group mb-3">
+									    <span class="input-group-text">테이블메타일련번호</span>
+									    <input type="text" class="form-control" id="tableMetaSno" name="tableMetaSno" value="${requestMap.tableMetaSno}">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group mb-3">
+									    <span class="input-group-text">시퀀스메타일련번호</span>
+									    <input type="text" class="form-control" id="seqMetaSno" name="seqMetaSno" value="${requestMap.seqMetaSno}">
+									</div>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-md-4">
 									<div class="input-group mb-3">
@@ -106,24 +122,24 @@
 								<tbody id="tbody">
 									<c:forEach var="seqMetaInfo" varStatus="seqMetaInfoStatus" items="${seqMetaInfoList}">
 										<tr>
-											<th class="rownum text-center" >
+											<td class="rownum text-center" >
 												<input type="hidden" name="tableMetaSno" value="${seqMetaInfo.tableMetaSno}">
 												<input type="hidden" name="seqMetaSno" value="${seqMetaInfo.seqMetaSno}">
 												<%-- 
 												<c:out value="${(param.pageNum - 1) * param.rowAmountPerPage + seqMetaInfoStatus.index+1}" />
 												--%>
 												<c:out value="${seqMetaInfo.seqMetaSno}" />
-											</th>
-											<td class="columnName text-center">
+											</td>
+											<td class="text-center">
 												<c:out value="${seqMetaInfo.seqName}" />
 											</td>
-											<td class="schemaName text-center">
+											<td class="text-center">
 												<c:out value="${seqMetaInfo.schemaName}" />
 											</td>
-											<td class="tableName text-center">
+											<td class="text-center">
 												<c:out value="${seqMetaInfo.tableName}" />
 											</td>
-											<td class="tableDesc text-center">
+											<td class="text-center">
 												<c:out value="${seqMetaInfo.tableDesc}" />
 											</td>
 										</tr>
@@ -153,13 +169,6 @@
 
 		$(document).ready(function() {
 			
-			$("#tbody tr").dblclick(function() {
-				let tableMetaSno = $(this).find('input[name=tableMetaSno]').val();
-				let seqMetaSno = $(this).find('input[name=seqMetaSno]').val();
-//					gotoURL('METCU02?tableMetaSno=' + tableMetaSno + '&columnMetaSno=' + columnMetaSno);
-		   });
-
-
 			$("#theRowAmountPerPage").change(function() {
 				
 				$("#thePageNum").val(1)

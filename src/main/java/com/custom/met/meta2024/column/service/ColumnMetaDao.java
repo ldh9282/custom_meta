@@ -14,7 +14,7 @@ public class ColumnMetaDao {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectColumnMetaSno
 	 * 설명: 컬럼메타일련번호조회
@@ -24,7 +24,7 @@ public class ColumnMetaDao {
 	public CustomMap selectColumnMetaSno() {
 		return sst.selectOne("ColumnMeta.selectColumnMetaSno");
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: insertColumnMeta
 	 * 설명: 컬럼메타기본정보등록
@@ -36,7 +36,7 @@ public class ColumnMetaDao {
 		return sst.insert("ColumnMeta.insertColumnMeta", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectColumnMetaInfoList
 	 * 설명: 컬럼메타기본정보목록조회
@@ -48,7 +48,7 @@ public class ColumnMetaDao {
 		return sst.selectList("ColumnMeta.selectColumnMetaInfoList", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectColumnMetaInfo
 	 * 설명: 컬럼메타기본정보상세조회
@@ -60,7 +60,7 @@ public class ColumnMetaDao {
 		return sst.selectOne("ColumnMeta.selectColumnMetaInfo", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: updateColumnMetaInfo
 	 * 설명: 컬럼메타기본정보수정
@@ -72,7 +72,7 @@ public class ColumnMetaDao {
 		return sst.update("ColumnMeta.updateColumnMetaInfo", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: alterColumnName
 	 * 설명: 컬럼명 수정
@@ -84,7 +84,7 @@ public class ColumnMetaDao {
 		return sst.update("ColumnMeta.alterColumnName", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: deleteColumnMetaInfo
 	 * 설명: 컬럼메타기본정보삭제

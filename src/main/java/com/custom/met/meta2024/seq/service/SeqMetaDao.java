@@ -15,7 +15,7 @@ public class SeqMetaDao {
 	private SqlSessionTemplate sst;
 	
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: createSeq
 	 * 설명: 시퀀스생성
@@ -27,7 +27,7 @@ public class SeqMetaDao {
 		return sst.update("SeqMeta.createSeq", customMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectSeqMetaSno
 	 * 설명: 시퀀스메타일련번호조회
@@ -37,7 +37,7 @@ public class SeqMetaDao {
 	public CustomMap selectSeqMetaSno() {
 		return sst.selectOne("SeqMeta.selectSeqMetaSno");
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: insertSeqMeta
 	 * 설명: 시퀀스메타기본정보등록
@@ -61,7 +61,7 @@ public class SeqMetaDao {
 		return sst.selectList("SeqMeta.selectSeqMetaInfoList", customMap);
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: dropSeq
 	 * 설명: 시퀀스삭제
@@ -73,7 +73,7 @@ public class SeqMetaDao {
 		return sst.update("SeqMeta.dropSeq", customMap);
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: deleteSeqMeta
 	 * 설명: 시퀀스메타기본정보삭제
@@ -86,7 +86,7 @@ public class SeqMetaDao {
 		
 	}
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: selectSeqMetaInfoDetail
 	 * 설명: 시퀀스메타기본정보조회

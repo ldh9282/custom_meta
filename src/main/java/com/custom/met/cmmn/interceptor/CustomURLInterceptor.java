@@ -1,5 +1,6 @@
 package com.custom.met.cmmn.interceptor;
 
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.custom.met.cmmn.utils.DateUtils;
+
 import lombok.extern.log4j.Log4j2;
 
-/***
+/**
  * <pre>
  * 클래스명: CustomURLInterceptor
  * 설명: URL을 로깅 식별자로 사용하기 위한 인터셉터
@@ -128,7 +131,6 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				}
 				log.debug("<<< execution time  ::: " + (endTime - startTime) + "ms");
 				log.debug("<<< End Controller ::: " + className + "." + methodName);
-				
 				
 			} catch (Exception e) {
 				log.debug("<<< Exception ::: " + e.getMessage());

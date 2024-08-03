@@ -1,4 +1,5 @@
 ### CUSTOM #############
+server-log
 bin
 table-scripts
 util-bash

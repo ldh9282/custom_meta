@@ -20,7 +20,7 @@ import com.custom.met.meta2024.seq.web.SeqMetaController2;
 
 import lombok.extern.log4j.Log4j2;
 
-/***
+/**
  * <pre>
  * 클래스명: SchemaMetaController2
  * 설명: SchemaMetaController v2
@@ -35,7 +35,7 @@ public class SchemaMetaController2 extends CustomController {
 	@Autowired
 	private SchemaMetaService schemaMetaService;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metsc02
 	 * 설명: 스키마메타 등록페이지
@@ -54,7 +54,7 @@ public class SchemaMetaController2 extends CustomController {
 		return getResponse(resultMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metsc04
 	 * 설명: 스키마메타 등록요청

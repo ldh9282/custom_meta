@@ -7,7 +7,7 @@ import java.util.Date;
 public class DateUtils {
 
 
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: parseDate
 	 * 설명: {@code java.util.Date} 반환 
@@ -43,7 +43,7 @@ public class DateUtils {
 			throw new IllegalArgumentException("Unsupported object type");
 		}
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: formatString
 	 * 설명: format 형식의 {@code String} 반환
@@ -82,7 +82,7 @@ public class DateUtils {
 		}
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: format
 	 * 설명: format 형식의 {@code String} 반환

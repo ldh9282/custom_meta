@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextClosedEvent;
 
-import com.custom.met.cmmn.utils.MetCmmnUtils;
+import com.custom.met.cmmn.utils.CmmnUtils;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,20 +24,7 @@ public class MetApplication {
 		SpringApplication.run(MetApplication.class, args);
 	}
 	
-	@Value("${server.servlet.context-path}")
-	private String contextPath;
 	
-	@Value("${server.port}")
-	private String serverPort;
-	
-	@Value("${spring.main.banner-mode}")
-	private String springMainBannerMode;
-	
-	@Value("${logging.level.root}")
-	private String loggingLevelRoot; 
-	
-	@Value("${logging.level.com.custom.met}")
-	private String loggingLevelMet;
 	
 	private long startTime = 0L;
 	private long endTime = 0L;
@@ -46,10 +33,8 @@ public class MetApplication {
 	public CommandLineRunner commandLineRunner(String[] args) {
 		return runner -> {
 			startTime = System.currentTimeMillis();
-			if (log.isDebugEnabled()) { log.debug("logging.level.root=" + loggingLevelRoot); }
-			if (log.isDebugEnabled()) { log.debug("logging.level.com.custom.met=" + loggingLevelMet); }
-			if (log.isDebugEnabled()) { log.debug(MetCmmnUtils.getServerIP() +  ":" + serverPort + contextPath); }
-			if (log.isDebugEnabled()) { log.debug("localhost" +  ":" + serverPort + contextPath); }
+			if (log.isDebugEnabled()) { log.debug(CmmnUtils.getServerIP() +  ":" + CmmnUtils.getServerPort() + CmmnUtils.getContextPath()); }
+			if (log.isDebugEnabled()) { log.debug("localhost" +  ":" + CmmnUtils.getServerPort() + CmmnUtils.getContextPath()); }
 			if (log.isDebugEnabled()) { log.debug("서버구동이 시작되었습니다"); }
 			
 		};

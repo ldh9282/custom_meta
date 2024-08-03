@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>컬럼목록 | 메타관리시스템</title>
+	<title>컬럼 조회 | 메타관리시스템</title>
 	
 	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
@@ -30,7 +30,7 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">컬럼목록</h5>
+							<h5 class="card-title">컬럼 조회</h5>
 							<form id="defaultForm">
 								<p>
 								<input type="hidden" id="thePageNum" name="pageNum" value="${pagingCreator.pageNum}">
@@ -41,6 +41,8 @@
 									<option value="100" ${pagingCreator.rowAmountPerPage == '100' ? 'selected' : ''}>100개</option>
 								</select>
 								</p>
+								<input type="hidden" id="theTableMetaSno" name="talbeMetaSno" value="${requestMap.talbeMetaSno}">
+								<input type="hidden" id="theColumnMetaSno" name="columnMetaSno" value="${requestMap.columnMetaSno}">
 								<input type="hidden" id="theColumnName" name="columnName" value="${requestMap.columnName}">
 								<input type="hidden" id="theColumnCamelName" name=columnCamelName value="${requestMap.columnCamelName}">
 								<input type="hidden" id="theColumnSnakeName" name="columnSnakeName" value="${requestMap.columnSnakeName}">
@@ -51,6 +53,20 @@
 							<form id="searchForm">
 							<input type="hidden" id="pageNum" name="pageNum" value="1">
 							<input type="hidden" id="rowAmountPerPage" name="rowAmountPerPage" value="${pagingCreator.rowAmountPerPage}">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group mb-3">
+									    <span class="input-group-text">테이블메타일련번호</span>
+									    <input type="text" class="form-control" id="talbeMetaSno" name="talbeMetaSno" value="${requestMap.talbeMetaSno}">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group mb-3">
+									    <span class="input-group-text">컬럼메타일련번호</span>
+									    <input type="text" class="form-control" id="columnMetaSno" name="columnMetaSno" value="${requestMap.columnMetaSno}">
+									</div>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-md-4">
 									<div class="input-group mb-3">
@@ -120,24 +136,24 @@
 								<tbody id="tbody">
 									<c:forEach var="columnMetaInfo" varStatus="columnMetaInfoStatus" items="${columnMetaInfoList}">
 										<tr>
-											<th class="rownum text-center" >
+											<td class="rownum text-center" >
 												<input type="hidden" name="tableMetaSno" value="${columnMetaInfo.tableMetaSno}">
 												<input type="hidden" name="columnMetaSno" value="${columnMetaInfo.columnMetaSno}">
 												<%-- 
 												<c:out value="${(param.pageNum - 1) * param.rowAmountPerPage + columnMetaInfoStatus.index+1}" />
 												--%>
 												<c:out value="${columnMetaInfo.columnMetaSno}" />
-											</th>
-											<td class="columnName text-center">
+											</td>
+											<td class="text-center">
 												<c:out value="${columnMetaInfo.columnName}" />
 											</td>
-											<td class="schemaName text-center">
+											<td class="text-center">
 												<c:out value="${columnMetaInfo.schemaName}" />
 											</td>
-											<td class="tableName text-center">
+											<td class="text-center">
 												<c:out value="${columnMetaInfo.tableName}" />
 											</td>
-											<td class="tableDesc text-center">
+											<td class="text-center">
 												<c:out value="${columnMetaInfo.tableDesc}" />
 											</td>
 										</tr>

@@ -25,7 +25,7 @@ import com.custom.met.meta2024.table.service.TableMetaService;
 
 import lombok.extern.log4j.Log4j2;
 
-/***
+/**
  * <pre>
  * 클래스명: TableMetaController2
  * 설명: TableMetaController v2
@@ -40,7 +40,7 @@ public class TableMetaController2 extends CustomController {
 	@Autowired
 	private TableMetaService tableMetaService;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: mettb01
 	 * 설명: 테이블메타 목록
@@ -76,7 +76,7 @@ public class TableMetaController2 extends CustomController {
 		
 		return getResponse(resultMap);
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: mettb02
 	 * 설명: 테이블메타 등록페이지
@@ -100,7 +100,7 @@ public class TableMetaController2 extends CustomController {
 		}
 		return getResponse(resultMap);
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: mettb03
 	 * 설명: 테이블메타 상세페이지
@@ -128,7 +128,7 @@ public class TableMetaController2 extends CustomController {
 		return modelAndView;
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: mettb04
 	 * 설명: 테이블메타 등록요청
@@ -153,7 +153,7 @@ public class TableMetaController2 extends CustomController {
 		
 		return getResponse(resultMap);
 	}
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: mettb05
 	 * 설명: 테이블메타 삭제요청

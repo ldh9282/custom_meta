@@ -29,13 +29,7 @@ class TimerElement extends HTMLElement {
     renderAll() {
         const shadow = this.shadowRoot;
 
-        let html = "<div>";
-        if (this.getAttribute("name")) {
-            html += `	<span id="name">${this.getAttribute("name")}</span>`;
-            html += " | ";
-        }
-        html += `	<span id="timer">${this.state.time}</span>`;
-        html += "</div>";
+        let html = `<span id="timer">${this.state.time}</span>`;
         shadow.innerHTML = html;
 
         setInterval(this.handleTimer.bind(this), 1000);
@@ -65,18 +59,7 @@ class TimerElement extends HTMLElement {
      * @returns
      */
     static getTimestamp() {
-        let now = new Date();
-
-        let formatter = new Intl.DateTimeFormat("ko-KR", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-        });
-
-        return formatter.format(now);
+        return dateUtils.format(new Date(), 'yyyy-MM-dd HH:mm:ss');
     }
 }
 

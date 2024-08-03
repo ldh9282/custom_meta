@@ -24,7 +24,7 @@ import com.custom.met.meta2024.table.web.TableMetaController2;
 
 import lombok.extern.log4j.Log4j2;
 
-/***
+/**
  * <pre>
  * 클래스명: ColumnMetaController2
  * 설명: ColumnMetaController v2
@@ -39,7 +39,7 @@ public class ColumnMetaController2 extends CustomController {
 	@Autowired
 	private ColumnMetaService columnMetaService;
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metcu01
 	 * 설명: 컬럼메타 목록
@@ -76,7 +76,7 @@ public class ColumnMetaController2 extends CustomController {
 		return getResponse(resultMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metcu02
 	 * 설명: 컬럼메타 상세페이지
@@ -109,7 +109,7 @@ public class ColumnMetaController2 extends CustomController {
 		return getResponse(resultMap);
 	}
 	
-	/***
+	/**
 	 * <pre>
 	 * 메서드명: metcu03
 	 * 설명: 컬럼메타 수정요청
