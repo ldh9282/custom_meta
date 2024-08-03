@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Term">
+	
+	<select id="selectTermSno" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Term.selectTermSno */ NEXTVAL('META.TB008_SEQ') AS TERM_SNO
+	</select>
+	
+	<insert id="insertTerm">
+		INSERT INTO /* Term.insertTerm */
+		    META.TB008(
+		        도메인일련번호,
+		        용어일련번호,
+		        용어명,
+		        용어카멜명,
+		        용어스네이크명,
+		        시스템생성자,
+		        시스템수정자,
+		        시스템생성일,
+		        시스템수정일
+		    )
+		VALUES
+		    ( 
+		    #{domainSno} :: INTEGER, 
+		    #{termSno} :: INTEGER, 
+		    #{termName}, 
+		    #{termCamelName}, 
+		    #{termSnakeName}, 
+		    #{sysCreator}, 
+		    #{sysCreator}, 
+		    now(), 
+		    now())
+	</insert>
+	
+	<select id="selectTerm" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Term.selectTerm */
+		    도메인일련번호 AS DOMAIN_SNO,
+		    용어일련번호 AS TERM_SNO,
+		    용어명 AS TERM_NAME,
+		    용어카멜명 AS TERM_CAMEL_NAME,
+		    용어스네이크명 AS TERM_SNAKE_NAME,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM
+		    META.TB008
+		WHERE 1 = 1
+			AND 도메인일련번호 = #{domainSno} :: INTEGER
+			AND 용어일련번호 = #{termSno} :: INTEGER
+	</select>
+	
+	<select id="selectTermList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT
+			*
+		FROM
+		(
+		SELECT /* Term.selectTermList */
+		    도메인일련번호 AS DOMAIN_SNO,
+		    용어일련번호 AS TERM_SNO,
+		    용어명 AS TERM_NAME,
+		    용어카멜명 AS TERM_CAMEL_NAME,
+		    용어스네이크명 AS TERM_SNAKE_NAME,
+		    시스템생성자 AS SYS_CREATOR,
+		    시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
+		    (
+		    	SELECT COUNT(1)
+		    	FROM META.TB008
+		    	WHERE 1 = 1
+		    	<if test="domainSno != null and domainSno != ''">
+				AND 도메인일련번호 = #{domainSno} :: INTEGER
+				</if>
+		    	<if test="termSno != null and termSno != ''">
+				AND 용어일련번호 = #{termSno} :: INTEGER
+				</if>
+				<if test="termName != null and termName != ''">
+				AND 용어명 LIKE '%'||#{termName}||'%'
+				</if>
+		    	<if test="termCamelName != null and termCamelName != ''">
+				AND 용어카멜명 LIKE '%'||#{termCamelName}||'%'
+				</if>
+		    	<if test="termSnakeName != null and termSnakeName != ''">
+				AND 용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
+				</if>
+		    )
+		FROM
+		    META.TB008
+		WHERE 1 = 1
+			<if test="domainSno != null and domainSno != ''">
+			AND 도메인일련번호 = #{domainSno} :: INTEGER
+			</if>
+	    	<if test="termSno != null and termSno != ''">
+			AND 용어일련번호 = #{termSno} :: INTEGER
+			</if>
+	    	<if test="termName != null and termName != ''">
+			AND 용어명 LIKE '%'||#{termName}||'%'
+			</if>
+	    	<if test="termCamelName != null and termCamelName != ''">
+			AND 용어카멜명 LIKE '%'||#{termCamelName}||'%'
+			</if>
+	    	<if test="termSnakeName != null and termSnakeName != ''">
+			AND 용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
+			</if>
+		ORDER BY 용어일련번호 DESC
+		) A
+		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
+		LIMIT #{rowAmountPerPage} :: INTEGER
+	</select>
+	
+</mapper>

@@ -46,13 +46,13 @@
 			</li>
 			<li class="nav-heading">용어</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METTR01' ? '' : 'collapsed'}" href="javascript:gotoURL('METDM01');">
+				<a class="nav-link ${url == 'METTM01' ? '' : 'collapsed'}" href="javascript:gotoURL('METTM01');">
 					<i class="bi bi-grid"></i>
 					<span>용어생성</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link ${url == 'METTR03' ? '' : 'collapsed'}" href="javascript:gotoURL('METDM01');">
+				<a class="nav-link ${url == 'METTM03' ? '' : 'collapsed'}" href="javascript:gotoURL('METTM03');">
 					<i class="bi bi-grid"></i>
 					<span>용어조회</span>
 				</a>
