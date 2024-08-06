@@ -89,11 +89,40 @@
 
     </main><!-- End #main -->
 	
+	<!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchModalLabel">용어 검색</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 검색 입력 -->
+                   	<input type="text" class="form-control mb-3" id="searchInput" placeholder="검색어를 입력하세요" oninput="this.value = this.value.toUpperCase().trim()">
+                    <!-- 검색 버튼 -->
+                    <div class="row">
+			            <div class="text-end">
+		                    <button type="button" class="btn btn-primary mb-3" id="btnSearchResults">검색</button>
+			            </div>
+		            </div>
+                    <!-- 검색 결과 목록 -->
+                    <ul class="list-group" id="searchResults">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnConfirmSelection">확인</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
 	
 	
 	<script>
-	
 		$(document).ready(function () {
+			var searchButtonClicked;  // 클릭된 버튼 저장
+			
 			// + 버튼을 클릭했을 때 컬럼 입력 필드를 추가
 		    $('#btnAddPkColumn').click(function() {
 		    	var html = '<div class="row g-3 pkColumnInput">';
@@ -101,22 +130,29 @@
 		    	html    += '		<i class="bi bi-search btnSearchColumn"></i>'
 		    	html    += '		<i class="bi bi-dash-square btnRemoveColumn"></i>'
 	    		html    += '	</div>'
-		    	html    += '	<div class="col-md-4">';
+		    	html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
-	    		html    += '			<input type="text" class="form-control columnName" name="column" oninput="this.value = this.value.toUpperCase()">'
+	    		html    += '			<input type="hidden" class="termSno" name="termSno">'
+	    		html    += '			<input type="text" class="form-control columnName" name="columnName" oninput="this.value = this.value.toUpperCase()" readonly>'
 	    		html    += '			<label>PK 컬럼명</label>'
     			html    += '		</div>'
     			html    += '	</div>'
-   				html    += '	<div class="col-md-4">';
+   				html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
-	    		html    += '			<input type="text" class="form-control columnCamelName" name="columnCamelName">'
+	    		html    += '			<input type="text" class="form-control columnCamelName" name="columnCamelName" readonly>'
 	    		html    += '			<label>PK 컬럼카멜명</label>'
     			html    += '		</div>'
    				html    += '	</div>'
- 				html    += '	<div class="col-md-4">';
+ 				html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
 	    		html    += '			<input type="text" class="form-control columnSnakeName" name="columnSnakeName" readonly>'
 	    		html    += '			<label>PK 컬럼스네이크명</label>'
+    			html    += '		</div>'
+   				html    += '	</div>'
+ 				html    += '	<div class="col-md-3">';
+	    		html    += '		<div class="form-floating mb-3">'
+	    		html    += '			<input type="text" class="form-control columnType" name="columnType" readonly>'
+	    		html    += '			<label>PK 컬럼타입</label>'
     			html    += '		</div>'
    				html    += '	</div>'
     			html    += '</div>'
@@ -130,22 +166,29 @@
 		    	html    += '		<i class="bi bi-search btnSearchColumn"></i>'
 		    	html    += '		<i class="bi bi-dash-square btnRemoveColumn"></i>'
 	    		html    += '	</div>'
-		    	html    += '	<div class="col-md-4">';
+		    	html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
-	    		html    += '			<input type="text" class="form-control columnName" name="column" oninput="this.value = this.value.toUpperCase()">'
+	    		html    += '			<input type="hidden" name="termSno">'
+	    		html    += '			<input type="text" class="form-control columnName" name="column" oninput="this.value = this.value.toUpperCase()" readonly>'
 	    		html    += '			<label>컬럼명</label>'
     			html    += '		</div>'
     			html    += '	</div>'
-		    	html    += '	<div class="col-md-4">';
+		    	html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
-	    		html    += '			<input type="text" class="form-control columnCamelName" name="columnCamelName">'
+	    		html    += '			<input type="text" class="form-control columnCamelName" name="columnCamelName" readonly>'
 	    		html    += '			<label>컬럼카멜명</label>'
     			html    += '		</div>'
     			html    += '	</div>'
-		    	html    += '	<div class="col-md-4">';
+		    	html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
 	    		html    += '			<input type="text" class="form-control columnSnakeName" name="columnSnakeName" readonly>'
 	    		html    += '			<label>컬럼스네이크명</label>'
+    			html    += '		</div>'
+    			html    += '	</div>'
+		    	html    += '	<div class="col-md-3">';
+	    		html    += '		<div class="form-floating mb-3">'
+	    		html    += '			<input type="text" class="form-control columnType" name="columnType" readonly>'
+	    		html    += '			<label>컬럼타입</label>'
     			html    += '		</div>'
     			html    += '	</div>'
     			html    += '</div>'
@@ -159,8 +202,73 @@
 		    });
 		    // 검색 버튼을 클릭했을 때 해당 컬럼 입력 필드를 검색
 		    $(document).on('click', '.btnSearchColumn', function() {
-		    	alertUtils.showAlert('검색 미구현');
+		    	searchButtonClicked = $(this); 
+		    	$('#searchModal').modal('show');
+// 		    	$('#searchResults').html('');
 		    });
+		 	// 확인 버튼 클릭 시
+            $('#btnConfirmSelection').click(function() {
+                var termSno = $('#searchResults .list-group-item.selected .termSno').text().trim();
+                var termName = $('#searchResults .list-group-item.selected .termName').text().trim();
+                var termCamelName = $('#searchResults .list-group-item.selected .termCamelName').text().trim();
+                var termSnakeName = $('#searchResults .list-group-item.selected .termSnakeName').text().trim();
+                var domainType = $('#searchResults .list-group-item.selected .domainType').text().trim();
+                var target = $(searchButtonClicked).closest('.pkColumnInput, .columnInput');
+                $(target).find('.termSno').val(termSno);
+                $(target).find('.columnName').val(termName);
+                $(target).find('.columnCamelName').val(termCamelName);
+                $(target).find('.columnSnakeName').val(termSnakeName);
+                $(target).find('.columnType').val(domainType);
+                
+                $('#searchModal').modal('hide');
+//                 $('#searchResults').html('');
+            });
+		    // 검색 로직
+		    $('#btnSearchResults').click(function() {
+		    	var requestMap = {
+		    		termName: $('#searchInput').val()
+		    	}
+		    	ajax('METTM04', requestMap, function(response) {
+		    		if (response.header && response.header.status == '0000') {
+		    			var body = response.body;
+		    			if (body.count == '0') {
+		    				alertUtils.showAlert('조회된 내용이 없습니다.')
+		    			} else {
+		    				var termScInfoList = body.termScInfoList;
+		    				var theHtml = '';
+		    				termScInfoList.forEach((item) => {
+		    					
+			    				theHtml += '<li class="list-group-item">';
+			    				theHtml += '	<span class="searchResult">'
+			    				theHtml += '		<span class="termSno">' + item.termSno +'</span>'
+			    				theHtml += '		<span class="termName">' + item.termName +'</span>'
+			    				theHtml += '		<span class="termCamelName">' + item.termCamelName +'</span>'
+			    				theHtml += '		<span class="termSnakeName">' + item.termSnakeName +'</span>'
+			    				theHtml += '		<span class="domainType">' + item.domainType +'</span>'
+			    				theHtml += '	</span>'
+			    				theHtml += '	<button type="button" class="btn btn-primary btn-sm float-end btnSelectColumn">선택</button>'
+			    				theHtml += '</li>'
+			    				
+		    				});
+		    				$('#searchResults').html(theHtml)
+		    			}
+		    		} else {
+		    			alertUtils.showAlert(response.header.errorMsg);
+		    		}
+		    	});
+		    });
+		 	// 검색 결과 선택 버튼 클릭 시
+		    $(document).on('click', '.btnSelectColumn', function() {
+		    	$('#searchResults .list-group-item').removeClass('selected'); // 이전 선택된 항목의 색상 제거
+                $(this).closest('li').addClass('selected'); // 선택된 항목의 색상 변경
+            });
+		 	// 검색 입력 필드에서 엔터 키를 눌렀을 때 검색 수행
+            $('#searchInput').on('keyup', function(event) {
+                if (event.key === 'Enter') {
+                	$('#btnSearchResults').trigger('click');
+                }
+            });
+		    
 		    // 컬럼카멜명 입력시 컬럼스네이크명 자동입력 
 		    $(document).on('input', '.columnCamelName', function() {
 		    	$(this).val($(this).val().charAt(0).toLowerCase() + $(this).val().slice(1))
@@ -171,7 +279,7 @@
 		    $('#btnRegister').click(function() {
 		    	// 필수값 입력체크
 		    	var fieldList = [];
-		    	$('input.form-control, select.form-control').each(function() {
+		    	$('#main input.form-control, #main select.form-control').each(function() {
 		    		var fieldLabel = $(this).siblings('label').text();
 		    		var fieldValue = $(this).val();
 		    		var fieldObj = { label: fieldLabel, value: $(this).val() };
@@ -188,6 +296,9 @@
 		    			columnName: $(this).find('.columnName').val()
 		    			, columnCamelName: $(this).find('.columnCamelName').val()
 		    			, columnSnakeName: $(this).find('.columnSnakeName').val()
+		    			, columnType: $(this).find('.columnType').val()
+		    			, termStdYn: $(this).find('.termSno').val() ? "1" : "0"
+		    			, termSno: $(this).find('.termSno').val()
 		    		}
 	    			thePkColumnList.push(item);
 		    	});
@@ -198,6 +309,9 @@
 		    			columnName: $(this).find('.columnName').val()
 		    			, columnCamelName: $(this).find('.columnCamelName').val()
 		    			, columnSnakeName: $(this).find('.columnSnakeName').val()
+		    			, columnType: $(this).find('.columnType').val()
+		    			, termStdYn: $(this).find('.termSno').val() ? "1" : "0"
+	    				, termSno: $(this).find('.termSno').val()
 		    		}
 		    		theColumnList.push(item);
 		    	});

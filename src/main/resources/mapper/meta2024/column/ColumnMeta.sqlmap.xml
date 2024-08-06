@@ -15,6 +15,9 @@
 		        컬럼명,
 		        컬럼카멜명,
 		        컬럼스네이크명,
+		        컬럼타입,
+		        용어표준여부,
+		        용어일련번호,
 		        시스템생성자,
 		        시스템수정자,
 		        시스템생성일,
@@ -27,6 +30,9 @@
 		    #{columnName}, 
 		    #{columnCamelName}, 
 		    #{columnSnakeName}, 
+		    #{columnType}, 
+		    COALESCE(#{termStdYn}, '0'), 
+		    #{termSno}, 
 		    #{sysCreator}, 
 		    #{sysCreator}, 
 		    now(), 
@@ -40,6 +46,9 @@
 		    컬럼명 AS COLUMN_NAME,
 		    컬럼카멜명 AS COLUMN_CAMEL_NAME,
 		    컬럼스네이크명 AS COLUMN_SNAKE_NAME,
+		    컬럼타입 AS COLUMN_TYPE,
+		    용어표준여부 AS TERM_STD_YN,
+		    용어일련번호 AS TERM_SNO,
 		    시스템생성자 AS SYS_CREATOR,
 		    시스템수정자 AS SYS_MODIFIER,
 		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
@@ -61,6 +70,9 @@
 			, TB004.컬럼명 AS COLUMN_NAME
 			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
 			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
+			, TB004.컬럼타입 AS COLUMN_TYPE
+		    , TB004.용어표준여부 AS TERM_STD_YN
+		    , TB004.용어일련번호 AS TERM_SNO
 			, TO_CHAR(TB004.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
 			, TO_CHAR(TB004.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
 		FROM 
@@ -86,6 +98,9 @@
 			, TB004.컬럼명 AS COLUMN_NAME
 			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
 			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
+			, TB004.컬럼타입 AS COLUMN_TYPE
+		    , TB004.용어표준여부 AS TERM_STD_YN
+		    , TB004.용어일련번호 AS TERM_SNO
 			, TO_CHAR(TB004.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
 			, TO_CHAR(TB004.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
 			, (
@@ -164,6 +179,15 @@
 		</if>
 		<if test="columnSnakeName != null and columnSnakeName != ''">
 		, 컬럼스네이크명 = #{columnSnakeName}
+		</if>
+		<if test="columnType != null and columnType != ''">
+		, 컬럼타입 = #{columnType}
+		</if>
+		<if test="termStdYn != null and termStdYn != ''">
+		, 용어표준여부 = #{termStdYn}
+		</if>
+		<if test="termSno != null and termSno != ''">
+		, 용어일련번호 = #{termSno}
 		</if>
 		, 시스템수정일 = now()
 		WHERE 1 = 1

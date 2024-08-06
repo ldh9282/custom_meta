@@ -63,4 +63,21 @@ public class TermService {
 		
 		return resultMap;
 	}
+	
+	public CustomMap getTermScInfoList(CustomMap customMap) throws CustomException {
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			
+			List<CustomMap> termScInfoList = termDao.selectTermScList(customMap);
+			
+			resultMap.put("termScInfoList", termScInfoList);
+			resultMap.put("count", termScInfoList.size() > 0 ? termScInfoList.get(0).getString("count") : "0");
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"용어정보목록"}, e);
+		}
+		
+		
+		return resultMap;
+	}
 }

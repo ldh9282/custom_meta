@@ -101,22 +101,17 @@
 	<update id="createTable" parameterType="CustomMap">
 		CREATE TABLE ${schemaName}.${tableName} /* TableMeta.createTable */
 		(
-			<foreach item="pkColumn" collection="pkColumnNameList">
-			${pkColumn} BIGINT NOT NULL,
+			<foreach item="item" collection="pkColumnList">
+			${item.columnName} ${item.columnType} NOT NULL,
 			</foreach>
-			<foreach item="column" collection="columnNameList">
-			<if test="column.endsWith('일련번호')">
-            ${column} BIGINT,
-            </if>
-            <if test="!column.endsWith('일련번호')">
-            ${column} CHARACTER VARYING(200),
-            </if>	
+			<foreach item="item" collection="columnList">
+            ${item.columnName} ${item.columnType},
 			</foreach>
 		    시스템생성자 CHARACTER VARYING(200) NOT NULL,
 		    시스템수정자 CHARACTER VARYING(200) NOT NULL,
 		    시스템생성일 TIMESTAMP WITHOUT TIME ZONE NOT NULL,
 		    시스템수정일 TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-		    CONSTRAINT ${tableName}_PK PRIMARY KEY (<foreach item="pkColumn" collection="pkColumnNameList" separator=",">${pkColumn}</foreach>)
+		    CONSTRAINT ${tableName}_PK PRIMARY KEY (<foreach item="item" collection="pkColumnList" separator=",">${item.columnName}</foreach>)
 		)
 	</update>
 	
@@ -125,7 +120,7 @@
     </update>
     
 	<update id="createPkIndex" parameterType="CustomMap">
-		CREATE /* TableMeta.createPkIndex */ UNIQUE INDEX ${tableName}P ON ${schemaName}.${tableName}(<foreach item="pkColumn" collection="pkColumnNameList" separator=",">${pkColumn}</foreach>)
+		CREATE /* TableMeta.createPkIndex */ UNIQUE INDEX ${tableName}P ON ${schemaName}.${tableName}(<foreach item="item" collection="pkColumnList" separator=",">${item.columnName}</foreach>)
 	</update>
 	
 	<select id="selectSchemaNameList" parameterType="CustomMap" resultType="CustomMap">

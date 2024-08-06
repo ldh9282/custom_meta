@@ -85,7 +85,7 @@
 		    	<if test="termSnakeName != null and termSnakeName != ''">
 				AND 용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
 				</if>
-		    )
+			) AS COUNT
 		FROM
 		    META.TB008
 		WHERE 1 = 1
@@ -108,6 +108,41 @@
 		) A
 		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
 		LIMIT #{rowAmountPerPage} :: INTEGER
+	</select>
+	
+	<select id="selectTermScList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* Term.selectTermScList */
+		    TB008.도메인일련번호 AS DOMAIN_SNO,
+		    TB008.용어일련번호 AS TERM_SNO,
+		    TB008.용어명 AS TERM_NAME,
+		    TB008.용어카멜명 AS TERM_CAMEL_NAME,
+		    TB008.용어스네이크명 AS TERM_SNAKE_NAME,
+		    TB007.도메인타입 AS DOMAIN_TYPE,
+		    TB008.시스템생성자 AS SYS_CREATOR,
+		    TB008.시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(TB008.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(TB008.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
+		    (
+		    	SELECT COUNT(1)
+		    	FROM
+		    		META.TB008
+		    		, META.TB007 TB007
+		    	
+		    	WHERE 1 = 1
+		    	AND TB008.도메인일련번호 = TB007.도메인일련번호
+		    	<if test="termName != null and termName != ''">
+				AND 용어명 LIKE '%'||#{termName}||'%'
+				</if>
+			) AS COUNT				
+		FROM
+		    META.TB008 TB008
+		    , META.TB007 TB007
+		WHERE 1 = 1
+			AND TB008.도메인일련번호 = TB007.도메인일련번호
+			<if test="termName != null and termName != ''">
+			AND TB008.용어명 LIKE '%'||#{termName}||'%'
+			</if>
+		ORDER BY TB008.용어명 DESC
 	</select>
 	
 </mapper>

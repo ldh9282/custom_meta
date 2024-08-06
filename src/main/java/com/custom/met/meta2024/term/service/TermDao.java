@@ -62,4 +62,16 @@ public class TermDao {
 		return sst.selectList("Term.selectTermList", customMap);
 		
 	}
+	/**
+	 * <pre>
+	 * 메서드명: selectTermScList
+	 * 설명: 용어정보목록조회
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 */
+	public List<CustomMap> selectTermScList(CustomMap customMap) {
+		return sst.selectList("Term.selectTermScList", customMap);
+		
+	}
 }
