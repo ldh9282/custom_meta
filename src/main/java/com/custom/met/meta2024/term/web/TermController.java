@@ -130,4 +130,32 @@ public class TermController extends CustomController {
 		return modelAndView;
 	}
 	
+	/**
+	 * <pre>
+	 * 메서드명: mettm04
+	 * 설명: 용어 검색
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@PostMapping("/METTM04")
+	@ResponseBody
+	public Object mettm04(@RequestBody CustomMap customMap) throws CustomException {
+		if (log.isDebugEnabled()) {log.debug(customMap);}
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			CustomMap termScInfoListMap = termService.getTermScInfoList(customMap);
+			List<CustomMap> termScInfoList = termScInfoListMap.getCustomMapList("termScInfoList");
+			resultMap.put("termScInfoList", termScInfoList);
+			resultMap.put("count", termScInfoListMap.getString("count"));
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		}
+		
+		return getResponse(resultMap);
+	}
 }

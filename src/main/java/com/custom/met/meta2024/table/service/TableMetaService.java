@@ -74,8 +74,8 @@ public class TableMetaService {
 		
 		CustomMap requestMap = new CustomMap();
 		
-		List<CustomMap> columnList = customMap.getCustomMapList("columnList");
 		List<CustomMap> pkColumnList = customMap.getCustomMapList("pkColumnList");
+		List<CustomMap> columnList = customMap.getCustomMapList("columnList");
 		
 		
 		try {
@@ -89,13 +89,9 @@ public class TableMetaService {
 			for (CustomMap item : pkColumnList) {
 				pkColumnNameList.add(item.getString("columnName"));
 			}
-			tableMap.put("pkColumnNameList", pkColumnNameList);
+			tableMap.put("pkColumnList", pkColumnList);
 			
-			List<String> columnNameList = new ArrayList<>();
-			for (CustomMap item : columnList) {
-				columnNameList.add(item.getString("columnName"));
-			}
-			tableMap.put("columnNameList", columnNameList);
+			tableMap.put("columnList", columnList);
 			
 			tableMetaDao.createTable(tableMap);
 			
@@ -117,6 +113,9 @@ public class TableMetaService {
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
+				requestMap.put("columnType", item.getString("columnType"));
+				requestMap.put("termStdYn", item.getString("termStdYn"));
+				requestMap.put("termSno", item.getString("termSno"));
 				
 				
 				columnMetaDao.insertColumnMeta(requestMap);
@@ -127,6 +126,9 @@ public class TableMetaService {
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
+				requestMap.put("columnType", item.getString("columnType"));
+				requestMap.put("termStdYn", item.getString("termStdYn"));
+				requestMap.put("termSno", item.getString("termSno"));
 				
 				
 				columnMetaDao.insertColumnMeta(requestMap);
@@ -144,6 +146,9 @@ public class TableMetaService {
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
+				requestMap.put("columnType", item.getString("columnType"));
+				requestMap.put("termStdYn", item.getString("termStdYn"));
+				requestMap.put("termSno", item.getString("termSno"));
 				
 				
 				columnMetaDao.insertColumnMeta(requestMap);
@@ -209,6 +214,9 @@ public class TableMetaService {
 	    column.put("columnName", columnName);
 	    column.put("columnCamelName", columnCamelName);
 	    column.put("columnSnakeName", columnSnakeName);
+	    column.put("columnSnakeName", columnSnakeName);
+	    column.put("termStdYn", "1");
+	    column.put("termSno", "");
 	    return column;
 	}
 
