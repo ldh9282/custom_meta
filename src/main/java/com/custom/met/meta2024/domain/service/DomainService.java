@@ -73,8 +73,9 @@ public class DomainService {
 			List<CustomMap> domainScInfoList = domainDao.selectDomainScList(customMap);
 			
 			resultMap.put("domainScInfoList", domainScInfoList);
+			resultMap.put("count", domainScInfoList.size() > 0 ? domainScInfoList.get(0).getString("count") : "0");
 		} catch (Exception e) {
-			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"도메인정보목록"}, e);
+			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"도메인정보검색"}, e);
 		}
 		
 		

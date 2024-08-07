@@ -74,7 +74,7 @@ public class TermService {
 			resultMap.put("termScInfoList", termScInfoList);
 			resultMap.put("count", termScInfoList.size() > 0 ? termScInfoList.get(0).getString("count") : "0");
 		} catch (Exception e) {
-			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"용어정보목록"}, e);
+			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"용어정보검색"}, e);
 		}
 		
 		
