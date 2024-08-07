@@ -204,7 +204,7 @@
 		    $(document).on('click', '.btnSearchColumn', function() {
 		    	searchButtonClicked = $(this); 
 		    	$('#searchModal').modal('show');
-// 		    	$('#searchResults').html('');
+		    	$('#searchResults').html('');
 		    });
 		 	// 확인 버튼 클릭 시
             $('#btnConfirmSelection').click(function() {
@@ -221,7 +221,6 @@
                 $(target).find('.columnType').val(domainType);
                 
                 $('#searchModal').modal('hide');
-//                 $('#searchResults').html('');
             });
 		    // 검색 로직
 		    $('#btnSearchResults').click(function() {

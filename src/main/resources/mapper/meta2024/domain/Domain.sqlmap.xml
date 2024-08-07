@@ -97,10 +97,23 @@
 		    시스템생성자 AS SYS_CREATOR,
 		    시스템수정자 AS SYS_MODIFIER,
 		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
-		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
+		    (
+		    	SELECT COUNT(1)
+		    	FROM
+		    		META.TB007
+		    	
+		    	WHERE 1 = 1
+		    	<if test="domainName != null and domainName != ''">
+				AND 도메인명 LIKE '%'||#{domainName}||'%'
+				</if>
+			) AS COUNT			
 		FROM
 		    META.TB007
 		WHERE 1 = 1
+		<if test="domainName != null and domainName != ''">
+		AND 도메인명 LIKE '%'||#{domainName}||'%'
+		</if>
 		ORDER BY 도메인명 ASC
 	</select>
 	

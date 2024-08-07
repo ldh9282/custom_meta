@@ -125,4 +125,33 @@ public class DomainController extends CustomController {
 		modelAndView.setViewName("meta2024/domain/domainList");
 		return modelAndView;
 	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: metdm04
+	 * 설명: 도메인 검색
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@PostMapping("/METDM04")
+	@ResponseBody
+	public Object metdm04(@RequestBody CustomMap customMap) throws CustomException {
+		if (log.isDebugEnabled()) {log.debug(customMap);}
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			CustomMap domainScInfoListMap = domainService.getDomainScInfoList(customMap);
+			List<CustomMap> domainScInfoList = domainScInfoListMap.getCustomMapList("domainScInfoList");
+			resultMap.put("domainScInfoList", domainScInfoList);
+			resultMap.put("count", domainScInfoListMap.getString("count"));
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		}
+		
+		return getResponse(resultMap);
+	}
 }
