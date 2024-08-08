@@ -12,12 +12,15 @@ import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.security.utils.SecurityUtils;
 import com.custom.met.cmmn.utils.StringUtils;
+import com.custom.met.meta2024.term.service.TermDao;
 
 @Service
 public class DomainService {
 
 	@Autowired
 	private DomainDao domainDao;
+	@Autowired
+	private TermDao termDao;
 	
 	@Transactional
 	public CustomMap insertDomainInfo(CustomMap customMap) throws CustomException {
@@ -78,6 +81,22 @@ public class DomainService {
 			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"도메인정보검색"}, e);
 		}
 		
+		
+		return resultMap;
+	}
+
+	@Transactional
+	public CustomMap deleteDomainInfo(CustomMap customMap) throws CustomException {
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			
+			domainDao.deleteDomainInfo(customMap);
+			termDao.deleteTermInfo(customMap);
+			
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR541, new String[] {"용어정보"}, e);
+		}
 		
 		return resultMap;
 	}

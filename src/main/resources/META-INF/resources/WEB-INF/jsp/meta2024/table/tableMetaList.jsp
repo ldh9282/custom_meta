@@ -123,7 +123,7 @@
 												<c:out value="${tableMetaInfo.tableDesc}" />
 											</td>
 											<td class="text-center">
-												 <button type="button" class="btn btn-danger" onclick="deleteTable('${tableMetaInfo.tableMetaSno}')">삭제</button>
+												<button type="button" class="btn btn-danger" onclick="deleteTable('${tableMetaInfo.tableMetaSno}')">삭제</button>
 											</td>
 										</tr>
 	

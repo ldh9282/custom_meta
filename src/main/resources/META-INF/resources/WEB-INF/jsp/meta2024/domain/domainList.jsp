@@ -81,7 +81,8 @@
 							<table class="table mt-3">
 								<colgroup>
 									<col style="width: 15%;"/>
-									<col style="width: 25%;"/>
+									<col style="width: 35%;"/>
+									<col style="width: 35%;"/>
 									<col style="width: auto;"/>
 								</colgroup>
 								<thead>
@@ -89,6 +90,7 @@
 										<th scope="col" class="text-center">도메인일련번호</th>
 										<th scope="col" class="text-center">도메인명</th>
 										<th scope="col" class="text-center">도메인타입</th>
+										<th scope="col" class="text-center">도메인삭제</th>
 									</tr>
 								</thead>
 		
@@ -107,6 +109,9 @@
 											</td>
 											<td class="text-center">
 												<c:out value="${domainInfo.domainType}" />
+											</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-danger" onclick="deleteDomain('${domainInfo.domainSno}')">삭제</button>
 											</td>
 										</tr>
 	
@@ -168,6 +173,26 @@
 			$("#thePageNum").val(pageNum)
 			$('#defaultForm').attr('method', 'POST')
 			formSubmit($('#defaultForm'), 'METDM03');
+		}
+		
+		// 도메인 삭제처리
+		function deleteDomain(theDomainSno) {
+			alertUtils.showConfirm('삭제하시겠습니까?', function() {
+				var requestMap = {
+					domainSno: theDomainSno
+		    	};
+		    	
+		    	ajax('METDM05', requestMap, function(response) {
+		    		if (response.header && response.header.status == '0000') {
+		    			alertUtils.showAlert('삭제되었습니다', function() {
+		    				gotoURL('METDM03');
+		    			});
+		    		} else {
+		    			alertUtils.showAlert(response.header.errorMsg);
+		    		}
+		    	});
+				
+			})
 		}
 	</script>
 

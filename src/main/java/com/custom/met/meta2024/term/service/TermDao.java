@@ -47,7 +47,6 @@ public class TermDao {
 	 */
 	public CustomMap selectTerm(CustomMap customMap) {
 		return sst.selectOne("Term.selectTerm", customMap);
-		
 	}
 	
 	/**
@@ -60,7 +59,6 @@ public class TermDao {
 	 */
 	public List<CustomMap> selectTermList(CustomMap customMap) {
 		return sst.selectList("Term.selectTermList", customMap);
-		
 	}
 	/**
 	 * <pre>
@@ -72,6 +70,17 @@ public class TermDao {
 	 */
 	public List<CustomMap> selectTermScList(CustomMap customMap) {
 		return sst.selectList("Term.selectTermScList", customMap);
-		
+	}
+
+	/**
+	 * <pre>
+	 * 메서드명: deleteTermInfo
+	 * 설명: 용어정보삭제
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 */
+	public int deleteTermInfo(CustomMap customMap) {
+		return sst.update("Term.deleteTermInfo", customMap);
 	}
 }

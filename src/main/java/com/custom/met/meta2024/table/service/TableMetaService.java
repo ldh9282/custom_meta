@@ -135,10 +135,10 @@ public class TableMetaService {
 			}
 			
 			List<CustomMap> defaultColumnList = Arrays.asList(
-					createColumnMap("시스템생성자", "sysCreator", "SYS_CREATOR"),
-					createColumnMap("시스템수정자", "sysModifier", "SYS_MODIFIER"),
-					createColumnMap("시스템생성일", "sysCreatedAt", "SYS_CREATED_AT"),
-					createColumnMap("시스템수정일", "sysModifiedAt", "SYS_MODIFIED_AT")
+					createColumnMap("시스템생성자", "sysCreator", "SYS_CREATOR", "CHARACTER VARYING(200)"),
+					createColumnMap("시스템수정자", "sysModifier", "SYS_MODIFIER", "CHARACTER VARYING(200)"),
+					createColumnMap("시스템생성일", "sysCreatedAt", "SYS_CREATED_AT", "TIMESTAMP WITHOUT TIME ZONE"),
+					createColumnMap("시스템수정일", "sysModifiedAt", "SYS_MODIFIED_AT", "TIMESTAMP WITHOUT TIME ZONE")
 					);
 			for (CustomMap item : defaultColumnList) {
 				CustomMap columnMetaSnoMap = columnMetaDao.selectColumnMetaSno();
@@ -209,12 +209,12 @@ public class TableMetaService {
 	 * @param columnSnakeName
 	 * @return
 	 */
-	private CustomMap createColumnMap(String columnName, String columnCamelName, String columnSnakeName) {
+	private CustomMap createColumnMap(String columnName, String columnCamelName, String columnSnakeName, String columnType) {
 	    CustomMap column = new CustomMap();
 	    column.put("columnName", columnName);
 	    column.put("columnCamelName", columnCamelName);
 	    column.put("columnSnakeName", columnSnakeName);
-	    column.put("columnSnakeName", columnSnakeName);
+	    column.put("columnType", columnType);
 	    column.put("termStdYn", "1");
 	    column.put("termSno", "");
 	    return column;
