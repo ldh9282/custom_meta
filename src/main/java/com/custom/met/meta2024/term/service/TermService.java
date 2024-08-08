@@ -80,4 +80,18 @@ public class TermService {
 		
 		return resultMap;
 	}
+
+	public CustomMap deleteTermInfo(CustomMap customMap) throws CustomException {
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			
+			termDao.deleteTermInfo(customMap);
+			
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR541, new String[] {"용어정보"}, e);
+		}
+		
+		return resultMap;
+	}
 }

@@ -57,54 +57,61 @@
 		FROM
 		(
 		SELECT /* Term.selectTermList */
-		    도메인일련번호 AS DOMAIN_SNO,
-		    용어일련번호 AS TERM_SNO,
-		    용어명 AS TERM_NAME,
-		    용어카멜명 AS TERM_CAMEL_NAME,
-		    용어스네이크명 AS TERM_SNAKE_NAME,
-		    시스템생성자 AS SYS_CREATOR,
-		    시스템수정자 AS SYS_MODIFIER,
-		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
-		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
+		    TB008.도메인일련번호 AS DOMAIN_SNO,
+		    TB008.용어일련번호 AS TERM_SNO,
+		    TB008.용어명 AS TERM_NAME,
+		    TB008.용어카멜명 AS TERM_CAMEL_NAME,
+		    TB008.용어스네이크명 AS TERM_SNAKE_NAME,
+		    TB007.도메인명 AS DOMAIN_NAME,
+		    TB007.도메인타입 AS DOMAIN_TYPE,
+		    TB008.시스템생성자 AS SYS_CREATOR,
+		    TB008.시스템수정자 AS SYS_MODIFIER,
+		    TO_CHAR(TB008.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
+		    TO_CHAR(TB008.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
 		    (
 		    	SELECT COUNT(1)
-		    	FROM META.TB008
+		    	FROM 
+			    	META.TB008 TB008,
+			    	META.TB007 TB007
 		    	WHERE 1 = 1
+		    	AND TB008.도메인일련번호 = TB007.도메인일련번호
 		    	<if test="domainSno != null and domainSno != ''">
-				AND 도메인일련번호 = #{domainSno} :: INTEGER
+				AND TB008.도메인일련번호 = #{domainSno} :: INTEGER
 				</if>
 		    	<if test="termSno != null and termSno != ''">
-				AND 용어일련번호 = #{termSno} :: INTEGER
+				AND TB008.용어일련번호 = #{termSno} :: INTEGER
 				</if>
 				<if test="termName != null and termName != ''">
-				AND 용어명 LIKE '%'||#{termName}||'%'
+				AND TB008.용어명 LIKE '%'||#{termName}||'%'
 				</if>
 		    	<if test="termCamelName != null and termCamelName != ''">
-				AND 용어카멜명 LIKE '%'||#{termCamelName}||'%'
+				AND TB008.용어카멜명 LIKE '%'||#{termCamelName}||'%'
 				</if>
 		    	<if test="termSnakeName != null and termSnakeName != ''">
-				AND 용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
+				AND TB008.용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
 				</if>
 			) AS COUNT
 		FROM
-		    META.TB008
+			META.TB008 TB008,
+			META.TB007 TB007
 		WHERE 1 = 1
-			<if test="domainSno != null and domainSno != ''">
-			AND 도메인일련번호 = #{domainSno} :: INTEGER
-			</if>
-	    	<if test="termSno != null and termSno != ''">
-			AND 용어일련번호 = #{termSno} :: INTEGER
-			</if>
-	    	<if test="termName != null and termName != ''">
-			AND 용어명 LIKE '%'||#{termName}||'%'
-			</if>
-	    	<if test="termCamelName != null and termCamelName != ''">
-			AND 용어카멜명 LIKE '%'||#{termCamelName}||'%'
-			</if>
-	    	<if test="termSnakeName != null and termSnakeName != ''">
-			AND 용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
-			</if>
-		ORDER BY 용어일련번호 DESC
+    	AND TB008.도메인일련번호 = TB007.도메인일련번호
+    	<if test="domainSno != null and domainSno != ''">
+		AND TB008.도메인일련번호 = #{domainSno} :: INTEGER
+		</if>
+    	<if test="termSno != null and termSno != ''">
+		AND TB008.용어일련번호 = #{termSno} :: INTEGER
+		</if>
+		<if test="termName != null and termName != ''">
+		AND TB008.용어명 LIKE '%'||#{termName}||'%'
+		</if>
+    	<if test="termCamelName != null and termCamelName != ''">
+		AND TB008.용어카멜명 LIKE '%'||#{termCamelName}||'%'
+		</if>
+    	<if test="termSnakeName != null and termSnakeName != ''">
+		AND TB008.용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
+		</if>
+		ORDER BY TB008.용어일련번호 DESC
 		) A
 		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
 		LIMIT #{rowAmountPerPage} :: INTEGER
@@ -144,5 +151,15 @@
 			</if>
 		ORDER BY TB008.용어명 DESC
 	</select>
+	
+	<update id="deleteTermInfo" parameterType="CustomMap">
+		DELETE /* Term.deleteTermInfo */
+		FROM META.TB008
+		WHERE 1 = 1
+		AND 도메인일련번호 = #{domainSno} :: INTEGER
+		<if test="termSno != null and termSno != ''">
+		AND 용어일련번호 = #{termSno} :: INTEGER
+		</if>
+	</update>
 	
 </mapper>

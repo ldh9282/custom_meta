@@ -154,4 +154,30 @@ public class DomainController extends CustomController {
 		
 		return getResponse(resultMap);
 	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: metdm05
+	 * 설명: 도메인 삭제요청
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@PostMapping("/METDM05")
+	@ResponseBody
+	public Object metdm05(@RequestBody CustomMap customMap) throws CustomException {
+		if (log.isDebugEnabled()) {log.debug(customMap);}
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			domainService.deleteDomainInfo(customMap);
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		}
+		
+		return getResponse(resultMap);
+	}
 }

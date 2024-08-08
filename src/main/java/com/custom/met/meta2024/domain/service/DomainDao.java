@@ -57,7 +57,6 @@ public class DomainDao {
 	 */
 	public CustomMap selectDomain(CustomMap customMap) {
 		return sst.selectOne("Domain.selectDomain", customMap);
-		
 	}
 	
 	/**
@@ -70,7 +69,6 @@ public class DomainDao {
 	 */
 	public List<CustomMap> selectDomainList(CustomMap customMap) {
 		return sst.selectList("Domain.selectDomainList", customMap);
-		
 	}
 	
 	/**
@@ -83,6 +81,17 @@ public class DomainDao {
 	 */
 	public List<CustomMap> selectDomainScList(CustomMap customMap) {
 		return sst.selectList("Domain.selectDomainScList", customMap);
-		
+	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: deleteDomainInfo
+	 * 설명: 도메인정보삭제
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 */
+	public int deleteDomainInfo(CustomMap customMap) {
+		return sst.update("Domain.deleteDomainInfo", customMap);
 	}
 }

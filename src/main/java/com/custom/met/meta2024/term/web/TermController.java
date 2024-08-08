@@ -158,4 +158,30 @@ public class TermController extends CustomController {
 		
 		return getResponse(resultMap);
 	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: mettm05
+	 * 설명: 용어 삭제요청
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@PostMapping("/METTM05")
+	@ResponseBody
+	public Object mettm05(@RequestBody CustomMap customMap) throws CustomException {
+		if (log.isDebugEnabled()) {log.debug(customMap);}
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			termService.deleteTermInfo(customMap);
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		}
+		
+		return getResponse(resultMap);
+	}
 }

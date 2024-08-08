@@ -128,4 +128,11 @@
 		    도메인명 = #{domainName}
 	</select>
 	
+	<update id="deleteDomainInfo" parameterType="CustomMap">
+		DELETE /* Domain.deleteDomainInfo */
+		FROM META.TB007
+		WHERE 1 = 1
+		AND 도메인일련번호 = #{domainSno} :: INTEGER
+	</update>
+	
 </mapper>
