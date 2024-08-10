@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
@@ -17,7 +16,6 @@ import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.paging.PagingCreator;
 import com.custom.met.cmmn.web.CustomController;
 import com.custom.met.meta2024.seq.service.SeqMetaService;
-import com.custom.met.meta2024.table.web.TableMetaController2;
 
 import lombok.extern.log4j.Log4j2;
 

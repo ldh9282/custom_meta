@@ -41,7 +41,6 @@
 									<option value="100" ${pagingCreator.rowAmountPerPage == '100' ? 'selected' : ''}>100개</option>
 								</select>
 								</p>
-								<input type="hidden" id="theTableMetaSno" name="tableMetaSno" value="${requestMap.tableMetaSno}">
 								<input type="hidden" id="theSeqMetaSno" name="seqMetaSno" value="${requestMap.seqMetaSno}">
 								<input type="hidden" id="theSeqName" name="seqName" value="${requestMap.seqName}">
 								<input type="hidden" id="theschemaName" name="schemaName" value="${requestMap.schemaName}">
@@ -52,12 +51,6 @@
 							<input type="hidden" id="pageNum" name="pageNum" value="1">
 							<input type="hidden" id="rowAmountPerPage" name="rowAmountPerPage" value="${pagingCreator.rowAmountPerPage}">
 							<div class="row">
-								<div class="col-md-4">
-									<div class="input-group mb-3">
-									    <span class="input-group-text">테이블메타일련번호</span>
-									    <input type="text" class="form-control" id="tableMetaSno" name="tableMetaSno" value="${requestMap.tableMetaSno}">
-									</div>
-								</div>
 								<div class="col-md-4">
 									<div class="input-group mb-3">
 									    <span class="input-group-text">시퀀스메타일련번호</span>

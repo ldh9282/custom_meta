@@ -41,7 +41,6 @@
 									<option value="100" ${pagingCreator.rowAmountPerPage == '100' ? 'selected' : ''}>100개</option>
 								</select>
 								</p>
-								<input type="hidden" id="theTableMetaSno" name="talbeMetaSno" value="${requestMap.talbeMetaSno}">
 								<input type="hidden" id="theColumnMetaSno" name="columnMetaSno" value="${requestMap.columnMetaSno}">
 								<input type="hidden" id="theColumnName" name="columnName" value="${requestMap.columnName}">
 								<input type="hidden" id="theColumnCamelName" name=columnCamelName value="${requestMap.columnCamelName}">
@@ -54,12 +53,6 @@
 							<input type="hidden" id="pageNum" name="pageNum" value="1">
 							<input type="hidden" id="rowAmountPerPage" name="rowAmountPerPage" value="${pagingCreator.rowAmountPerPage}">
 							<div class="row">
-								<div class="col-md-4">
-									<div class="input-group mb-3">
-									    <span class="input-group-text">테이블메타일련번호</span>
-									    <input type="text" class="form-control" id="talbeMetaSno" name="talbeMetaSno" value="${requestMap.talbeMetaSno}">
-									</div>
-								</div>
 								<div class="col-md-4">
 									<div class="input-group mb-3">
 									    <span class="input-group-text">컬럼메타일련번호</span>

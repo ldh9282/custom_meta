@@ -41,7 +41,6 @@
 									<option value="100" ${pagingCreator.rowAmountPerPage == '100' ? 'selected' : ''}>100개</option>
 								</select>
 								</p>
-								<input type="hidden" id="theDomainSno" name="domainSno" value="${requestMap.domainSno}">
 								<input type="hidden" id="theTermSno" name="termSno" value="${requestMap.termSno}">
 								<input type="hidden" id="theTermName" name="termName" value="${requestMap.termName}">
 								<input type="hidden" id="theTermCamelName" name="termCamelName" value="${requestMap.termCamelName}">
@@ -51,12 +50,6 @@
 							<input type="hidden" id="pageNum" name="pageNum" value="1">
 							<input type="hidden" id="rowAmountPerPage" name="rowAmountPerPage" value="${pagingCreator.rowAmountPerPage}">
 							<div class="row">
-								<div class="col-md-4">
-									<div class="input-group mb-3">
-									    <span class="input-group-text">도메인일련번호</span>
-									    <input type="text" class="form-control" id="domainSno" name="domainSno" value="${requestMap.domainSno}">
-									</div>
-								</div>
 								<div class="col-md-4">
 									<div class="input-group mb-3">
 									    <span class="input-group-text">용어일련번호</span>
