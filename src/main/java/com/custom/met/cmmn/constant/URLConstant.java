@@ -18,11 +18,25 @@ public class URLConstant {
 	public static final String LOGIN_PAGE_URL = "/METLG01";
 	/**
 	 * <pre>
+	 * 변수명: LOGIN_PAGE_URL2
+	 * 설명: 로그인 페이지 URL2
+	 * </pre>
+	 */
+	public static final String LOGIN_PAGE_URL2 = "/METLG04";
+	/**
+	 * <pre>
 	 * 변수명: LOGIN_PROC_URL
 	 * 설명: 로그인 POST URL
 	 * </pre>
 	 */
 	public static final String LOGIN_PROC_URL = "/login";
+	/**
+	 * <pre>
+	 * 변수명: LOGIN_PROC_URL2
+	 * 설명: 로그인 POST URL2
+	 * </pre>
+	 */
+	public static final String LOGIN_PROC_URL2 = "/METLG05";
 	/**
 	 * <pre>
 	 * 변수명: LOGIN_SUCC_URL

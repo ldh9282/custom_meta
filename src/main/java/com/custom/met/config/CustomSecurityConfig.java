@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,10 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.custom.met.cmmn.constant.URLConstant;
+import com.custom.met.cmmn.security.filer.CustomJwtRequestFilter;
+import com.custom.met.cmmn.security.utils.JwtUtils;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -42,6 +46,9 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
 	@Autowired
 	private DataSource dataSource;
 	
+	@Autowired
+    private JwtUtils jwtUtils;
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -54,11 +61,22 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
         return tokenRepository;
     }
     
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    
+    @Bean
+    public CustomJwtRequestFilter customJwtRequestFilter() {
+        return new CustomJwtRequestFilter(jwtUtils, userDetailsService);
+    }
     
 	
     private static final String[] whiteList = {
     		URLConstant.STATIC_RESOURCE_PATH
     		, URLConstant.LOGIN_PAGE_URL
+    		, URLConstant.LOGIN_PAGE_URL2
+    		, URLConstant.LOGIN_PROC_URL2
     		, URLConstant.REGISTER_PAGE_URL
     		, URLConstant.REGISTER_PROC_URL
     		, "/v2/*"
@@ -73,6 +91,9 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
 			.antMatchers(whiteList).permitAll()
 			.anyRequest().authenticated();
 			
+		// jwt filter
+		http.addFilterBefore(customJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+		
 		// formLogin
 		http.formLogin()
 			.loginPage(URLConstant.LOGIN_PAGE_URL)

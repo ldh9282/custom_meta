@@ -7,7 +7,7 @@
 
 <%
 	
-	request.setAttribute("loginTime", StringUtils.NVL(session.getAttribute("loginTime").toString(), ""));
+	request.setAttribute("loginTime", StringUtils.NVL((String) session.getAttribute("loginTime"), ""));
 	
 %>    
 	<header id="header" class="header fixed-top d-flex align-items-center">

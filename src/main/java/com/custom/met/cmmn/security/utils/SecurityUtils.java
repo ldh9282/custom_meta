@@ -11,6 +11,17 @@ public class SecurityUtils {
 
 	/**
 	 * <pre>
+	 * 메소드명: isAuthenticated
+	 * 설명: 로그인여부 조회
+	 * </pre>
+	 * @return
+	 */
+	public static boolean isAuthenticated() {
+		return SecurityContextHolder.getContext().getAuthentication() != null; 
+	}
+	
+	/**
+	 * <pre>
 	 * 메소드명: getUsername
 	 * 설명: 회원명 조회
 	 * </pre>

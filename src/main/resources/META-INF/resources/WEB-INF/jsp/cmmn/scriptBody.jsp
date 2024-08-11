@@ -37,6 +37,7 @@
 	
 	function logout() {
 		alertUtils.showConfirm('로그아웃 하시겠습니까?', function() {
+			localStorage.removeItem('jwtToken');
 			gotoURL('logout');
     	});
 	}

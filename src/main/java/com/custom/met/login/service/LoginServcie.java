@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +16,22 @@ import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.security.service.MemberDao;
+import com.custom.met.cmmn.security.utils.JwtUtils;
 
 @Service
 public class LoginServcie {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtUtils jwtUtils;
 	
 	@Transactional
 	public CustomMap insertMemberDetail(CustomMap customMap) throws CustomException {
@@ -68,6 +79,25 @@ public class LoginServcie {
 		}
 		
 		resultMap.put("result", "success");
+		
+		return resultMap;
+	}
+
+
+	public CustomMap loginJwt(CustomMap customMap) throws CustomException {
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
+					new UsernamePasswordAuthenticationToken(customMap.getString("username"), customMap.getString("password"));
+			
+			Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+            
+			resultMap.put("jwtToken", jwtUtils.generateToken(authentication.getName()));
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR999, new String[] {"아이디 또는 비밀번호를 확인해주세요"}, e);
+		}
 		
 		return resultMap;
 	}
