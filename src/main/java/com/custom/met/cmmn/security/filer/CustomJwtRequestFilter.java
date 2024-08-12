@@ -17,6 +17,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.custom.met.cmmn.security.utils.JwtUtils;
 import com.custom.met.cmmn.security.utils.SecurityUtils;
 
+import io.jsonwebtoken.MalformedJwtException;
+
 public class CustomJwtRequestFilter extends OncePerRequestFilter  {
 
 	@Autowired
@@ -36,10 +38,12 @@ public class CustomJwtRequestFilter extends OncePerRequestFilter  {
 
         String username = null;
         String jwtToken = null;
+        
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwtToken = authorizationHeader.substring(7);
-            username = jwtUtils.extractUsername(jwtToken);
+            
+        	username = jwtUtils.extractUsername(jwtToken);
         }
 
         if (username != null && !SecurityUtils.isAuthenticated()) {

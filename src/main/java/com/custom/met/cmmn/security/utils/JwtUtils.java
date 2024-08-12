@@ -15,16 +15,28 @@ public class JwtUtils {
 	@Value("${jwt-secret-key}")
 	private String jwtSecretKey;
 	
-	@Value("${jwt-expiration-ms}")
-	private long jwtExpirationMs;
+	@Value("${jwt-access-expiration-ms}")
+	private long jwtAccessExpirationMs;
 	
-    public String generateToken(String username) {
+	@Value("${jwt-refresh-expiration-ms}")
+	private long jwtRefreshExpirationMs;
+	
+    public String generateAccessToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
+                .setExpiration(new Date(new Date().getTime() + jwtAccessExpirationMs))
                 .signWith(SignatureAlgorithm.HS256, jwtSecretKey)
                 .compact();
+    }
+    
+    public String generateRefreshToken(String username) {
+    	return Jwts.builder()
+    			.setSubject(username)
+    			.setIssuedAt(new Date())
+    			.setExpiration(new Date(new Date().getTime() + jwtRefreshExpirationMs))
+    			.signWith(SignatureAlgorithm.HS256, jwtSecretKey)
+    			.compact();
     }
 
     public Claims extractClaims(String token) {

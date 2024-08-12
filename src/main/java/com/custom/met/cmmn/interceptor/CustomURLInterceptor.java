@@ -92,7 +92,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+		isAjaxRequest = "application/json".equals(request.getHeader("Content-Type"));
 
         if (!isAjaxRequest && modelAndView != null) {
         	viewName = modelAndView.getViewName();

@@ -14,9 +14,9 @@ public class CustomExceptionHandler extends CustomController {
 
 	@ExceptionHandler(CustomException.class)
 	@ResponseBody
-	public Object handleException(HttpServletRequest httpServletRequest, CustomException e) {
+	public Object handleException(HttpServletRequest request, CustomException e) {
 		
-        boolean isAjaxRequest = "XMLHttpRequest".equals(httpServletRequest.getHeader("X-Requested-With"));
+		boolean isAjaxRequest = "application/json".equals(request.getHeader("Content-Type"));
 
         if (isAjaxRequest) {
             // AJAX 요청일 경우, response.header.status != 0000
