@@ -1,5 +1,11 @@
 package com.custom.met.cmmn.constant;
 
+/**
+ * <pre>
+ * 클래스명: URLConstant
+ * 설명: URL 매핑용 클래스
+ * </pre>
+ */
 public class URLConstant {
 
 	/**

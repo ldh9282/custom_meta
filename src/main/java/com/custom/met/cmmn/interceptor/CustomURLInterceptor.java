@@ -28,7 +28,6 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	private long endTime = 0L;
 	private String requsetUrl;
 	private String requsetMethod;
-	private boolean isAjaxRequest;
 	private String viewName;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -92,10 +91,11 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		isAjaxRequest = "application/json".equals(request.getHeader("Content-Type"));
 
-        if (!isAjaxRequest && modelAndView != null) {
+        if (modelAndView != null) {
         	viewName = modelAndView.getViewName();
+        } else {
+        	viewName = null;
         }
 	}
 
@@ -126,7 +126,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String methodName = handlerMethod.getMethod().getName();
 				
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session);
-				if (!isAjaxRequest && viewName != null) {
+				if (viewName != null) {
 					log.debug("<<< viewName  ::: " + viewName);
 				}
 				log.debug("<<< execution time  ::: " + (endTime - startTime) + "ms");

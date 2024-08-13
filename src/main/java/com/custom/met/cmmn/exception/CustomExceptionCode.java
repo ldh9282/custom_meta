@@ -1,5 +1,11 @@
 package com.custom.met.cmmn.exception;
 
+/**
+ * <pre>
+ * 클래스명: CustomExceptionCode
+ * 설명: 예외코드
+ * </pre>
+ */
 public enum CustomExceptionCode {
 	
 	/**

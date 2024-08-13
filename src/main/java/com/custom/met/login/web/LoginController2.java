@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.custom.met.cmmn.constant.CustomAuthCode;
 import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
+import com.custom.met.cmmn.security.utils.SecurityUtils;
 import com.custom.met.cmmn.utils.DateUtils;
 import com.custom.met.cmmn.web.CustomController;
 import com.custom.met.login.service.LoginServcie;
@@ -86,7 +88,7 @@ public class LoginController2 extends CustomController {
 			throw new CustomException(CustomExceptionCode.ERR999, new String[] {e.getMessage()}, e);
 		}
 		
-		return getResponse(resultMap);
+		return getAuthResponse(resultMap);
 	}
 	
 	@GetMapping("/v2/METLG06")
@@ -95,8 +97,9 @@ public class LoginController2 extends CustomController {
 		CustomMap resultMap = new CustomMap();
 		CustomMap requestMap = new CustomMap(map);
 		
-		resultMap.put("isAuthenticated", true);
+		if (log.isDebugEnabled()) { log.debug("METLG06 ::: " + requestMap); }
 		
-		return getResponse(resultMap);
+		
+		return getAuthResponse(resultMap, CustomAuthCode.A001);
 	}
 }

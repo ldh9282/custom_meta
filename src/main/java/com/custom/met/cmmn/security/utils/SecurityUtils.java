@@ -7,6 +7,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.custom.met.cmmn.constant.CustomAuthCode;
+
+/**
+ * <pre>
+ * 클래스명: SecurityUtils
+ * 설명: 시큐리티 유틸
+ * </pre>
+ */
 public class SecurityUtils {
 
 	/**
@@ -17,13 +25,39 @@ public class SecurityUtils {
 	 * @return
 	 */
 	public static boolean isAuthenticated() {
-		return SecurityContextHolder.getContext().getAuthentication() != null; 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication != null 
+		           && authentication.isAuthenticated()
+		           && !(authentication.getPrincipal() instanceof String 
+		                && "anonymousUser".equals(authentication.getPrincipal()));
+	}
+	
+	/**
+	 * <pre>
+	 * 메소드명: hasAuthorized
+	 * 설명: 권한여부 조회
+	 * </pre>
+	 * @param customAuthCode
+	 * @return
+	 */
+	public static boolean hasAuthorized(CustomAuthCode customAuthCode) {
+		List<String> authList = SecurityUtils.getAuthorities();
+		
+		boolean isAuthorized = false;
+		
+		for (String auth : authList) {
+			if (auth.equals(customAuthCode.getCodeName())) {
+				isAuthorized = true;
+			}
+		}
+		
+		return isAuthorized;
 	}
 	
 	/**
 	 * <pre>
 	 * 메소드명: getUsername
-	 * 설명: 회원명 조회
+	 * 설명: 로그인 아이디 조회
 	 * </pre>
 	 * @return
 	 */
@@ -41,7 +75,7 @@ public class SecurityUtils {
     /**
      * <pre>
      * 메소드명: getAuthorities
-     * 설명: 회원권한 목록조회
+     * 설명: 권한 목록조회
      * </pre>
      * @return
      */
