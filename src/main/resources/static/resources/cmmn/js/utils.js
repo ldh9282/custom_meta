@@ -146,12 +146,19 @@ const alertUtils = {
 			alert(message);
 		} else {
 	        $('#modal-body1').html(message.replace(/\n/g, '<br>'));
+	        // 모달 밖 클릭 허용
 	        var modal = new bootstrap.Modal(alertModal);
+	        // 모달 밖 클릭 방지할경우
+//	        var modal = new bootstrap.Modal(alertModal, {
+//	        	backdrop: 'static'
+//	        	, keyboard: false
+//		    });
 	        modal.show();
+	        // 모달 사라질경우 콜백
 	        if (callback) {
-		        $('#btnCloseAlertModal').off('click').one('click', function() {
-                	callback();
-            	})
+				$('#alertModal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+	            	callback();
+			    });
 			}
 		}
 	},
@@ -165,6 +172,7 @@ const alertUtils = {
 	        $('#modal-body2').html(message.replace(/\n/g, '<br>'));
 	        var modal = new bootstrap.Modal(alertModal);
 	        modal.show();
+	        // 확인 버튼시 콜백
 	        if (callback) {
 		        $('#btnConfirmAlertModal2').off('click').one('click', function() {
                 	callback();

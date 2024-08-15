@@ -296,8 +296,10 @@
 		    			, columnCamelName: $(this).find('.columnCamelName').val()
 		    			, columnSnakeName: $(this).find('.columnSnakeName').val()
 		    			, columnType: $(this).find('.columnType').val()
-		    			, termStdYn: $(this).find('.termSno').val() ? "1" : "0"
 		    			, termSno: $(this).find('.termSno').val()
+		    			, nullColumnYn: "0"
+		    			, pkColumnYn: "1"
+		    			, sysColumnYn: "0"
 		    		}
 	    			thePkColumnList.push(item);
 		    	});
@@ -309,8 +311,10 @@
 		    			, columnCamelName: $(this).find('.columnCamelName').val()
 		    			, columnSnakeName: $(this).find('.columnSnakeName').val()
 		    			, columnType: $(this).find('.columnType').val()
-		    			, termStdYn: $(this).find('.termSno').val() ? "1" : "0"
 	    				, termSno: $(this).find('.termSno').val()
+		    			, nullColumnYn: "1"
+		    			, pkColumnYn: "0"
+		    			, sysColumnYn: "0"
 		    		}
 		    		theColumnList.push(item);
 		    	});

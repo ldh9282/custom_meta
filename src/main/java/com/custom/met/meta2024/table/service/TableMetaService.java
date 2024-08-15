@@ -12,6 +12,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
+import com.custom.met.cmmn.security.utils.SecurityUtils;
+import com.custom.met.cmmn.utils.StringUtils;
 import com.custom.met.meta2024.column.service.ColumnMetaDao;
 import com.custom.met.meta2024.seq.service.SeqMetaDao;
 
@@ -31,14 +33,14 @@ public class TableMetaService {
 	
 	/**
 	 * <pre>
-	 * 메서드명: getTableMetaInfo
-	 * 설명: 테이블메타정보조회
+	 * 메서드명: getTableMetaDetail
+	 * 설명: 테이블메타 상세조회
 	 * </pre>
 	 * @param customMap
 	 * @return
 	 * @throws CustomException
 	 */
-	public CustomMap getTableMetaInfo(CustomMap customMap) throws CustomException {
+	public CustomMap getTableMetaDetail(CustomMap customMap) throws CustomException {
 		CustomMap resultMap = new CustomMap();
 		
 		CustomMap requestMap = new CustomMap();
@@ -47,14 +49,13 @@ public class TableMetaService {
 		
 		try {
 			CustomMap tableMetaInfo = tableMetaDao.selectTableMeta(requestMap);
+			List<CustomMap> tableColumnList = tableMetaDao.selectTableColumnList(requestMap);
 			
-			if (tableMetaInfo == null) {
-				throw new CustomException(CustomExceptionCode.ERR511, new String[] {"테이블메타일련번호 : " + requestMap.getString("tableMetaSno")});	
-			}
 			
-			requestMap.put("tableMetaInfo", tableMetaInfo);
+			resultMap.put("tableMetaInfo", tableMetaInfo);
+			resultMap.put("tableColumnList", tableColumnList);
 		} catch (Exception e) {
-			throw new CustomException(CustomExceptionCode.ERR511, new String[] {"테이블메타일련번호 : " + requestMap.getString("tableMetaSno")});
+			throw new CustomException(CustomExceptionCode.ERR511, new String[] { "테이블메타 상세조회" }, e);
 		}
 		return resultMap;
 	}
@@ -114,8 +115,10 @@ public class TableMetaService {
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
 				requestMap.put("columnType", item.getString("columnType"));
-				requestMap.put("termStdYn", item.getString("termStdYn"));
 				requestMap.put("termSno", item.getString("termSno"));
+				requestMap.put("nullColumnYn", item.getString("nullColumnYn"));
+				requestMap.put("pkColumnYn", item.getString("pkColumnYn"));
+				requestMap.put("sysColumnYn", item.getString("sysColumnYn"));
 				
 				
 				columnMetaDao.insertColumnMeta(requestMap);
@@ -127,28 +130,32 @@ public class TableMetaService {
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
 				requestMap.put("columnType", item.getString("columnType"));
-				requestMap.put("termStdYn", item.getString("termStdYn"));
 				requestMap.put("termSno", item.getString("termSno"));
+				requestMap.put("nullColumnYn", item.getString("nullColumnYn"));
+				requestMap.put("pkColumnYn", item.getString("pkColumnYn"));
+				requestMap.put("sysColumnYn", item.getString("sysColumnYn"));
 				
 				
 				columnMetaDao.insertColumnMeta(requestMap);
 			}
 			
-			List<CustomMap> defaultColumnList = Arrays.asList(
-					createColumnMap("시스템생성자", "sysCreator", "SYS_CREATOR", "CHARACTER VARYING(200)"),
-					createColumnMap("시스템수정자", "sysModifier", "SYS_MODIFIER", "CHARACTER VARYING(200)"),
-					createColumnMap("시스템생성일", "sysCreatedAt", "SYS_CREATED_AT", "TIMESTAMP WITHOUT TIME ZONE"),
-					createColumnMap("시스템수정일", "sysModifiedAt", "SYS_MODIFIED_AT", "TIMESTAMP WITHOUT TIME ZONE")
+			List<CustomMap> sysColumnList = Arrays.asList(
+					createSysColumnMap("시스템생성자", "sysCreator", "SYS_CREATOR", "CHARACTER VARYING(200)"),
+					createSysColumnMap("시스템수정자", "sysModifier", "SYS_MODIFIER", "CHARACTER VARYING(200)"),
+					createSysColumnMap("시스템생성일", "sysCreatedAt", "SYS_CREATED_AT", "TIMESTAMP WITHOUT TIME ZONE"),
+					createSysColumnMap("시스템수정일", "sysModifiedAt", "SYS_MODIFIED_AT", "TIMESTAMP WITHOUT TIME ZONE")
 					);
-			for (CustomMap item : defaultColumnList) {
+			for (CustomMap item : sysColumnList) {
 				CustomMap columnMetaSnoMap = columnMetaDao.selectColumnMetaSno();
 				requestMap.put("columnMetaSno", columnMetaSnoMap.getString("columnMetaSno"));
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
 				requestMap.put("columnType", item.getString("columnType"));
-				requestMap.put("termStdYn", item.getString("termStdYn"));
 				requestMap.put("termSno", item.getString("termSno"));
+				requestMap.put("nullColumnYn", item.getString("nullColumnYn"));
+				requestMap.put("pkColumnYn", item.getString("pkColumnYn"));
+				requestMap.put("sysColumnYn", item.getString("sysColumnYn"));
 				
 				
 				columnMetaDao.insertColumnMeta(requestMap);
@@ -201,22 +208,24 @@ public class TableMetaService {
 	
 	/**
 	 * <pre>
-	 * 메서드명: createColumnMap
-	 * 설명: 컬럼맵 생성
+	 * 메서드명: createSysColumnMap
+	 * 설명: 시스템컬럼맵 생성
 	 * </pre>
 	 * @param columnName
 	 * @param columnCamelName
 	 * @param columnSnakeName
 	 * @return
 	 */
-	private CustomMap createColumnMap(String columnName, String columnCamelName, String columnSnakeName, String columnType) {
+	private CustomMap createSysColumnMap(String columnName, String columnCamelName, String columnSnakeName, String columnType) {
 	    CustomMap column = new CustomMap();
 	    column.put("columnName", columnName);
 	    column.put("columnCamelName", columnCamelName);
 	    column.put("columnSnakeName", columnSnakeName);
 	    column.put("columnType", columnType);
-	    column.put("termStdYn", "1");
 	    column.put("termSno", "");
+	    column.put("nullColumnYn", "0");
+	    column.put("pkColumnYn", "0");
+	    column.put("sysColumnYn", "1");
 	    return column;
 	}
 
@@ -293,6 +302,102 @@ public class TableMetaService {
 			tableMetaDao.deleteTableMetaInfo(customMap);
 		} catch (Exception e) {
 			throw new CustomException(CustomExceptionCode.ERR541, new String[] {"테이블메타정보"}, e);
+		}
+		
+		return resultMap;
+	}
+
+	/**
+	 * <pre>
+	 * 메서드명: updateTableMetaInfo
+	 * 설명: 테이블메타정보 수정
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@Transactional
+	public CustomMap updateTableMetaInfo(CustomMap customMap) throws CustomException {
+		CustomMap resultMap = new CustomMap();
+		
+		CustomMap requestMap = new CustomMap();
+		
+		requestMap.put("tableMetaSno", customMap.getString("tableMetaSno"));
+		requestMap.put("tableDesc", customMap.getString("tableDesc"));
+		List<CustomMap> pkColumnList = customMap.getCustomMapList("pkColumnList");
+		List<CustomMap> columnList = customMap.getCustomMapList("columnList");
+		requestMap.put("sysModifier", StringUtils.NVL(SecurityUtils.getUsername(), "SYSTEM"));
+		
+		try {
+			CustomMap tableMeta = tableMetaDao.selectTableMeta(requestMap);
+			requestMap.put("schemaName", tableMeta.getString("schemaName"));
+			requestMap.put("tableName", tableMeta.getString("tableName"));
+			for (CustomMap item : pkColumnList) {
+				requestMap.put("columnMetaSno", item.getString("columnMetaSno"));
+				requestMap.put("columnName", item.getString("columnName"));
+				requestMap.put("columnCamelName", item.getString("columnCamelName"));
+				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
+				requestMap.put("columnType", item.getString("columnType"));
+				requestMap.put("termSno", item.getString("termSno"));
+				requestMap.put("nullColumnYn", item.getString("nullColumnYn"));
+				requestMap.put("pkColumnYn", item.getString("pkColumnYn"));
+				requestMap.put("sysColumnYn", item.getString("sysColumnYn"));
+				
+				
+				CustomMap columnMeta = columnMetaDao.selectColumnMetaInfo(requestMap);
+				requestMap.put("oldColumnName", columnMeta.getString("columnName"));
+				requestMap.put("oldColumnType", columnMeta.getString("columnType"));
+				
+				boolean isUpdateColumn = false;
+				if (!requestMap.getString("oldColumnName").equals(requestMap.getString("columnName"))) {
+					columnMetaDao.alterColumnName(requestMap);
+					isUpdateColumn = true;
+				}
+				if (!requestMap.getString("oldColumnType").equals(requestMap.getString("columnType"))) {
+					columnMetaDao.alterColumnType(requestMap);
+					isUpdateColumn = true;
+				}
+				
+				if (isUpdateColumn) {
+					
+					columnMetaDao.updateColumnMetaInfo(requestMap);
+				}
+				
+			}
+			for (CustomMap item : columnList) {
+				requestMap.put("columnMetaSno", item.getString("columnMetaSno"));
+				requestMap.put("columnName", item.getString("columnName"));
+				requestMap.put("columnCamelName", item.getString("columnCamelName"));
+				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
+				requestMap.put("columnType", item.getString("columnType"));
+				requestMap.put("termSno", item.getString("termSno"));
+				requestMap.put("nullColumnYn", item.getString("nullColumnYn"));
+				requestMap.put("pkColumnYn", item.getString("pkColumnYn"));
+				requestMap.put("sysColumnYn", item.getString("sysColumnYn"));
+				
+				
+				CustomMap columnMeta = columnMetaDao.selectColumnMetaInfo(requestMap);
+				requestMap.put("oldColumnName", columnMeta.getString("columnName"));
+				requestMap.put("oldColumnType", columnMeta.getString("columnType"));
+				
+				boolean isUpdateColumn = false;
+				if (!requestMap.getString("oldColumnName").equals(requestMap.getString("columnName"))) {
+					columnMetaDao.alterColumnName(requestMap);
+					isUpdateColumn = true;
+				}
+				if (!requestMap.getString("oldColumnType").equals(requestMap.getString("columnType"))) {
+					columnMetaDao.alterColumnType(requestMap);
+					isUpdateColumn = true;
+				}
+				
+				if (isUpdateColumn) {
+					
+					columnMetaDao.updateColumnMetaInfo(requestMap);
+				}
+				
+			}
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR531, new String[] {"테이블메타정보"}, e);
 		}
 		
 		return resultMap;

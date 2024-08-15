@@ -154,6 +154,10 @@
 
 		$(document).ready(function() {
 			
+			$("#tbody tr .rownum").click(function() {
+				let tableMetaSno = $(this).find('input[name=tableMetaSno]').val();
+				gotoURL('METTB03?tableMetaSno=' + tableMetaSno);
+		   });
 			
 			$("#theRowAmountPerPage").change(function() {
 				

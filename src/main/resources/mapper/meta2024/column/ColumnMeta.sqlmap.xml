@@ -16,8 +16,10 @@
 		        컬럼카멜명,
 		        컬럼스네이크명,
 		        컬럼타입,
-		        용어표준여부,
 		        용어일련번호,
+		        널컬럼여부,
+		        기본키컬럼여부,
+		        시스템컬럼여부,
 		        시스템생성자,
 		        시스템수정자,
 		        시스템생성일,
@@ -31,8 +33,10 @@
 		    #{columnCamelName}, 
 		    #{columnSnakeName}, 
 		    #{columnType}, 
-		    COALESCE(#{termStdYn}, '0'), 
 		    #{termSno}, 
+		    COALESCE(#{nullColumnYn}, '1'), 
+		    COALESCE(#{pkColumnYn}, '0'), 
+		    COALESCE(#{sysColumnYn}, '0'), 
 		    #{sysCreator}, 
 		    #{sysCreator}, 
 		    now(), 
@@ -47,8 +51,10 @@
 		    컬럼카멜명 AS COLUMN_CAMEL_NAME,
 		    컬럼스네이크명 AS COLUMN_SNAKE_NAME,
 		    컬럼타입 AS COLUMN_TYPE,
-		    용어표준여부 AS TERM_STD_YN,
 		    용어일련번호 AS TERM_SNO,
+		    널컬럼여부 AS TERM_SNO,
+		    기본키컬럼여부 AS TERM_SNO,
+		    시스템컬럼여부 AS TERM_SNO,
 		    시스템생성자 AS SYS_CREATOR,
 		    시스템수정자 AS SYS_MODIFIER,
 		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
@@ -71,7 +77,6 @@
 			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
 			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
 			, TB004.컬럼타입 AS COLUMN_TYPE
-		    , TB004.용어표준여부 AS TERM_STD_YN
 		    , TB004.용어일련번호 AS TERM_SNO
 			, TO_CHAR(TB004.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
 			, TO_CHAR(TB004.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
@@ -98,8 +103,10 @@
 			, TB004.컬럼명 AS COLUMN_NAME
 			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
 			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
-			, TB004.컬럼타입 AS COLUMN_TYPE
-		    , TB004.용어표준여부 AS TERM_STD_YN
+			, TB004.널컬럼여부 AS NULL_COLUMN_YN
+			, TB004.기본키컬럼여부 AS PK_COLUMN_YN
+			, TB004.시스템컬럼여부 AS SYS_COLUMN_YN
+		    , TB004.용어일련번호 AS TERM_SNO
 		    , TB004.용어일련번호 AS TERM_SNO
 			, TO_CHAR(TB004.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
 			, TO_CHAR(TB004.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
@@ -183,11 +190,17 @@
 		<if test="columnType != null and columnType != ''">
 		, 컬럼타입 = #{columnType}
 		</if>
-		<if test="termStdYn != null and termStdYn != ''">
-		, 용어표준여부 = #{termStdYn}
-		</if>
 		<if test="termSno != null and termSno != ''">
 		, 용어일련번호 = #{termSno}
+		</if>
+		<if test="nullColumnYn != null and nullColumnYn != ''">
+		, 널컬럼여부 = #{nullColumnYn}
+		</if>
+		<if test="pkColumnYn != null and pkColumnYn != ''">
+		, 기본키컬럼여부 = #{pkColumnYn}
+		</if>
+		<if test="sysColumnYn != null and sysColumnYn != ''">
+		, 시스템컬럼여부 = #{sysColumnYn}
 		</if>
 		, 시스템수정일 = now()
 		WHERE 1 = 1
@@ -198,6 +211,10 @@
 	
 	<update id="alterColumnName" parameterType="CustomMap">
 		ALTER /* ColumnMeta.alterColumnName */ TABLE ${schemaName}.${tableName} RENAME COLUMN ${oldColumnName} TO ${columnName}
+	</update>
+	
+	<update id="alterColumnType" parameterType="CustomMap">
+		ALTER /* ColumnMeta.alterColumnType */ TABLE ${schemaName}.${tableName} ALTER COLUMN ${columnName} TYPE ${columnType}
 	</update>
 	
 	<update id="deleteColumnMetaInfo" parameterType="CustomMap">

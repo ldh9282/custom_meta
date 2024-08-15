@@ -98,6 +98,32 @@
 		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER  
 	</select>
 	
+	<select id="selectTableColumnList" parameterType="CustomMap" resultType="CustomMap">
+		SELECT /* TableMeta.selectTableColumnList */
+			TB003.테이블메타일련번호 AS TABLE_META_SNO
+			, TB004.컬럼메타일련번호 AS COLUMN_META_SNO
+			, TB003.스키마명 AS SCHEMA_NAME
+			, TB003.테이블명 AS TABLE_NAME
+			, TB003.테이블설명 AS TABLE_DESC
+			, TB004.컬럼명 AS COLUMN_NAME
+			, TB004.컬럼카멜명 AS COLUMN_CAMEL_NAME
+			, TB004.컬럼스네이크명 AS COLUMN_SNAKE_NAME
+			, TB004.컬럼타입 AS COLUMN_TYPE
+		    , TB004.용어일련번호 AS TERM_SNO
+		    , TB004.널컬럼여부 AS NULL_COLUMN_YN
+		    , TB004.기본키컬럼여부 AS PK_COLUMN_YN
+		    , TB004.시스템컬럼여부 AS SYS_COLUMN_YN
+			, TB004.시스템생성자 AS SYS_CREATOR
+		    , TB004.시스템수정자 AS SYS_MODIFIER
+			, TO_CHAR(TB004.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
+			, TO_CHAR(TB004.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
+		FROM 
+			META.TB003 TB003, 
+			META.TB004 TB004
+		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
+		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER  
+	</select>
+	
 	<update id="createTable" parameterType="CustomMap">
 		CREATE TABLE ${schemaName}.${tableName} /* TableMeta.createTable */
 		(

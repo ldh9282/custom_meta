@@ -105,8 +105,8 @@ public class TableMetaController extends CustomController {
 		CustomMap requestMap = new CustomMap();
 		try {
 			requestMap.put("tableMetaSno", tableMetaSno);
-			CustomMap tableMetaInfo = tableMetaService.getTableMetaInfo(requestMap);
-			modelAndView.addObject("tableMetaInfo", tableMetaInfo);
+			CustomMap detail = tableMetaService.getTableMetaDetail(requestMap);
+			modelAndView.addObject("detail", detail);
 		} catch (CustomException e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		} catch (Exception e) {
@@ -159,6 +159,32 @@ public class TableMetaController extends CustomController {
 		
 		try {
 			tableMetaService.deleteTableMetaInfo(customMap);
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		}
+		
+		return getResponse(resultMap);
+	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: mettb06
+	 * 설명: 테이블메타 수정요청
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@PostMapping("/METTB06")
+	@ResponseBody
+	public Object mettb06(@RequestBody CustomMap customMap) throws CustomException {
+		if (log.isDebugEnabled()) {log.debug(customMap);}
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			tableMetaService.updateTableMetaInfo(customMap);
 		} catch (CustomException e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		} catch (Exception e) {

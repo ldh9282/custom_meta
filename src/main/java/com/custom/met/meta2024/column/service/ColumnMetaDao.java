@@ -86,6 +86,18 @@ public class ColumnMetaDao {
 	
 	/**
 	 * <pre>
+	 * 메서드명: alterColumnType
+	 * 설명: 컬럼타입 수정
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 */
+	public int alterColumnType(CustomMap customMap) {
+		return sst.update("ColumnMeta.alterColumnType", customMap);
+	}
+	
+	/**
+	 * <pre>
 	 * 메서드명: deleteColumnMetaInfo
 	 * 설명: 컬럼메타기본정보삭제
 	 * </pre>

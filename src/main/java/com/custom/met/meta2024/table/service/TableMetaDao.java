@@ -51,6 +51,18 @@ public class TableMetaDao {
 	
 	/**
 	 * <pre>
+	 * 메서드명: selectTableColumnList
+	 * 설명: 테이블컬럼 목록조회
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 */
+	public List<CustomMap> selectTableColumnList(CustomMap customMap) {
+		return sst.selectList("TableMeta.selectTableColumnList", customMap);
+	}
+	
+	/**
+	 * <pre>
 	 * 메서드명: createTable
 	 * 설명: 테이블생성
 	 * </pre>
@@ -133,4 +145,5 @@ public class TableMetaDao {
 	public int deleteTableMetaInfo(CustomMap customMap) {
 		return sst.update("TableMeta.deleteTableMetaInfo", customMap);
 	}
+	
 }

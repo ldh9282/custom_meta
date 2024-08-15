@@ -109,21 +109,21 @@ public class TableMetaController2 extends CustomController {
 	 * @throws CustomException
 	 */
 	@GetMapping("/v2/METTB03")
-	public ModelAndView mettb03(@RequestParam String tableMetaSno, ModelAndView modelAndView) throws CustomException {
-		
+	@ResponseBody
+	public Object mettb03(@RequestParam String tableMetaSno) throws CustomException {
+		CustomMap resultMap = new CustomMap();
 		CustomMap requestMap = new CustomMap();
 		try {
 			requestMap.put("tableMetaSno", tableMetaSno);
-			CustomMap tableMetaInfo = tableMetaService.getTableMetaInfo(requestMap);
-			modelAndView.addObject("tableMetaInfo", tableMetaInfo);
+			CustomMap detail = tableMetaService.getTableMetaDetail(requestMap);
+			resultMap.put("detail", detail);
 		} catch (CustomException e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		} catch (Exception e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		}
 		
-		modelAndView.setViewName("meta2024/table/tableMetaDetail");
-		return modelAndView;
+		return getResponse(resultMap);
 	}
 	
 	/**
@@ -168,6 +168,32 @@ public class TableMetaController2 extends CustomController {
 		
 		try {
 			tableMetaService.deleteTableMetaInfo(customMap);
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		} catch (Exception e) {
+			throw new CustomException(CustomExceptionCode.ERR500);
+		}
+		
+		return getResponse(resultMap);
+	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: mettb06
+	 * 설명: 테이블메타 수정요청
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 * @throws CustomException
+	 */
+	@PostMapping("/v2/METTB06")
+	@ResponseBody
+	public Object mettb06(@RequestBody CustomMap customMap) throws CustomException {
+		if (log.isDebugEnabled()) {log.debug(customMap);}
+		CustomMap resultMap = new CustomMap();
+		
+		try {
+			tableMetaService.updateTableMetaInfo(customMap);
 		} catch (CustomException e) {
 			throw new CustomException(CustomExceptionCode.ERR500);
 		} catch (Exception e) {

@@ -20,7 +20,7 @@
 		<div class="card info-card sidebar-card">
 			<div class="card-body">
 				<div class="card-title">
-					<div class="h6 mb-3">${username}님, 안녕하세요</div>
+					<div class="h6 mb-3">${username}님 안녕하세요</div>
 					<div class="h6"><timer-element></timer-element></div>
 				</div>
 				<div onclick="logout();">
