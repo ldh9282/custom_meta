@@ -2,7 +2,6 @@ package com.custom.met.cmmn.security.filer;
 
 import java.io.IOException;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,6 @@ import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.security.utils.JwtUtils;
 import com.custom.met.cmmn.security.utils.SecurityUtils;
 
-import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.log4j.Log4j2;
 
 /**

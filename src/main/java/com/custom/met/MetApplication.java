@@ -23,15 +23,9 @@ public class MetApplication {
 		SpringApplication.run(MetApplication.class, args);
 	}
 	
-	
-	
-	private long startTime = 0L;
-	private long endTime = 0L;
-	
 	@Bean
 	public CommandLineRunner commandLineRunner(String[] args) {
 		return runner -> {
-			startTime = System.currentTimeMillis();
 			if (log.isDebugEnabled()) { log.debug(CmmnUtils.getServerIP() +  ":" + CmmnUtils.getServerPort() + CmmnUtils.getContextPath()); }
 			if (log.isDebugEnabled()) { log.debug("localhost" +  ":" + CmmnUtils.getServerPort() + CmmnUtils.getContextPath()); }
 			if (log.isDebugEnabled()) { log.debug("서버구동이 시작되었습니다"); }
@@ -39,13 +33,14 @@ public class MetApplication {
 		};
 	}
 	
+	
 	@Bean
 	public ApplicationListener<ContextClosedEvent> applicationListener()  {
 		return new ApplicationListener<ContextClosedEvent>() {
             @Override
             public void onApplicationEvent(ContextClosedEvent event) {
-            	
-            	endTime = System.currentTimeMillis();
+            	long startTime = event.getApplicationContext().getStartupDate();
+            	long endTime = System.currentTimeMillis();
             	Instant startTimeInstance = Instant.ofEpochMilli(startTime);
             	Instant endTimeInstance = Instant.ofEpochMilli(endTime);
                 

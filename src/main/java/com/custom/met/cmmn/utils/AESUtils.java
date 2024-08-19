@@ -15,7 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * <pre>
- * 클래스명: AESUtil
+ * 클래스명: AESUtils
  * 설명: AES 양방향 암호화유틸
  * </pre>
  */

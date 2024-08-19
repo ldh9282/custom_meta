@@ -1,6 +1,5 @@
 package com.custom.met.cmmn.interceptor;
 
-import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +9,6 @@ import org.slf4j.MDC;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.custom.met.cmmn.utils.DateUtils;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,15 +21,11 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class CustomURLInterceptor implements HandlerInterceptor {
 
-	private long startTime = 0L;
-	private long endTime = 0L;
-	private String requsetUrl;
-	private String requsetMethod;
-	private String viewName;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
+		request.setAttribute("startTime", startTime);
 		
 		
 		String url = request.getRequestURL().toString();
@@ -60,8 +53,10 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String methodName = handlerMethod.getMethod().getName();
 				
 				String theRequestUrl = request.getRequestURI().substring(1);
-				requsetUrl = theRequestUrl + queryString;
-				requsetMethod = method;
+				String requestUrl = theRequestUrl + queryString;
+				request.setAttribute("requestUrl", requestUrl);
+				String requestMethod = method;
+				request.setAttribute("requestMethod", requestMethod);
 				
 				String identifier = theRequestUrl.length() < 12 ? theRequestUrl : theRequestUrl.substring(0, 11);
 				MDC.put("identifier", identifier);
@@ -76,8 +71,9 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				}
 				
 			} catch (Exception e) {
+				String requestUrl = (String) request.getAttribute("requestUrl");
 				log.debug(">>> Exception ::: " + e.getMessage());
-				log.debug(">>> error request ::: url ::: " + requsetUrl);
+				log.debug(">>> error request ::: url ::: " + requestUrl);
 			}
 		}
 		
@@ -91,12 +87,15 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-
+		String viewName;
+		
         if (modelAndView != null) {
         	viewName = modelAndView.getViewName();
         } else {
         	viewName = null;
         }
+        
+        request.setAttribute("viewName", viewName);
 	}
 
 
@@ -107,7 +106,8 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 		String ip = request.getRemoteAddr().toString();
 		String session = request.getSession().getId();
 		
-		endTime = System.currentTimeMillis();
+		long startTime = (long) request.getAttribute("startTime");
+		long endTime = System.currentTimeMillis();
 		if (log.isDebugEnabled()
 				&& url.indexOf(request.getContextPath() + "/resources") == -1
 				&& url.indexOf(request.getContextPath() + "/error") == -1
@@ -126,15 +126,18 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String methodName = handlerMethod.getMethod().getName();
 				
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session);
+				String viewName = (String) request.getAttribute("viewName");
 				if (viewName != null) {
 					log.debug("<<< viewName  ::: " + viewName);
 				}
+				
 				log.debug("<<< execution time  ::: " + (endTime - startTime) + "ms");
 				log.debug("<<< End Controller ::: " + className + "." + methodName);
 				
 			} catch (Exception e) {
+				String requestUrl = (String) request.getAttribute("requestUrl");
 				log.debug("<<< Exception ::: " + e.getMessage());
-				log.debug("<<< error request ::: url ::: " + requsetUrl);
+				log.debug("<<< error request ::: url ::: " + requestUrl);
 			}
 		}
 	}
