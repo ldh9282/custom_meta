@@ -24,6 +24,7 @@
 			
 // 			$(this).css({ "background-color": "" });
 		});
+		
 	});
 	
 	function gotoURL(url) {

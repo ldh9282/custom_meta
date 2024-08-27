@@ -1,0 +1,120 @@
+/*--------------------------------------------------------------
+# Custom
+--------------------------------------------------------------*/
+/* Start 사이드바 */
+.sidebar-logout {
+	font-size: 14px;
+	color: #212529;
+}
+
+/* End 사이드바 */
+
+/* Start searchResults */
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+#searchResults .selected {
+    background-color: #d3d3d3 !important;
+}
+#searchResults {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.searchResult {
+    display: flex;
+    flex-direction: column;
+}
+.searchResult .domainSno {
+    display: none;
+}
+.searchResult .domainName {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+.searchResult .domainType {
+    color: #6c757d;
+    display: block;
+    margin-bottom: 4px;
+}
+.searchResult .termSno {
+    display: none;
+}
+.searchResult .termName {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+.searchResult .termCamelName {
+    color: #6c757d;
+    display: block;
+    margin-bottom: 4px;
+}
+.searchResult .termSnakeName {
+    color: #adb5bd;
+    display: block;
+    margin-bottom: 4px;
+}
+.searchResult .domainType {
+    color: #6c757d;
+    display: block;
+    margin-bottom: 4px;
+}
+.btnSelectColumn {
+    margin-left: auto; /* 버튼을 오른쪽으로 정렬 */
+}
+/* End searchResults */
+
+/* Start topBtn */
+#topBtn {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #444;
+    border-color: #444;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 40px;
+    border: none;
+    box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#topBtn:hover {
+    transform: scale(1.1);
+}
+
+#topBtn.show {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }	
+	to { opacity: 1; }	
+}
+
+/* End topBtn */
+
+/* Start bootstrap modal open 시 스크롤 사라짐 및 padding-right 17px 이슈 처리 */
+body {
+	overflow-y: scroll !important; /* 스크롤 유지 */
+	padding-right: 0 !important; /* padding-right 유지 */
+}
+
+header {
+	padding-right: 0 !important;
+}
+/* end bootstrap modal open 시 스크롤 사라짐 및 padding-right 17px 이슈 처리 */

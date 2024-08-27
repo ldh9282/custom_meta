@@ -19,6 +19,7 @@
 	<!-- NiceAdmin: Template Main CSS File -->
 	<link href="${pageContext.request.contextPath}/resources/NiceAdmin/assets/css/style.css" rel="stylesheet">
 	
+	
 	<!-- toast-grid -->
 	<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 	
@@ -27,3 +28,6 @@
 	
 	<!-- toast-grid-pagination -->
 	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+	
+	<!-- index CSS File -->
+	<link href="${pageContext.request.contextPath}/resources/cmmn/css/basic.css?2024082721" rel="stylesheet">
