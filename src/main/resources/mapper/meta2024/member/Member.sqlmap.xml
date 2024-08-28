@@ -12,8 +12,8 @@
 	</select>
 	
 	<select id="selectMember" parameterType="CustomMap" resultType="CustomMap">
-		SELECT /* Member.selectMember */ 
-			회원일련번호 AS MEM_SNO,
+		SELECT /* Member.selectMember */
+		    회원일련번호 AS MEM_SNO,
 		    회원아이디 AS MEM_ID,
 		    회원비밀번호 AS MEM_PW,
 		    시스템생성자 AS SYS_CREATOR,

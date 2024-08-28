@@ -25,7 +25,7 @@
 	
 	        <security:authorize access="isAuthenticated()">
 	        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-	          	<img src="${pageContext.request.contextPath}/resources/OnePage/assets/img/user-profile/user-profile-c.png" width="30" height="30" alt="Profile" class="rounded-circle">
+	          	<img src="${pageContext.request.contextPath}/resources/OnePage/assets/img/user-profile/user-profile-a.png" width="30" height="30" alt="Profile" class="rounded-circle">
 	          	<security:authentication var="principal" property="principal"/>
 	          	<span id="name" class="d-none d-md-block dropdown-toggle ps-2">${principal.username}</span>
 	        </a><!-- End Profile Image Icon -->
