@@ -11,8 +11,7 @@ class TimerElement extends HTMLElement {
         const shadow = this.attachShadow({ mode: "open" });
 
         this.state = {
-			name: this.getAttribute("name")
-            , time: TimerElement.getTimestamp()
+			time: TimerElement.getTimestamp()
         };
 
         this.renderAll();
@@ -29,8 +28,7 @@ class TimerElement extends HTMLElement {
     renderAll() {
         const shadow = this.shadowRoot;
 
-        let html = `<span id="timer">${this.state.time}</span>`;
-        shadow.innerHTML = html;
+        shadow.innerHTML = this.state.time;
 
         setInterval(this.handleTimer.bind(this), 1000);
     }
@@ -50,7 +48,7 @@ class TimerElement extends HTMLElement {
      */
     renderTime() {
         const shadow = this.shadowRoot;
-        $(shadow).find("#timer").text(this.state.time);
+        shadow.innerHTML = this.state.time;
     }
 
     /**

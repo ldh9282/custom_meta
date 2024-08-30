@@ -110,12 +110,7 @@
 								<tbody id="tbody">
 									<c:forEach var="termInfo" varStatus="termInfoStatus" items="${termInfoList}">
 										<tr>
-											<td class="rownum text-center" >
-												<input type="hidden" name="domainSno" value="${termInfo.domainSno}">
-												<input type="hidden" name="termSno" value="${termInfo.termSno}">
-												<%-- 
-												<c:out value="${(param.pageNum - 1) * param.rowAmountPerPage + seqMetaInfoStatus.index+1}" />
-												--%>
+											<td class="text-center" >
 												<c:out value="${termInfo.termSno}" />
 											</td>
 											<td class="text-center">

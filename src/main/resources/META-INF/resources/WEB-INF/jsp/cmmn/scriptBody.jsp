@@ -4,28 +4,6 @@
 	<jsp:include page="/WEB-INF/jsp/cmmn/alertModal.jsp"></jsp:include>
 	
 	<script>
-	$(document).ready(function() {
-		 $(document).on('keydown', function(event) {
-            if (event.altKey && event.key === '1') {
-				gotoURL('METTB02');                	
-            } else if (event.altKey && event.key === '2') {
-				gotoURL('METCU01');                	
-            } else if (event.altKey && event.key === '3') {
-				gotoURL('METCE01');                	
-            }
-		 });
-		 
-		$("#tbody tr").hover(function() {
-			$(this).find('.rownum').css({ "text-decoration": "underline" });
-// 			$(this).css({ "background-color": "lightgray" })
-			
-		}, function() {
-			$(this).find('.rownum').css({ "text-decoration-line" : "none" });
-			
-// 			$(this).css({ "background-color": "" });
-		});
-		
-	});
 	
 	function gotoURL(url) {
 		window.location.href = '${pageContext.request.contextPath}/' + url; 

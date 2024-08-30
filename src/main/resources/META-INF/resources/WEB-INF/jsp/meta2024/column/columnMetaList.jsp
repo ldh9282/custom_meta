@@ -113,7 +113,8 @@
 									<col style="width: 15%;"/>
 									<col style="width: 25%;"/>
 									<col style="width: 15%;"/>
-									<col style="width: 25%;"/>
+									<col style="width: 15%;"/>
+									<col style="width: 15%;"/>
 									<col style="width: auto;"/>
 								</colgroup>
 								<thead>
@@ -123,18 +124,14 @@
 										<th scope="col" class="text-center">스키마명</th>
 										<th scope="col" class="text-center">테이블명</th>
 										<th scope="col" class="text-center">테이블설명</th>
+										<th scope="col" class="text-center">컬럼상세</th>
 									</tr>
 								</thead>
 		
 								<tbody id="tbody">
 									<c:forEach var="columnMetaInfo" varStatus="columnMetaInfoStatus" items="${columnMetaInfoList}">
 										<tr>
-											<td class="rownum text-center" >
-												<input type="hidden" name="tableMetaSno" value="${columnMetaInfo.tableMetaSno}">
-												<input type="hidden" name="columnMetaSno" value="${columnMetaInfo.columnMetaSno}">
-												<%-- 
-												<c:out value="${(param.pageNum - 1) * param.rowAmountPerPage + columnMetaInfoStatus.index+1}" />
-												--%>
+											<td class="text-center" >
 												<c:out value="${columnMetaInfo.columnMetaSno}" />
 											</td>
 											<td class="text-center">
@@ -148,6 +145,9 @@
 											</td>
 											<td class="text-center">
 												<c:out value="${columnMetaInfo.tableDesc}" />
+											</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-success" onclick="gotoURL('METCU02?tableMetaSno=${columnMetaInfo.tableMetaSno}&columnMetaSno=${columnMetaInfo.columnMetaSno}');">상세</button>
 											</td>
 										</tr>
 	
@@ -176,13 +176,6 @@
 
 		$(document).ready(function() {
 			
-			$("#tbody tr .rownum").click(function() {
-				let tableMetaSno = $(this).find('input[name=tableMetaSno]').val();
-				let columnMetaSno = $(this).find('input[name=columnMetaSno]').val();
-				gotoURL('METCU02?tableMetaSno=' + tableMetaSno + '&columnMetaSno=' + columnMetaSno);
-		   });
-
-
 			$("#theRowAmountPerPage").change(function() {
 				
 				$("#thePageNum").val(1)

@@ -5,11 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
-<%
-	
-	request.setAttribute("loginTime", StringUtils.NVL((String) session.getAttribute("loginTime"), ""));
-	
-%>    
 	<header id="header" class="header fixed-top d-flex align-items-center">
 	  <div class="d-flex align-items-center justify-content-between">
 	    <a href="${pageContext.request.contextPath}/" class="logo d-flex align-items-center">
@@ -33,7 +28,7 @@
 	
 	        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 	          <li class="dropdown-header">
-	            <div>접속시간: <span id="connectTime"></span></div>
+	            
 	          </li>                 
 			  <li>
 	          	<hr class="dropdown-divider">
@@ -54,18 +49,3 @@
 	
 	</header>
 	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			
-			updateConnectTime();
-			setInterval(updateConnectTime, 1000);
-		    
-		});
-		
-		const updateConnectTime = function() {
-			let diffMillis = new Date().getTime() - new Date('${loginTime}').getTime();
-			let displayTime = timerUtils.getDisplayTime(diffMillis);
-			
-			$('#connectTime').text(displayTime.hour + ':' + displayTime.min + ':' + displayTime.sec);
-		};
-	</script>

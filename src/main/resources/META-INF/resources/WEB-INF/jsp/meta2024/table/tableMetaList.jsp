@@ -89,9 +89,10 @@
 								<colgroup>
 									<col style="width: 15%;"/>
 									<col style="width: 25%;"/>
-									<col style="width: 25%;"/>
-									<col style="width: 25%;"/>
+									<col style="width: 15%;"/>
 									<col style="width: auto;"/>
+									<col style="width: 10%;"/>
+									<col style="width: 10%;"/>
 								</colgroup>
 								<thead>
 									<tr>
@@ -99,6 +100,7 @@
 										<th scope="col" class="text-center">스키마명</th>
 										<th scope="col" class="text-center">테이블명</th>
 										<th scope="col" class="text-center">테이블설명</th>
+										<th scope="col" class="text-center">테이블상세</th>
 										<th scope="col" class="text-center">테이블삭제</th>
 									</tr>
 								</thead>
@@ -106,11 +108,7 @@
 								<tbody id="tbody">
 									<c:forEach var="tableMetaInfo" varStatus="tableMetaInfoStatus" items="${tableMetaInfoList}">
 										<tr>
-											<td class="rownum text-center">
-												<input type="hidden" name="tableMetaSno" value="${tableMetaInfo.tableMetaSno}">
-												<%--
-												<c:out value="${(param.pageNum - 1) * param.rowAmountPerPage + tableMetaInfoStatus.index+1}" />
-												 --%>
+											<td class="text-center">
 												<c:out value="${tableMetaInfo.tableMetaSno}" />
 											</td>
 											<td class="text-center">
@@ -121,6 +119,9 @@
 											</td>
 											<td class="text-center">
 												<c:out value="${tableMetaInfo.tableDesc}" />
+											</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-success" onclick="gotoURL('METTB03?tableMetaSno=${tableMetaInfo.tableMetaSno}');">상세</button>
 											</td>
 											<td class="text-center">
 												<button type="button" class="btn btn-danger" onclick="deleteTable('${tableMetaInfo.tableMetaSno}')">삭제</button>
@@ -153,11 +154,6 @@
 	
 
 		$(document).ready(function() {
-			
-			$("#tbody tr .rownum").click(function() {
-				let tableMetaSno = $(this).find('input[name=tableMetaSno]').val();
-				gotoURL('METTB03?tableMetaSno=' + tableMetaSno);
-		   });
 			
 			$("#theRowAmountPerPage").change(function() {
 				

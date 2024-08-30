@@ -98,8 +98,8 @@
 								<colgroup>
 									<col style="width: 15%;"/>
 									<col style="width: 25%;"/>
-									<col style="width: 25%;"/>
-									<col style="width: 25%;"/>
+									<col style="width: 15%;"/>
+									<col style="width: 20%;"/>
 									<col style="width: auto;"/>
 								</colgroup>
 								<thead>
@@ -115,12 +115,7 @@
 								<tbody id="tbody">
 									<c:forEach var="seqMetaInfo" varStatus="seqMetaInfoStatus" items="${seqMetaInfoList}">
 										<tr>
-											<td class="rownum text-center" >
-												<input type="hidden" name="tableMetaSno" value="${seqMetaInfo.tableMetaSno}">
-												<input type="hidden" name="seqMetaSno" value="${seqMetaInfo.seqMetaSno}">
-												<%-- 
-												<c:out value="${(param.pageNum - 1) * param.rowAmountPerPage + seqMetaInfoStatus.index+1}" />
-												--%>
+											<td class="text-center" >
 												<c:out value="${seqMetaInfo.seqMetaSno}" />
 											</td>
 											<td class="text-center">
