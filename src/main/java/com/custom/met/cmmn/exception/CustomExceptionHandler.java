@@ -14,7 +14,7 @@ public class CustomExceptionHandler extends CustomController {
 
 	@ExceptionHandler(CustomException.class)
 	@ResponseBody
-	public Object handleException(HttpServletRequest request, CustomException e) {
+	public Object handleCustomException(HttpServletRequest request, CustomException e) {
 		
 		boolean isAjaxRequest = "application/json".equals(request.getHeader("Content-Type"));
 
@@ -28,5 +28,6 @@ public class CustomExceptionHandler extends CustomController {
             return modelAndView;
         }
 	}
+	
 	
 }

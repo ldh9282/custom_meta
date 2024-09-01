@@ -38,7 +38,6 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 		
 		if (log.isDebugEnabled()
 				&& url.indexOf(request.getContextPath() + "/resources") == -1
-				&& url.indexOf(request.getContextPath() + "/error") == -1
 				&& handler instanceof HandlerMethod
 				) {
 			
@@ -110,7 +109,6 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 		long endTime = System.currentTimeMillis();
 		if (log.isDebugEnabled()
 				&& url.indexOf(request.getContextPath() + "/resources") == -1
-				&& url.indexOf(request.getContextPath() + "/error") == -1
 				&& handler instanceof HandlerMethod
 				) {
 			
