@@ -24,7 +24,7 @@ public class CustomExceptionHandler extends CustomController {
         } else {
             // AJAX 요청이 아닐 경우, 에러 페이지로 리다이렉션
         	ModelAndView modelAndView = new ModelAndView();
-        	modelAndView.setViewName("internalServiceError");
+        	modelAndView.setViewName("cmmn/error-500");
             return modelAndView;
         }
 	}

@@ -63,7 +63,7 @@ public class URLConstant {
 	 * 설명: 로그아웃 성공시 리다이렉트 URL
 	 * </pre>
 	 */
-	public static final String LOGOUT_SUCC_URL = LOGIN_PAGE_URL;
+	public static final String LOGOUT_SUCC_URL = LOGIN_PAGE_URL2;
 	/**
 	 * <pre>
 	 * 변수명: REGISTER_PAGE_URL

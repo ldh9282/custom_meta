@@ -18,4 +18,20 @@ public class StringUtils {
 	        return input;
 	    }
 	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: isNVL
+	 * 설명: Null or Empty 이면 true
+	 * </pre>
+	 * @param input
+	 * @return
+	 */
+	public static boolean isNVL(String input) {
+		if (input == null || input.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

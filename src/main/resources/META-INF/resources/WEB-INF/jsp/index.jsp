@@ -13,7 +13,7 @@
 	String username = SecurityUtils.getUsername();
 
 	if (username == null) {
-		response.sendRedirect("/METLG01");
+		response.sendRedirect("/METLG04");
 	} else {
 		response.sendRedirect("/METTB02");
 	}

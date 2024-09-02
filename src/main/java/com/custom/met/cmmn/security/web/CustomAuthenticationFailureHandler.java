@@ -11,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import com.custom.met.cmmn.constant.URLConstant;
+
 import lombok.extern.log4j.Log4j2;
 
 @Component @Log4j2
@@ -22,7 +24,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 		if (log.isInfoEnabled()) {log.info("Start CustomAuthenticationFailureHandler.onAuthenticationFailure");}
 		String username = request.getParameter("username");
 		if (log.isInfoEnabled()) {log.info("request ::: username ::: " + username);}
-		String redirectUrl = request.getContextPath() + "/METLG01";
+		String redirectUrl = request.getContextPath() + URLConstant.LOGIN_PAGE_URL;
 		if (exception.getCause() instanceof DisabledException) {
 			if (log.isInfoEnabled()) {log.info("exception ::: cause ::: " + exception.getCause());}
 			redirectUrl += "?unenabled&username=" + username;

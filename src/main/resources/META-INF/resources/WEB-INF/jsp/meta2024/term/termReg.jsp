@@ -7,19 +7,19 @@
 <head>
 	<title>용어 생성 | 메타관리시스템</title>
 	
-	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/scriptHeader.jsp"></jsp:include>
 </head>
 
 <body>
 
 	<!-- ======= Header ======= -->
-	<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>
 	<!-- End Header -->
 	
 	<!-- ======= Sidebar ======= -->
-	<jsp:include page="/WEB-INF/jsp/sidebar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/sidebar.jsp"></jsp:include>
 	<!-- End Sidebar-->
 	
 	<main id="main" class="main">
@@ -221,10 +221,10 @@
 	
 	</script>
 
-	<jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/scriptBody.jsp"></jsp:include>
 	
 	<!-- ======= Footer ======= -->
-	<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
 	<!-- End Footer -->
 </body>
 

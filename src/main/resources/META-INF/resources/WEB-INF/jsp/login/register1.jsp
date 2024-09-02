@@ -4,9 +4,9 @@
 <html>
 <head>
   	<title>회원가입 | 메타관리시스템</title>
-   	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
+   	<jsp:include page="/WEB-INF/jsp/include/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/scriptHeader.jsp"></jsp:include>
 
 </head>
 
@@ -151,7 +151,7 @@
     });
   </script>
 
-	<jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/scriptBody.jsp"></jsp:include>
 </body>
 
 </html>

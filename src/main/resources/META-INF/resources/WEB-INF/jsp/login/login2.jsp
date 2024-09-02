@@ -9,9 +9,9 @@
 <head>
   	<title>로그인 | 메타관리시스템</title>
   	
-  	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
+  	<jsp:include page="/WEB-INF/jsp/include/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/scriptHeader.jsp"></jsp:include>
 </head>
 
 <body>
@@ -64,9 +64,15 @@
                     </div>
 
                     <div class="col-12">
+                      <!--
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember-me" value="true" id="remember-me">
                         <label class="form-check-label" for="remember-me">아이디 저장</label>
+                      </div>
+                      -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rememberUsernameYn" id="rememberUsernameYn">
+                        <label class="form-check-label" for="rememberUsernameYn">아이디 저장</label>
                       </div>
                     </div>
                     <div class="col-12">
@@ -130,10 +136,31 @@
 	    		}
 	    	});
     	});
+    	
+    	if (localStorage.getItem('rememberUsernameYn') == '1') {
+            $('#rememberUsernameYn').prop('checked', true);
+            $('#username').val(localStorage.getItem('rememberUsername'));
+        }
+
+        $('#username').on('input', function() {
+            if ($('#rememberUsernameYn').is(':checked')) {
+                localStorage.setItem('rememberUsername', $(this).val());
+            }
+        });
+
+        $('#rememberUsernameYn').change(function() {
+            if ($(this).is(':checked')) {
+                localStorage.setItem('rememberUsernameYn', '1');
+                localStorage.setItem('rememberUsername', $('#username').val());
+            } else {
+                localStorage.setItem('rememberUsernameYn', '0');
+                localStorage.removeItem('rememberUsername');
+            }
+        });
     });
   </script>
   
-  <jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/jsp/include/scriptBody.jsp"></jsp:include>
 
 </body>
 

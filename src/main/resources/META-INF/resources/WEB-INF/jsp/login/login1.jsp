@@ -9,9 +9,9 @@
 <head>
   	<title>로그인 | 메타관리시스템</title>
   	
-  	<jsp:include page="/WEB-INF/jsp/cmmn/metaHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/cssHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/cmmn/scriptHeader.jsp"></jsp:include>
+  	<jsp:include page="/WEB-INF/jsp/include/metaHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/cssHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/scriptHeader.jsp"></jsp:include>
 </head>
 
 <body>
@@ -50,25 +50,32 @@
                     
                     
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">아이디</label>
+                      <label for="username" class="form-label">아이디</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">ID</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="username" class="form-control" id="username" required>
                         <div class="invalid-feedback">아이디를 입력해주세요!</div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">비밀번호</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <label for="password" class="form-label">비밀번호</label>
+                      <input type="password" name="password" class="form-control" id="password" required>
                       <div class="invalid-feedback">비밀번호를 입력해주세요!</div>
                     </div>
 
                     <div class="col-12">
+                      <!--
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember-me" value="true" id="remember-me">
-                        <label class="form-check-label" for="remember-me">아이디 저장</label>
+                        <label class="form-check-label" for="remember-me">자동 로그인</label>
                       </div>
+                        -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rememberUsernameYn" id="rememberUsernameYn">
+                        <label class="form-check-label" for="rememberUsernameYn">아이디 저장</label>
+                      </div>
+                        
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">로그인</button>
@@ -114,10 +121,31 @@
 				window.location.href = '${pageContext.request.contextPath}/login';
 			}
 		}
+    	
+    	if (localStorage.getItem('rememberUsernameYn') == '1') {
+            $('#rememberUsernameYn').prop('checked', true);
+            $('#username').val(localStorage.getItem('rememberUsername'));
+        }
+
+        $('#username').on('input', function() {
+            if ($('#rememberUsernameYn').is(':checked')) {
+                localStorage.setItem('rememberUsername', $(this).val());
+            }
+        });
+
+        $('#rememberUsernameYn').change(function() {
+            if ($(this).is(':checked')) {
+                localStorage.setItem('rememberUsernameYn', '1');
+                localStorage.setItem('rememberUsername', $('#username').val());
+            } else {
+                localStorage.setItem('rememberUsernameYn', '0');
+                localStorage.removeItem('rememberUsername');
+            }
+        });
     });
   </script>
   
-  <jsp:include page="/WEB-INF/jsp/cmmn/scriptBody.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/jsp/include/scriptBody.jsp"></jsp:include>
 
 </body>
 

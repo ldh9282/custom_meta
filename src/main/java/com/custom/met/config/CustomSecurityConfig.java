@@ -96,7 +96,8 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter { // spri
 		
 		// formLogin
 		http.formLogin()
-			.loginPage(URLConstant.LOGIN_PAGE_URL)
+//			.loginPage(URLConstant.LOGIN_PAGE_URL)
+			.loginPage(URLConstant.LOGIN_PAGE_URL2)
 			.loginProcessingUrl(URLConstant.LOGIN_PROC_URL)
 			.usernameParameter("username")
 			.passwordParameter("password")

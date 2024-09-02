@@ -18,19 +18,34 @@ public class CustomErrorController implements ErrorController {
 		HttpStatus status = HttpUtils.getStatus(request);
     	
         if (status == HttpStatus.NOT_FOUND) {
-        	modelAndView.setViewName("pageNotFoundError");
+        	modelAndView.setViewName("cmmn/error-404");
+        } else if (status == HttpStatus.FORBIDDEN) {
+        	modelAndView.setViewName("cmmn/error-403");
         } else if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
-        	modelAndView.setViewName("internalServiceError");
+        	modelAndView.setViewName("cmmn/error-500");
         } else {
-        	modelAndView.setViewName("internalServiceError");
+        	modelAndView.setViewName("cmmn/error-500");
         }
         
 		
 		return modelAndView;
 	}
+	
 	@GetMapping("/METER02")
 	public ModelAndView meter02(ModelAndView modelAndView) {
-		modelAndView.setViewName("accessForbiddenError");
+		modelAndView.setViewName("cmmn/error-403");
+		
+		return modelAndView;
+	}
+	@GetMapping("/METER03")
+	public ModelAndView meter03(ModelAndView modelAndView) {
+		modelAndView.setViewName("cmmn/error-404");
+		
+		return modelAndView;
+	}
+	@GetMapping("/METER99")
+	public ModelAndView meter99(ModelAndView modelAndView) {
+		modelAndView.setViewName("cmmn/error-500");
 		
 		return modelAndView;
 	}
