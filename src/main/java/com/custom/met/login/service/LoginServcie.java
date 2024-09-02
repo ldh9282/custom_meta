@@ -95,6 +95,7 @@ public class LoginServcie {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
             
 			resultMap.put("jwtToken", jwtUtils.generateAccessToken(authentication.getName()));
+			resultMap.put("jwtRefreshToken", jwtUtils.generateRefreshToken(authentication.getName()));
 		} catch (Exception e) {
 			throw new CustomException(CustomExceptionCode.ERR999, new String[] {"아이디 또는 비밀번호를 확인해주세요"}, e);
 		}

@@ -47,12 +47,26 @@ public class CustomJwtRequestFilter extends OncePerRequestFilter  {
         MDC.put("identifier", "Authorization");
         String username = null;
         String jwtToken = null;
+        String refreshToken = null;
         
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwtToken = authorizationHeader.substring(7);
-            
-        	username = jwtUtils.extractUsername(jwtToken);
+            try {
+            	
+            	username = jwtUtils.extractUsername(jwtToken);
+            } catch (Exception e) {
+            	refreshToken = request.getHeader("RefreshToken");
+            	username = jwtUtils.extractUsername(refreshToken);
+            	if (refreshToken != null && jwtUtils.validateToken(refreshToken, username)) {
+                    
+                    jwtToken = jwtUtils.generateAccessToken(username);
+                    request.setAttribute("jwtToken", jwtToken);
+
+                    refreshToken = jwtUtils.generateRefreshToken(username);
+                    request.setAttribute("jwtRefreshToken", refreshToken);
+                }
+			}
         }
 
         if (username != null && !SecurityUtils.isAuthenticated()) {

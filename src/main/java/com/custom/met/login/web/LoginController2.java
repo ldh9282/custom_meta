@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.security.utils.SecurityUtils;
 import com.custom.met.cmmn.utils.DateUtils;
+import com.custom.met.cmmn.utils.StringUtils;
 import com.custom.met.cmmn.web.CustomController;
 import com.custom.met.login.service.LoginServcie;
 
@@ -93,11 +95,21 @@ public class LoginController2 extends CustomController {
 	
 	@GetMapping("/v2/METLG06")
 	@ResponseBody
-	public Object metlg06(@RequestParam Map<String, Object> map, HttpServletRequest request) throws CustomException {
+	public Object metlg06(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws CustomException {
 		CustomMap resultMap = new CustomMap();
 		CustomMap requestMap = new CustomMap(map);
 		
 		if (log.isDebugEnabled()) { log.debug("METLG06 ::: " + requestMap); }
+		
+		String jwtToken = (String) request.getAttribute("jwtToken");
+		String jwtRefreshToken = (String) request.getAttribute("jwtRefreshToken");
+		
+		if (!StringUtils.isNVL(jwtToken)) {
+			resultMap.put("jwtToken", jwtToken);
+		}
+		if (!StringUtils.isNVL(jwtRefreshToken)) {
+			resultMap.put("jwtRefreshToken", jwtRefreshToken);
+		}
 		
 		
 		return getAuthResponse(resultMap, CustomAuthCode.A001);
