@@ -1,32 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project>
 <configuration>
-
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
-        </encoder>
-    </appender>
-    
-    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder>
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
-        </encoder>
-        
-        <file>C:/Temp/custom_met/logs/app.log</file>
-        
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>C:/Temp/custom_met/logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-    </appender>
-
-    <logger name="com.custom.met" level="DEBUG" />
-    <logger name="com.custom.met.*.dao" level="INFO" />
-
-    <root level="WARN">
-        <appender-ref ref="console" />
-        <appender-ref ref="file" />
-    </root>
+	
+	<springProfile name="default">
+	    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+	        <encoder>
+	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
+	        </encoder>
+	    </appender>
+	    
+	    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <encoder>
+	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
+	        </encoder>
+	        
+	        <file>C:/Temp/custom_met/logs/app.log</file>
+	        
+	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <fileNamePattern>C:/Temp/custom_met/logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+	            <maxHistory>30</maxHistory>
+	        </rollingPolicy>
+	    </appender>
+	
+	    <logger name="com.custom.met" level="DEBUG" />
+	    <logger name="com.custom.met.*.dao" level="INFO" />
+	
+	    <root level="WARN">
+	        <appender-ref ref="console" />
+	        <appender-ref ref="file" />
+	    </root>
+	</springProfile>
+	
+	<springProfile name="dev">
+	    
+	    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <encoder>
+	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
+	        </encoder>
+	        
+	        <file>C:/Temp/custom_met/logs/dev/app.log</file>
+	        
+	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <fileNamePattern>C:/Temp/custom_met/logs/dev/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+	            <maxHistory>30</maxHistory>
+	        </rollingPolicy>
+	    </appender>
+	
+	    <logger name="com.custom.met" level="DEBUG" />
+	    <logger name="com.custom.met.*.dao" level="INFO" />
+	
+	    <root level="WARN">
+	        <appender-ref ref="file" />
+	    </root>
+	</springProfile>
+	
+	<springProfile name="prod">
+	    
+	    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <encoder>
+	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
+	        </encoder>
+	        
+	        <file>C:/Temp/custom_met/logs/prod/app.log</file>
+	        
+	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <fileNamePattern>C:/Temp/custom_met/logs/prod/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+	            <maxHistory>30</maxHistory>
+	        </rollingPolicy>
+	    </appender>
+	
+	    <logger name="com.custom.met" level="DEBUG" />
+	    <logger name="com.custom.met.*.dao" level="INFO" />
+	
+	    <root level="WARN">
+	        <appender-ref ref="file" />
+	    </root>
+	</springProfile>
 
 </configuration>
