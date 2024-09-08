@@ -21,7 +21,7 @@ public class TermDao {
 	 * </pre>
 	 * @return
 	 */
-	public CustomMap selectTermSno() {
+	public String selectTermSno() {
 		return sst.selectOne("Term.selectTermSno");
 	}
 	
@@ -82,5 +82,17 @@ public class TermDao {
 	 */
 	public int deleteTermInfo(CustomMap customMap) {
 		return sst.update("Term.deleteTermInfo", customMap);
+	}
+
+	/**
+	 * <pre>
+	 * 메서드명: selectTermRegCheck
+	 * 설명: 용어명 등록체크
+	 * </pre>
+	 * @param customMap
+	 * @return
+	 */
+	public CustomMap selectTermRegCheck(CustomMap customMap) {
+		return sst.selectOne("Term.selectTermRegCheck", customMap);
 	}
 }

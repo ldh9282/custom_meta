@@ -33,8 +33,8 @@ public class DomainService {
 			if ("N".equals(domainRegAbleYnMap.getString("domainRegAbleYn"))) {
 				throw new CustomException(CustomExceptionCode.ERR999, new String[] {"도메인명 중복 ::: " + customMap.getString("domainName")});
 			}
-			CustomMap domainSnoMap = domainDao.selectDomainSno();
-			requestMap.put("domainSno", domainSnoMap.getString("domainSno"));
+			String domainSno = domainDao.selectDomainSno();
+			requestMap.put("domainSno", domainSno);
 			requestMap.put("domainName", customMap.getString("domainName"));
 			requestMap.put("domainType", customMap.getString("domainType"));
 			requestMap.put("sysCreator", StringUtils.NVL(SecurityUtils.getUsername(), "SYSTEM"));

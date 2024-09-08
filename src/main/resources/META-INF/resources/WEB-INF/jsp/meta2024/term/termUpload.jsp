@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-   	<title>컬럼영문명 | 메타관리시스템</title>
+   	<title>용어 업로드 | 메타관리시스템</title>
 	
 	<jsp:include page="/WEB-INF/jsp/include/metaHeader.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/jsp/include/cssHeader.jsp"></jsp:include>
@@ -23,7 +23,7 @@
 			<div class="container mt-5">
 			    <div class="card">
 			        <div class="card-header">
-			            <h1 class="card-title">컬럼영문명</h1>
+			            <h1 class="card-title">용어 업로드</h1>
 			        </div>
 			        <div class="card-body">
 			            <form>
@@ -82,19 +82,25 @@
 				formData.append("file", $('#file')[0].files[0]);
 				
 				
-				let isError = false;
 				$.ajax({
-			        url: "${pageContext.request.contextPath}/METCE02", 
+			        url: "${pageContext.request.contextPath}/METTM07", 
 			        type: "POST",
 			        data: formData,
 			        async: false,
 			        contentType: false,
 			        processData: false,
 			        success: function (response) {
-			            // 파일 업로드 성공 시
-// 			            alert(response.message); // 서버에서 반환한 메시지 표시
+						if (response.header && response.header.status == '0000') {
+			    			alertUtils.showAlert('등록되었습니다', function() {
+			    				gotoURL('METTM03');
+			    			});
+			    		} else {
+			    			alertUtils.showAlert(response.header.errorMsg);
+			    			isBtnUploadClicked = false;
+							$('#btnUpload').prop("disabled", false);
+			    		}
 			        }
-				})
+				});
 				
 				
 			})

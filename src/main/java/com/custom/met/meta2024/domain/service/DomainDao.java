@@ -21,7 +21,7 @@ public class DomainDao {
 	 * </pre>
 	 * @return
 	 */
-	public CustomMap selectDomainSno() {
+	public String selectDomainSno() {
 		return sst.selectOne("Domain.selectDomainSno");
 	}
 	/**

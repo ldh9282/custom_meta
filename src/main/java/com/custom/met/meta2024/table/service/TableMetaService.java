@@ -98,9 +98,9 @@ public class TableMetaService {
 			
 			tableMetaDao.addTableComment(tableMap);
 			
-			CustomMap tableMetaSnoMap = tableMetaDao.selectTableMetaSno();
+			String tableMetaSno = tableMetaDao.selectTableMetaSno();
 			
-			requestMap.put("tableMetaSno", tableMetaSnoMap.getString("tableMetaSno"));
+			requestMap.put("tableMetaSno", tableMetaSno);
 			requestMap.put("schemaName", customMap.getString("schemaName"));
 			requestMap.put("tableName", customMap.getString("tableName"));
 			requestMap.put("tableDesc", customMap.getString("tableDesc"));
@@ -109,8 +109,8 @@ public class TableMetaService {
 			tableMetaDao.insertTableMeta(requestMap);
 			
 			for (CustomMap item : pkColumnList) {
-				CustomMap columnMetaSnoMap = columnMetaDao.selectColumnMetaSno();
-				requestMap.put("columnMetaSno", columnMetaSnoMap.getString("columnMetaSno"));
+				String columnMetaSno = columnMetaDao.selectColumnMetaSno();
+				requestMap.put("columnMetaSno", columnMetaSno);
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
@@ -124,8 +124,8 @@ public class TableMetaService {
 				columnMetaDao.insertColumnMeta(requestMap);
 			}
 			for (CustomMap item : columnList) {
-				CustomMap columnMetaSnoMap = columnMetaDao.selectColumnMetaSno();
-				requestMap.put("columnMetaSno", columnMetaSnoMap.getString("columnMetaSno"));
+				String columnMetaSno = columnMetaDao.selectColumnMetaSno();
+				requestMap.put("columnMetaSno", columnMetaSno);
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
@@ -146,8 +146,8 @@ public class TableMetaService {
 					createSysColumnMap("시스템수정일", "sysModifiedAt", "SYS_MODIFIED_AT", "TIMESTAMP WITHOUT TIME ZONE")
 					);
 			for (CustomMap item : sysColumnList) {
-				CustomMap columnMetaSnoMap = columnMetaDao.selectColumnMetaSno();
-				requestMap.put("columnMetaSno", columnMetaSnoMap.getString("columnMetaSno"));
+				String columnMetaSno = columnMetaDao.selectColumnMetaSno();
+				requestMap.put("columnMetaSno", columnMetaSno);
 				requestMap.put("columnName", item.getString("columnName"));
 				requestMap.put("columnCamelName", item.getString("columnCamelName"));
 				requestMap.put("columnSnakeName", item.getString("columnSnakeName"));
@@ -165,9 +165,9 @@ public class TableMetaService {
 			
 			seqMetaDao.createSeq(tableMap);
 			
-			CustomMap seqMetaSnoMap = seqMetaDao.selectSeqMetaSno();
+			String seqMetaSno = seqMetaDao.selectSeqMetaSno();
 			
-			requestMap.put("seqMetaSno", seqMetaSnoMap.getString("seqMetaSno"));
+			requestMap.put("seqMetaSno", seqMetaSno);
 			
 			seqMetaDao.insertSeqMeta(requestMap);
 			

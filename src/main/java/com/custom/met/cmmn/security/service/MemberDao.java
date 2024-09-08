@@ -22,7 +22,7 @@ public class MemberDao {
 	 * @param
 	 * @return
 	 */
-	public CustomMap selectMemSno() {
+	public String selectMemSno() {
 		return sst.selectOne("Member.selectMemSno");
 	}
 	
@@ -34,7 +34,7 @@ public class MemberDao {
 	 * @param
 	 * @return
 	 */
-	public CustomMap selectMemAuthSno() {
+	public String selectMemAuthSno() {
 		return sst.selectOne("Member.selectMemAuthSno");
 	}
 	

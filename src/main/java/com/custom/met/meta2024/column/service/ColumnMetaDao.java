@@ -21,7 +21,7 @@ public class ColumnMetaDao {
 	 * </pre>
 	 * @return
 	 */
-	public CustomMap selectColumnMetaSno() {
+	public String selectColumnMetaSno() {
 		return sst.selectOne("ColumnMeta.selectColumnMetaSno");
 	}
 	/**

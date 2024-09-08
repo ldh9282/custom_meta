@@ -47,10 +47,10 @@ public class LoginServcie {
 			}
 			
 			
-			CustomMap memberSnoMap = memberDao.selectMemSno();
+			String memSno = memberDao.selectMemSno();
 			
 			CustomMap memberMap = new CustomMap();
-			memberMap.put("memSno", memberSnoMap.getString("memSno"));
+			memberMap.put("memSno", memSno);
 			memberMap.put("memId", customMap.getString("memId"));
 			memberMap.put("memPw", passwordEncoder.encode(customMap.getString("memPw")));
 			memberMap.put("sysCreator", "SYSTEM");
@@ -63,11 +63,11 @@ public class LoginServcie {
 			authList.add("ADMIN");
 			
 			for (String auth : authList) {
-				CustomMap authSnoMap = memberDao.selectMemAuthSno();
+				String memAuthSno = memberDao.selectMemAuthSno();
 				CustomMap memberAuthMap = new CustomMap();
 				
-				memberAuthMap.put("memSno", memberSnoMap.getString("memSno"));
-				memberAuthMap.put("memAuthSno", authSnoMap.getString("memAuthSno"));
+				memberAuthMap.put("memSno", memSno);
+				memberAuthMap.put("memAuthSno", memAuthSno);
 				memberAuthMap.put("memId", customMap.getString("memId"));
 				memberAuthMap.put("memAuth", auth);
 				memberAuthMap.put("sysCreator", "SYSTEM");

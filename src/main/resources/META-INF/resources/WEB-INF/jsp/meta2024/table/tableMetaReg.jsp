@@ -168,7 +168,7 @@
 	    		html    += '	</div>'
 		    	html    += '	<div class="col-md-3">';
 	    		html    += '		<div class="form-floating mb-3">'
-	    		html    += '			<input type="hidden" name="termSno">'
+	    		html    += '			<input type="hidden" class="termSno" name="termSno">'
 	    		html    += '			<input type="text" class="form-control columnName" name="column" oninput="this.value = this.value.toUpperCase()" readonly>'
 	    		html    += '			<label>컬럼명</label>'
     			html    += '		</div>'
@@ -204,6 +204,7 @@
 		    $(document).on('click', '.btnSearchColumn', function() {
 		    	searchButtonClicked = $(this); 
 		    	$('#searchModal').modal('show');
+		    	$('#searchInput').val('');
 		    	$('#searchResults').html('');
 		    });
 		 	// 확인 버튼 클릭 시

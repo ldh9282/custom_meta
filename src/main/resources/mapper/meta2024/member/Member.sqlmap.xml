@@ -3,11 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
 	
-	<select id="selectMemSno" parameterType="CustomMap" resultType="CustomMap">
+	<select id="selectMemSno" parameterType="CustomMap" resultType="String">
 		SELECT /* Member.selectMemSno */ NEXTVAL('META.TB001_SEQ') AS MEM_SNO
 	</select>
 	
-	<select id="selectMemAuthSno" parameterType="CustomMap" resultType="CustomMap">
+	<select id="selectMemAuthSno" parameterType="CustomMap" resultType="String">
 		SELECT /* Member.selectMemAuthSno */ NEXTVAL('META.TB002_SEQ') AS MEM_AUTH_SNO
 	</select>
 	

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SeqMeta">
 	
-	<select id="selectSeqMetaSno" parameterType="CustomMap" resultType="CustomMap">
+	<select id="selectSeqMetaSno" parameterType="CustomMap" resultType="String">
 		SELECT /* SeqMeta.selectSeqMetaSno */ NEXTVAL('META.TB005_SEQ') AS SEQ_META_SNO
 	</select>
 	

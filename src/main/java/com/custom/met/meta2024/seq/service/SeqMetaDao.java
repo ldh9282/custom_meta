@@ -34,7 +34,7 @@ public class SeqMetaDao {
 	 * </pre>
 	 * @return
 	 */
-	public CustomMap selectSeqMetaSno() {
+	public String selectSeqMetaSno() {
 		return sst.selectOne("SeqMeta.selectSeqMetaSno");
 	}
 	/**

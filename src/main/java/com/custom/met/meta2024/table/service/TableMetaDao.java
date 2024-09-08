@@ -21,7 +21,7 @@ public class TableMetaDao {
 	 * </pre>
 	 * @return
 	 */
-	public CustomMap selectTableMetaSno() {
+	public String selectTableMetaSno() {
 		return sst.selectOne("TableMeta.selectTableMetaSno");
 	}
 	

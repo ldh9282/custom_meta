@@ -66,7 +66,8 @@ public class ExcelUtils {
                     Cell cell = cellIterator.next();
 
                     if (row.getRowNum() == 0) {
-                        headers.add(cell.toString());
+                    	String cellValue = cell.getStringCellValue();
+                        headers.add(cellValue == null ? "" : cellValue.trim());
                     } else {
                     	String key = headers.get(cell.getColumnIndex());
 						if (cell.getCellType() == CellType.NUMERIC) {
@@ -81,7 +82,7 @@ public class ExcelUtils {
                     		}
                     	} else {
                     		String cellValue = cell.getStringCellValue();
-                    		rowData.put(key, cellValue);
+                    		rowData.put(key, cellValue == null ? "" : cellValue.trim());
                     	}
                     }
                 }
