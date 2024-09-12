@@ -21,6 +21,9 @@ public class CmmnUtils {
 	@Value("${server.port}")
 	private String serverPort;
 	
+	@Value("${aes-key}")
+	private String aesKey;
+	
 	
 	/**
 	 * <pre>
@@ -33,6 +36,7 @@ public class CmmnUtils {
 		initMap = new CustomMap();
 		initMap.put("contextPath", contextPath);
 		initMap.put("serverPort", serverPort);
+		initMap.put("aesKey", aesKey);
 	}
 	
 	/**
@@ -55,6 +59,17 @@ public class CmmnUtils {
 	 */
 	public static String getServerPort() {
 		return initMap.getString("serverPort");
+	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: getAesKey
+	 * 설명: AES 양방향 암호화키 반환
+	 * </pre>
+	 * @return
+	 */
+	public static String getAesKey() {
+		return initMap.getString("aesKey");
 	}
 	
 	/**

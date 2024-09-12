@@ -3,7 +3,7 @@ server-log
 bin
 table-scripts
 util-bash
-
+.env
 ########################
 
 HELP.md
