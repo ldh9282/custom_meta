@@ -179,6 +179,29 @@ const alertUtils = {
             	})
 			}
 		}
+	},
+	
+	showPrompt: function(title, callback) {
+        var alertModal = $('#alertModal3');
+
+		if (title) {
+		    $('#modal-input-title').html(title);
+		}
+	    var modal = new bootstrap.Modal(alertModal);
+	    alertModal.on('shown.bs.modal', function () {
+        	$('#modal-input-value').focus();
+	    });
+    
+    	modal.show();
+	    // 확인 버튼시 콜백
+	    if (callback) {
+	        $('#btnConfirmAlertModal3').off('click').one('click', function() {
+				var value = $('#modal-input-value').val();
+				$('#modal-input-value').val('');
+	        	callback(value);
+	    	})
+		}
+	    
 	}
 	
 }

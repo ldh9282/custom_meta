@@ -86,10 +86,6 @@ public class TableMetaService {
 			tableMap.put("tableName", customMap.getString("tableName"));
 			tableMap.put("tableDesc", customMap.getString("tableDesc"));
 			
-			List<String> pkColumnNameList = new ArrayList<>();
-			for (CustomMap item : pkColumnList) {
-				pkColumnNameList.add(item.getString("columnName"));
-			}
 			tableMap.put("pkColumnList", pkColumnList);
 			
 			tableMap.put("columnList", columnList);

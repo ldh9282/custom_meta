@@ -504,9 +504,16 @@ public class CustomMap extends LinkedHashMap<String, Object> {
 
         int maxKeyLength = 0;
         int maxValueLength = 0;
+        int cutValueLength = 50;
         for (String key : keyList) {
             maxKeyLength = Math.max(maxKeyLength, key.length());
-            maxValueLength = Math.max(maxValueLength, getString(key).length());
+            if (getString(key).length() >= cutValueLength) {
+            	String cutValue = getString(key).substring(0, cutValueLength) + "...(" + (getString(key).length() - cutValueLength) +")";
+            	maxValueLength = Math.max(maxValueLength, cutValue.length());
+            } else {
+            	
+            	maxValueLength = Math.max(maxValueLength, getString(key).length());
+            }
         }
         
         
@@ -525,7 +532,14 @@ public class CustomMap extends LinkedHashMap<String, Object> {
 
         for (String key : keyList) {
             sb.append(centerString(padRight(key, maxKeyLength + 1), width / 2));
-            sb.append(centerString(padRight(getString(key), maxValueLength + 1), width / 2));
+            if (getString(key).length() >= cutValueLength) {
+            	String cutValue = getString(key).substring(0, cutValueLength) + "...(" + (getString(key).length() - cutValueLength) +")";
+            	sb.append(centerString(padRight(cutValue, maxValueLength + 1), width / 2));
+
+            } else {
+            	
+            	sb.append(centerString(padRight(getString(key), maxValueLength + 1), width / 2));
+            }
             sb.append("\n");
         }
         sb.append("\n");

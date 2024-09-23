@@ -65,8 +65,8 @@
 				        </div>
 			            <div class="row">
 				            <div class="text-end">
-						        <button type="button" class="btn btn-primary" id="btnRegister">등록</button>
-						        <button type="button" class="btn btn-secondary mx-3" id="btnList" onclick="gotoURL('METDM03')">목록</button>
+						        <button type="button" class="btn btn-sm btn-primary" id="btnRegister">등록</button>
+						        <button type="button" class="btn btn-sm btn-secondary mx-3" id="btnList" onclick="gotoURL('METDM03')">목록</button>
 				            </div>
 			            </div>
 				        
@@ -92,7 +92,7 @@
                     <!-- 검색 버튼 -->
                     <div class="row">
 			            <div class="text-end">
-		                    <button type="button" class="btn btn-primary mb-3" id="btnSearchResults">검색</button>
+		                    <button type="button" class="btn btn-sm btn-primary mb-3" id="btnSearchResults">검색</button>
 			            </div>
 		            </div>
                     <!-- 검색 결과 목록 -->
@@ -100,8 +100,8 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnConfirmSelection">확인</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="btnConfirmSelection">확인</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>

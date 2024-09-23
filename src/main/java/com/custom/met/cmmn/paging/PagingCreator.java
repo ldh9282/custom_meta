@@ -95,6 +95,9 @@ public class PagingCreator {
 		
 		
 		lastPageNum = (int) Math.ceil(count / (rowAmountPerPage * 1.0));
+		if (lastPageNum < 1) {
+			lastPageNum = 1;
+		}
 		prev = (startPagingNum > 1);
 		next =  (lastPageNum > endPagingNum);
 		

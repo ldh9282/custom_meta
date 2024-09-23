@@ -78,8 +78,8 @@
 				        </form><!-- End floating Labels Form -->
 					    <div class="row">
 				            <div class="text-end">
-						        <button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
-						        <button type="button" class="btn btn-secondary mx-3" id="btnList" onclick="gotoURL('METCU01')">목록</button>
+						        <button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+						        <button type="button" class="btn btn-sm btn-secondary mx-3" id="btnList" onclick="gotoURL('METCU01')">목록</button>
 				            </div>
 			            </div>
 				

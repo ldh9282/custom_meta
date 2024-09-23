@@ -59,7 +59,7 @@
 				             <!-- 버튼 추가 -->
 				            <div class="row">
 				                <div class="col-md-12">
-				                    <button type="button" class="btn btn-primary mt-3 mb-3" id="btnAddPkColumn">+ PK 컬럼 추가</button>
+				                    <button type="button" class="btn btn-sm btn-primary mt-3 mb-3" id="btnAddPkColumn">+ PK 컬럼 추가</button>
 					             	<div id="pkColumnInputs"></div>
 				                </div>
 				            </div>
@@ -67,15 +67,15 @@
 				             <!-- 버튼 추가 -->
 				            <div class="row">
 				                <div class="col-md-12">
-				                    <button type="button" class="btn btn-primary mt-3 mb-3" id="btnAddColumn">+ 컬럼 추가</button>
+				                    <button type="button" class="btn btn-sm btn-primary mt-3 mb-3" id="btnAddColumn">+ 컬럼 추가</button>
 					             	<div id="columnInputs"></div>
 				                </div>
 				            </div>
 				            
 				            <div class="row">
 					            <div class="text-end">
-							        <button type="button" class="btn btn-primary" id="btnRegister">등록</button>
-							        <button type="button" class="btn btn-secondary mx-3" id="btnList" onclick="gotoURL('METTB01')">목록</button>
+							        <button type="button" class="btn btn-sm btn-primary" id="btnRegister">등록</button>
+							        <button type="button" class="btn btn-sm btn-secondary mx-3" id="btnList" onclick="gotoURL('METTB01')">목록</button>
 					            </div>
 				            </div>
 				            
@@ -103,7 +103,7 @@
                     <!-- 검색 버튼 -->
                     <div class="row">
 			            <div class="text-end">
-		                    <button type="button" class="btn btn-primary mb-3" id="btnSearchResults">검색</button>
+		                    <button type="button" class="btn btn-sm btn-primary mb-3" id="btnSearchResults">검색</button>
 			            </div>
 		            </div>
                     <!-- 검색 결과 목록 -->
@@ -111,8 +111,8 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnConfirmSelection">확인</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="btnConfirmSelection">확인</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>
@@ -246,7 +246,7 @@
 			    				theHtml += '		<span class="termSnakeName">' + item.termSnakeName +'</span>'
 			    				theHtml += '		<span class="domainType">' + item.domainType +'</span>'
 			    				theHtml += '	</span>'
-			    				theHtml += '	<button type="button" class="btn btn-primary btn-sm float-end btnSelectColumn">선택</button>'
+			    				theHtml += '	<button type="button" class="btn btn-sm btn-primary btn-sm float-end btnSelectColumn">선택</button>'
 			    				theHtml += '</li>'
 			    				
 		    				});

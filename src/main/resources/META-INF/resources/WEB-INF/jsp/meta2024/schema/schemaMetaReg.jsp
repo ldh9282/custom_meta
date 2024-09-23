@@ -39,8 +39,8 @@
 				            
 				            <div class="row">
 					            <div class="text-end">
-							        <button type="button" class="btn btn-primary" id="btnRegister">등록</button>
-							        <button type="button" class="btn btn-secondary mx-3" id="btnList" onclick="gotoURL('METTB01')">목록</button>
+							        <button type="button" class="btn btn-sm btn-primary" id="btnRegister">등록</button>
+							        <button type="button" class="btn btn-sm btn-secondary mx-3" id="btnList" onclick="gotoURL('METTB01')">목록</button>
 					            </div>
 				            </div>
 				            

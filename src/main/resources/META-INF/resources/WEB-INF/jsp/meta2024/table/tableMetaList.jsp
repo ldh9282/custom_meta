@@ -80,7 +80,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="text-end">
-									    <button type="button" class="btn btn-primary" id="btnKeywordSearch">검색</button>
+									    <button type="button" class="btn btn-sm btn-primary" id="btnKeywordSearch">검색</button>
 									</div>
 								</div>
 							</div>
@@ -121,10 +121,10 @@
 												<c:out value="${tableMetaInfo.tableDesc}" />
 											</td>
 											<td class="text-center">
-												<button type="button" class="btn btn-success" onclick="gotoURL('METTB03?tableMetaSno=${tableMetaInfo.tableMetaSno}');">상세</button>
+												<button type="button" class="btn btn-sm btn-success" onclick="gotoURL('METTB03?tableMetaSno=${tableMetaInfo.tableMetaSno}');">상세</button>
 											</td>
 											<td class="text-center">
-												<button type="button" class="btn btn-danger" onclick="deleteTable('${tableMetaInfo.tableMetaSno}')">삭제</button>
+												<button type="button" class="btn btn-sm btn-danger" onclick="deleteTable('${tableMetaInfo.tableMetaSno}')">삭제</button>
 											</td>
 										</tr>
 	
@@ -163,14 +163,6 @@
 			})
 
 
-			// 엔터입력 이벤트
-			$(document).keydown(function(e) {
-				
-		        if (e.keyCode === 13) { // Enter 키의 keyCode는 13입니다.
-		            $("#btnKeywordSearch").trigger('click');
-		        }
-		    });
-			
 			// 키워드 검색 클릭 이벤트
 			$("#btnKeywordSearch").click(function() {
 				$("#pageNum").val(1)

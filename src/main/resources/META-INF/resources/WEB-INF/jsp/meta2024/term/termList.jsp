@@ -80,7 +80,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="text-end">
-									    <button type="button" class="btn btn-primary" id="btnKeywordSearch">검색</button>
+									    <button type="button" class="btn btn-sm btn-primary" id="btnKeywordSearch">검색</button>
 									</div>
 								</div>
 							</div>
@@ -129,7 +129,7 @@
 												<c:out value="${termInfo.domainType}" />
 											</td>
 											<td class="text-center">
-												<button type="button" class="btn btn-danger" onclick="deleteTerm('${termInfo.domainSno}', '${termInfo.termSno}')">삭제</button>
+												<button type="button" class="btn btn-sm btn-danger" onclick="deleteTerm('${termInfo.domainSno}', '${termInfo.termSno}')">삭제</button>
 											</td>
 										</tr>
 	
@@ -167,14 +167,6 @@
 			})
 
 
-			// 엔터입력 이벤트
-			$(document).keydown(function(e) {
-				
-		        if (e.keyCode === 13) { // Enter 키의 keyCode는 13입니다.
-		            $("#btnKeywordSearch").trigger('click');
-		        }
-		    });
-			
 			// 클릭 이벤트
 			$("#btnKeywordSearch").click(function() {
 				$("#pageNum").val(1)
