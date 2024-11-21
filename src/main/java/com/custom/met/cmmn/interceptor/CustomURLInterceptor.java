@@ -36,10 +36,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 		String session = request.getSession().getId();
 		
 		
-		if (log.isDebugEnabled()
-				&& url.indexOf(request.getContextPath() + "/resources") == -1
-				&& handler instanceof HandlerMethod
-				) {
+		if (url.indexOf(request.getContextPath() + "/resources") == -1 && handler instanceof HandlerMethod) {
 			
 			try {
 				HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -60,7 +57,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String identifier = theRequestUrl.length() < 12 ? theRequestUrl : theRequestUrl.substring(0, 11);
 				MDC.put("identifier", identifier);
 				
-				log.debug(">>> Start Controller ::: " + className + "." + methodName); 
+				if (log.isDebugEnabled()) { log.debug(">>> Start Controller ::: " + className + "." + methodName); } 
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session); 
 				
 				Enumeration<String> parameterNames = request.getParameterNames();
@@ -71,8 +68,8 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				
 			} catch (Exception e) {
 				String requestUrl = (String) request.getAttribute("requestUrl");
-				log.debug(">>> Exception ::: " + e.getMessage());
-				log.debug(">>> error request ::: url ::: " + requestUrl);
+				if (log.isDebugEnabled()) { log.debug(">>> Exception ::: " + e.getMessage()); }
+				if (log.isDebugEnabled()) { log.debug(">>> error request ::: url ::: " + requestUrl); }
 			}
 		}
 		
@@ -107,10 +104,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 		
 		long startTime = (long) request.getAttribute("startTime");
 		long endTime = System.currentTimeMillis();
-		if (log.isDebugEnabled()
-				&& url.indexOf(request.getContextPath() + "/resources") == -1
-				&& handler instanceof HandlerMethod
-				) {
+		if (url.indexOf(request.getContextPath() + "/resources") == -1 && handler instanceof HandlerMethod) {
 			
 			try {
 				
@@ -126,16 +120,16 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session);
 				String viewName = (String) request.getAttribute("viewName");
 				if (viewName != null) {
-					log.debug("<<< viewName  ::: " + viewName);
+					if (log.isDebugEnabled()) { log.debug("<<< viewName  ::: " + viewName); }
 				}
 				
-				log.debug("<<< execution time  ::: " + (endTime - startTime) + "ms");
-				log.debug("<<< End Controller ::: " + className + "." + methodName);
+				if (log.isDebugEnabled()) { log.debug("<<< execution time  ::: " + (endTime - startTime) + "ms"); }
+				if (log.isDebugEnabled()) { log.debug("<<< End Controller ::: " + className + "." + methodName); }
 				
 			} catch (Exception e) {
 				String requestUrl = (String) request.getAttribute("requestUrl");
-				log.debug("<<< Exception ::: " + e.getMessage());
-				log.debug("<<< error request ::: url ::: " + requestUrl);
+				if (log.isDebugEnabled()) { log.debug("<<< Exception ::: " + e.getMessage()); }
+				if (log.isDebugEnabled()) { log.debug("<<< error request ::: url ::: " + requestUrl); }
 			}
 		}
 	}
