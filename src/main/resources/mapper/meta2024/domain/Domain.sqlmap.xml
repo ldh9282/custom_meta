@@ -20,7 +20,7 @@
 		    )
 		VALUES
 		    ( 
-		    #{domainSno} :: INTEGER, 
+		    #{domainSno} :: BIGINT, 
 		    #{domainName}, 
 		    #{domainType}, 
 		    #{sysCreator}, 
@@ -41,7 +41,7 @@
 		FROM
 		    META.TB007
 		WHERE 1 = 1
-			AND 도메인일련번호 = #{domainSno} :: INTEGER
+			AND 도메인일련번호 = #{domainSno} :: BIGINT
 	</select>
 	
 	<select id="selectDomainList" parameterType="CustomMap" resultType="CustomMap">
@@ -62,7 +62,7 @@
 		    	FROM META.TB007
 		    	WHERE 1 = 1
 		    	<if test="domainSno != null and domainSno != ''">
-				AND 도메인일련번호 = #{domainSno} :: INTEGER
+				AND 도메인일련번호 = #{domainSno} :: BIGINT
 				</if>
 		    	<if test="domainName != null and domainName != ''">
 				AND 도메인명 LIKE '%'||#{domainName}||'%'
@@ -75,7 +75,7 @@
 		    META.TB007
 		WHERE 1 = 1
 			<if test="domainSno != null and domainSno != ''">
-			AND 도메인일련번호 = #{domainSno} :: INTEGER
+			AND 도메인일련번호 = #{domainSno} :: BIGINT
 			</if>
 	    	<if test="domainName != null and domainName != ''">
 			AND 도메인명 LIKE '%'||#{domainName}||'%'
@@ -85,8 +85,8 @@
 			</if>
 		ORDER BY 도메인일련번호 DESC
 		) A
-		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
-		LIMIT #{rowAmountPerPage} :: INTEGER
+		OFFSET (#{pageNum} :: BIGINT - 1) * #{rowAmountPerPage} :: BIGINT  
+		LIMIT #{rowAmountPerPage} :: BIGINT
 	</select>
 	
 	<select id="selectDomainScList" parameterType="CustomMap" resultType="CustomMap">
@@ -132,7 +132,7 @@
 		DELETE /* Domain.deleteDomainInfo */
 		FROM META.TB007
 		WHERE 1 = 1
-		AND 도메인일련번호 = #{domainSno} :: INTEGER
+		AND 도메인일련번호 = #{domainSno} :: BIGINT
 	</update>
 	
 </mapper>

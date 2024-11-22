@@ -51,7 +51,7 @@
 				, 시스템수정일
 				)
 			VALUES (
-				#{memSno} :: INTEGER
+				#{memSno} :: BIGINT
 				, #{memId}
 				, #{memPw}
 				, #{sysCreator}
@@ -73,8 +73,8 @@
 				, 시스템수정일
 				)
 			VALUES (
-				#{memSno} :: INTEGER
-				, #{memAuthSno} :: INTEGER
+				#{memSno} :: BIGINT
+				, #{memAuthSno} :: BIGINT
 				, #{memId}
 				, #{memAuth}
 				, #{sysCreator}

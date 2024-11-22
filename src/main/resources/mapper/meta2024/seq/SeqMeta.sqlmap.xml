@@ -21,8 +21,8 @@
 		    )
 		VALUES
 		    ( 
-		    #{tableMetaSno} :: INTEGER, 
-		    #{seqMetaSno} :: INTEGER, 
+		    #{tableMetaSno} :: BIGINT, 
+		    #{seqMetaSno} :: BIGINT, 
 		    #{schemaName}, 
 		    #{tableName} || '_SEQ', 
 		    #{sysCreator}, 
@@ -57,10 +57,10 @@
 				META.TB005 TB005
 				WHERE TB003.테이블메타일련번호 = TB005.테이블메타일련번호
 				<if test="tableMetaSno != null and tableMetaSno != ''">
-				AND TB005.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+				AND TB005.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 				</if>
 				<if test="seqMetaSno != null and seqMetaSno != ''">
-				AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: INTEGER
+				AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: BIGINT
 				</if>
 				<if test="seqName != null and seqName != ''">
 				AND TB005.시퀀스명 LIKE '%'||#{seqName}||'%'
@@ -80,10 +80,10 @@
 		META.TB005 TB005
 		WHERE TB003.테이블메타일련번호 = TB005.테이블메타일련번호
 		<if test="tableMetaSno != null and tableMetaSno != ''">
-		AND TB005.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		AND TB005.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 		</if>
 		<if test="seqMetaSno != null and seqMetaSno != ''">
-		AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: INTEGER
+		AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: BIGINT
 		</if>
 		<if test="seqName != null and seqName != ''">
 		AND TB005.시퀀스명 LIKE '%'||#{seqName}||'%'
@@ -99,8 +99,8 @@
 		</if>
 		ORDER BY TB005.테이블메타일련번호 DESC, TB005.시퀀스메타일련번호 ASC
 		) A
-		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
-		LIMIT #{rowAmountPerPage} :: INTEGER
+		OFFSET (#{pageNum} :: BIGINT - 1) * #{rowAmountPerPage} :: BIGINT  
+		LIMIT #{rowAmountPerPage} :: BIGINT
 	</select>
 	
 	<update id="dropSeq" parameterType="CustomMap">
@@ -110,7 +110,7 @@
 	<update id="deleteSeqMeta" parameterType="CustomMap">
 		DELETE /* SeqMeta.deleteSeqMeta */
 		FROM META.TB005
-		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 	</update>
 	
 	<select id="selectSeqMetaInfoDetail" parameterType="CustomMap" resultType="CustomMap">
@@ -130,7 +130,7 @@
 		META.TB003 TB003, 
 		META.TB005 TB005
 		WHERE TB003.테이블메타일련번호 = TB005.테이블메타일련번호
-		AND TB005.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		AND TB005.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 		) A
 		LIMIT 1
 	</select>

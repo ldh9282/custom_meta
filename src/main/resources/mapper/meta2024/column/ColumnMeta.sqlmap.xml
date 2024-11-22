@@ -27,8 +27,8 @@
 		    )
 		VALUES
 		    ( 
-		    #{tableMetaSno} :: INTEGER, 
-		    #{columnMetaSno} :: INTEGER, 
+		    #{tableMetaSno} :: BIGINT, 
+		    #{columnMetaSno} :: BIGINT, 
 		    #{columnName}, 
 		    #{columnCamelName}, 
 		    #{columnSnakeName}, 
@@ -62,8 +62,8 @@
 		FROM
 		    META.TB004
 		WHERE 1 = 1
-			AND 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
-			AND 컬럼메타일련번호 = #{columnMetaSno} :: INTEGER  
+			AND 테이블메타일련번호 = #{tableMetaSno} :: BIGINT
+			AND 컬럼메타일련번호 = #{columnMetaSno} :: BIGINT  
 	</select>
 	
 	<select id="selectColumnMetaInfo" parameterType="CustomMap" resultType="CustomMap">
@@ -84,8 +84,8 @@
 			META.TB003 TB003, 
 			META.TB004 TB004
 		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
-		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
-		AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
+		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
+		AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: BIGINT
 	</select>
 	
 	<select id="selectColumnMetaInfoList" parameterType="CustomMap" resultType="CustomMap">
@@ -117,10 +117,10 @@
 				META.TB004 TB004
 				WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
 				<if test="talbeMetaSno != null and talbeMetaSno != ''">
-				AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: INTEGER
+				AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: BIGINT
 				</if>
 				<if test="columnMetaSno != null and columnMetaSno != ''">
-				AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
+				AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: BIGINT
 				</if>
 				<if test="columnName != null and columnName != ''">
 				AND TB004.컬럼명 LIKE '%'||#{columnName}||'%'
@@ -146,10 +146,10 @@
 		META.TB004 TB004
 		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
 		<if test="talbeMetaSno != null and talbeMetaSno != ''">
-		AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: INTEGER
+		AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: BIGINT
 		</if>
 		<if test="columnMetaSno != null and columnMetaSno != ''">
-		AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
+		AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: BIGINT
 		</if>
 		<if test="columnName != null and columnName != ''">
 		AND TB004.컬럼명 LIKE '%'||#{columnName}||'%'
@@ -171,8 +171,8 @@
 		</if>
 		ORDER BY TB004.테이블메타일련번호 DESC, TB004.컬럼메타일련번호 ASC
 		) A
-		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
-		LIMIT #{rowAmountPerPage} :: INTEGER
+		OFFSET (#{pageNum} :: BIGINT - 1) * #{rowAmountPerPage} :: BIGINT  
+		LIMIT #{rowAmountPerPage} :: BIGINT
 	</select>
 	
 	<update id="updateColumnMetaInfo" parameterType="CustomMap">
@@ -204,8 +204,8 @@
 		</if>
 		, 시스템수정일 = now()
 		WHERE 1 = 1
-			AND 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
-			AND 컬럼메타일련번호 = #{columnMetaSno} :: INTEGER
+			AND 테이블메타일련번호 = #{tableMetaSno} :: BIGINT
+			AND 컬럼메타일련번호 = #{columnMetaSno} :: BIGINT
 			
 	</update>
 	
@@ -220,7 +220,7 @@
 	<update id="deleteColumnMetaInfo" parameterType="CustomMap">
 		DELETE /* ColumnMeta.deleteColumnMetaInfo */
 		FROM META.TB004
-		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 	</update>
 	
 </mapper>

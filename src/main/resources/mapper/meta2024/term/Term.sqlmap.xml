@@ -22,8 +22,8 @@
 		    )
 		VALUES
 		    ( 
-		    #{domainSno} :: INTEGER, 
-		    #{termSno} :: INTEGER, 
+		    #{domainSno} :: BIGINT, 
+		    #{termSno} :: BIGINT, 
 		    #{termName}, 
 		    #{termCamelName}, 
 		    #{termSnakeName}, 
@@ -47,8 +47,8 @@
 		FROM
 		    META.TB008
 		WHERE 1 = 1
-			AND 도메인일련번호 = #{domainSno} :: INTEGER
-			AND 용어일련번호 = #{termSno} :: INTEGER
+			AND 도메인일련번호 = #{domainSno} :: BIGINT
+			AND 용어일련번호 = #{termSno} :: BIGINT
 	</select>
 	
 	<select id="selectTermList" parameterType="CustomMap" resultType="CustomMap">
@@ -76,10 +76,10 @@
 		    	WHERE 1 = 1
 		    	AND TB008.도메인일련번호 = TB007.도메인일련번호
 		    	<if test="domainSno != null and domainSno != ''">
-				AND TB008.도메인일련번호 = #{domainSno} :: INTEGER
+				AND TB008.도메인일련번호 = #{domainSno} :: BIGINT
 				</if>
 		    	<if test="termSno != null and termSno != ''">
-				AND TB008.용어일련번호 = #{termSno} :: INTEGER
+				AND TB008.용어일련번호 = #{termSno} :: BIGINT
 				</if>
 				<if test="termName != null and termName != ''">
 				AND TB008.용어명 LIKE '%'||#{termName}||'%'
@@ -97,10 +97,10 @@
 		WHERE 1 = 1
     	AND TB008.도메인일련번호 = TB007.도메인일련번호
     	<if test="domainSno != null and domainSno != ''">
-		AND TB008.도메인일련번호 = #{domainSno} :: INTEGER
+		AND TB008.도메인일련번호 = #{domainSno} :: BIGINT
 		</if>
     	<if test="termSno != null and termSno != ''">
-		AND TB008.용어일련번호 = #{termSno} :: INTEGER
+		AND TB008.용어일련번호 = #{termSno} :: BIGINT
 		</if>
 		<if test="termName != null and termName != ''">
 		AND TB008.용어명 LIKE '%'||#{termName}||'%'
@@ -113,8 +113,8 @@
 		</if>
 		ORDER BY TB008.용어일련번호 DESC
 		) A
-		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
-		LIMIT #{rowAmountPerPage} :: INTEGER
+		OFFSET (#{pageNum} :: BIGINT - 1) * #{rowAmountPerPage} :: BIGINT  
+		LIMIT #{rowAmountPerPage} :: BIGINT
 	</select>
 	
 	<select id="selectTermScList" parameterType="CustomMap" resultType="CustomMap">
@@ -156,9 +156,9 @@
 		DELETE /* Term.deleteTermInfo */
 		FROM META.TB008
 		WHERE 1 = 1
-		AND 도메인일련번호 = #{domainSno} :: INTEGER
+		AND 도메인일련번호 = #{domainSno} :: BIGINT
 		<if test="termSno != null and termSno != ''">
-		AND 용어일련번호 = #{termSno} :: INTEGER
+		AND 용어일련번호 = #{termSno} :: BIGINT
 		</if>
 	</update>
 	

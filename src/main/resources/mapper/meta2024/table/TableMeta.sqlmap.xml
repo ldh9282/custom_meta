@@ -26,7 +26,7 @@
 				META.TB003 TB003 
 				WHERE 1 = 1
 				<if test="tableMetaSno != null and tableMetaSno != ''">
-				AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+				AND TB003.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 				</if>
 				<if test="schemaName != null and schemaName != ''">
 				AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
@@ -42,7 +42,7 @@
 		META.TB003 TB003 
 		WHERE 1 = 1
 		<if test="tableMetaSno != null and tableMetaSno != ''">
-		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 		</if>
 		<if test="schemaName != null and schemaName != ''">
 		AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
@@ -55,8 +55,8 @@
 		</if>
 		ORDER BY TB003.테이블메타일련번호 DESC
 		) A
-		OFFSET (#{pageNum} :: INTEGER - 1) * #{rowAmountPerPage} :: INTEGER  
-		LIMIT #{rowAmountPerPage} :: INTEGER
+		OFFSET (#{pageNum} :: BIGINT - 1) * #{rowAmountPerPage} :: BIGINT  
+		LIMIT #{rowAmountPerPage} :: BIGINT
 	</select>
 	
 	<insert id="insertTableMeta">
@@ -73,7 +73,7 @@
 		    )
 		VALUES
 		    ( 
-		    #{tableMetaSno} :: INTEGER, 
+		    #{tableMetaSno} :: BIGINT, 
 		    #{schemaName}, 
 		    #{tableName}, 
 		    #{tableDesc}, 
@@ -95,7 +95,7 @@
 		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
 		FROM
 		    META.TB003
-		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER  
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: BIGINT  
 	</select>
 	
 	<select id="selectTableColumnList" parameterType="CustomMap" resultType="CustomMap">
@@ -121,7 +121,7 @@
 			META.TB003 TB003, 
 			META.TB004 TB004
 		WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
-		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: INTEGER  
+		AND TB003.테이블메타일련번호 = #{tableMetaSno} :: BIGINT  
 	</select>
 	
 	<update id="createTable" parameterType="CustomMap">
@@ -164,7 +164,7 @@
 	<update id="deleteTableMetaInfo" parameterType="CustomMap">
 		DELETE /* TableMeta.deleteTableMetaInfo */
 		FROM META.TB003
-		WHERE 테이블메타일련번호 = #{tableMetaSno} :: INTEGER
+		WHERE 테이블메타일련번호 = #{tableMetaSno} :: BIGINT
 	</update>
 	
 </mapper>
