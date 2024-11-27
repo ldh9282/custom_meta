@@ -141,9 +141,12 @@ const alertUtils = {
 	
 	showAlert: function(message, callback) {
         var alertModal = $('#alertModal');
+        
 
 		if (!alertModal) {
 			alert(message);
+		} else if (!callback && message.length < 50) {
+			toastPop(message);
 		} else {
 	        $('#modal-body1').html(message.replace(/\n/g, '<br>'));
 	        // 모달 밖 클릭 허용
@@ -153,13 +156,19 @@ const alertUtils = {
 //	        	backdrop: 'static'
 //	        	, keyboard: false
 //		    });
+	        alertModal.removeAttr('inert');
 	        modal.show();
-	        // 모달 사라질경우 콜백
-	        if (callback) {
-				$('#alertModal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
-	            	callback();
-			    });
-			}
+	        alertModal.off('hide.bs.modal').on('hide.bs.modal', function () {
+				$('body').focus();
+				alertModal.attr('inert', 'true');
+			  	if (callback) {
+	    			callback();
+				}
+		    });
+	        
+			setTimeout(() => {
+				modal.hide();
+			}, 3000);
 		}
 	},
 	
@@ -171,13 +180,18 @@ const alertUtils = {
 		} else {
 	        $('#modal-body2').html(message.replace(/\n/g, '<br>'));
 	        var modal = new bootstrap.Modal(alertModal);
+	        alertModal.removeAttr('inert');
 	        modal.show();
+	        alertModal.off('hide.bs.modal').on('hide.bs.modal', function () {
+				$('body').focus();
+				alertModal.attr('inert', 'true');
+		    });
 	        // 확인 버튼시 콜백
-	        if (callback) {
-		        $('#btnConfirmAlertModal2').off('click').one('click', function() {
+	        $('#btnConfirmAlertModal2').off('click').one('click', function() {
+		        if (callback) {
                 	callback();
-            	})
-			}
+				}
+        	});
 		}
 	},
 	
@@ -192,15 +206,20 @@ const alertUtils = {
         	$('#modal-input-value').focus();
 	    });
     
-    	modal.show();
-	    // 확인 버튼시 콜백
-	    if (callback) {
-	        $('#btnConfirmAlertModal3').off('click').one('click', function() {
-				var value = $('#modal-input-value').val();
-				$('#modal-input-value').val('');
-	        	callback(value);
-	    	})
-		}
+    	alertModal.removeAttr('inert');
+        modal.show();
+        alertModal.off('hide.bs.modal').on('hide.bs.modal', function () {
+			$('body').focus();
+			alertModal.attr('inert', 'true');
+	    });
+        $('#btnConfirmAlertModal3').off('click').one('click', function() {
+			var value = $('#modal-input-value').val();
+			$('#modal-input-value').val('');
+		    // 확인 버튼시 콜백
+		    if (callback) {
+        		callback(value);
+			}
+    	});
 	    
 	}
 	
@@ -308,4 +327,27 @@ function changeCase(str) {
     } else {
         return str;
     }
+}
+
+function toastPop(msg) {
+	let randomId = Math.floor(10000 + Math.random() * 90000);
+	
+	let toastEl = document.createElement('div');
+	
+	toastEl.id = 'toast-' + randomId;
+	toastEl.className = 'toast-popup';
+	toastEl.innerHTML = msg.replace(/\n/g, '<br/>');
+	document.body.appendChild(toastEl);
+	
+	setTimeout(() => {
+		toastEl.classList.add('show');
+		
+		setTimeout(() => {
+			toastEl.classList.remove('show')
+			
+			setTimeout(() => {
+				document.body.removeChild(toastEl);
+			}, 300);
+		}, 3000);
+	}, 100);
 }

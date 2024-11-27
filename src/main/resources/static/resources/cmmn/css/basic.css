@@ -117,5 +117,48 @@ body {
 header {
 	padding-right: 0 !important;
 }
-/* end bootstrap modal open 시 스크롤 사라짐 및 padding-right 17px 이슈 처리 */
+/* End bootstrap modal open 시 스크롤 사라짐 및 padding-right 17px 이슈 처리 */
+
+a.title-link, a.title-link:hover {
+	color: inherit;
+	text-decoration: underline;
+}
+@media (max-width: 762px) {
+	html {
+        font-size: 10px;
+    }
+    .btn {
+    	font-size: 10px;
+    }
+}
+
+/* Start 토스트팝업 */
+.toast-popup {
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	padding: 1.6rem;
+	font-weight: normal;
+	width: calc(100% - 3.2rem);
+	clip: rect(0 0 0 0);
+	font-size: 1rem;
+	color: #fff;
+	line-height: 1rem;
+	border-radius: 1.8rem;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 10000;
+}
+
+.toast-popup.show {
+	bottom: 2.5rem;
+	clip: unset;
+}
+
+/* End 토스트팝업 */
 
