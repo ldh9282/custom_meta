@@ -136,8 +136,9 @@
 	    	
 	    	ajax('METLG03', requestMap, function(response) {
 	    		if (response.header && response.header.status == '0000') {
-	    			alertUtils.showAlert('회원등록이 완료되었습니다');
-	    			location.href = '${pageContext.request.contextPath}/METLG01';
+	    			alertUtils.showAlert('회원등록이 완료되었습니다', function() {
+	    				gotoURL('METLG04');
+	    			});
 	    		} else {
 	    			alertUtils.showAlert(response.header.errorMsg);
 	    		}

@@ -10,12 +10,10 @@
 <body>
 
 <%
-	String username = SecurityUtils.getUsername();
-
-	if (username == null) {
-		response.sendRedirect("/METLG04");
-	} else {
+	if (SecurityUtils.isAuthenticated()) {
 		response.sendRedirect("/METTB02");
+	} else {
+		response.sendRedirect("/METLG04");
 	}
 %>
 </body>
