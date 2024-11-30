@@ -110,37 +110,7 @@
 		    , TB004.용어일련번호 AS TERM_SNO
 			, TO_CHAR(TB004.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
 			, TO_CHAR(TB004.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
-			, (
-				SELECT COUNT(1)	
-				FROM 
-				META.TB003 TB003, 
-				META.TB004 TB004
-				WHERE TB003.테이블메타일련번호 = TB004.테이블메타일련번호
-				<if test="talbeMetaSno != null and talbeMetaSno != ''">
-				AND TB004.테이블메타일련번호 = #{talbeMetaSno} :: BIGINT
-				</if>
-				<if test="columnMetaSno != null and columnMetaSno != ''">
-				AND TB004.컬럼메타일련번호 = #{columnMetaSno} :: BIGINT
-				</if>
-				<if test="columnName != null and columnName != ''">
-				AND TB004.컬럼명 LIKE '%'||#{columnName}||'%'
-				</if>
-				<if test="columnCamelName != null and columnCamelName != ''">
-				AND TB004.컬럼카멜명 LIKE '%'||#{columnCamelName}||'%'
-				</if>
-				<if test="columnSnakeName != null and columnSnakeName != ''">
-				AND TB004.컬럼스네이크명 LIKE '%'||#{columnSnakeName}||'%'
-				</if>
-				<if test="schemaName != null and schemaName != ''">
-				AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
-				</if>
-				<if test="tableName != null and tableName != ''">
-				AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
-				</if>
-				<if test="tableDesc != null and tableDesc != ''">
-				AND TB003.테이블설명 LIKE '%'||#{tableDesc}||'%'
-				</if>
-			) AS COUNT
+			, COUNT(1) OVER() AS COUNT
 		FROM 
 		META.TB003 TB003, 
 		META.TB004 TB004

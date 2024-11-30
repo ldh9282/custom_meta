@@ -108,6 +108,9 @@
 								</div>
 							</div>
 							</form> <!-- // END searchForm  -->
+							<div>
+								(총 ${pagingCreator.count}개, page ${pagingCreator.pageNum} of ${pagingCreator.lastPageNum})
+							</div>
 							<table class="table mt-3">
 								<colgroup>
 									<col style="width: 15%;"/>

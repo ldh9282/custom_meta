@@ -50,31 +50,7 @@
 			, TB005.시퀀스명 AS SEQ_NAME
 			, TO_CHAR(TB003.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT
 			, TO_CHAR(TB003.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT
-			, (
-				SELECT COUNT(1)	
-				FROM 
-				META.TB003 TB003, 
-				META.TB005 TB005
-				WHERE TB003.테이블메타일련번호 = TB005.테이블메타일련번호
-				<if test="tableMetaSno != null and tableMetaSno != ''">
-				AND TB005.테이블메타일련번호 = #{tableMetaSno} :: BIGINT
-				</if>
-				<if test="seqMetaSno != null and seqMetaSno != ''">
-				AND TB005.시퀀스메타일련번호 = #{seqMetaSno} :: BIGINT
-				</if>
-				<if test="seqName != null and seqName != ''">
-				AND TB005.시퀀스명 LIKE '%'||#{seqName}||'%'
-				</if>
-				<if test="schemaName != null and schemaName != ''">
-				AND TB003.스키마명 LIKE '%'||#{schemaName}||'%'
-				</if>
-				<if test="tableName != null and tableName != ''">
-				AND TB003.테이블명 LIKE '%'||#{tableName}||'%'
-				</if>
-				<if test="tableDesc != null and tableDesc != ''">
-				AND TB003.테이블설명 LIKE '%'||#{tableDesc}||'%'
-				</if>
-			) AS COUNT
+			, COUNT(1) OVER() AS COUNT
 		FROM 
 		META.TB003 TB003, 
 		META.TB005 TB005

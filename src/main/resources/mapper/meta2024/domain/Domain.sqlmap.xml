@@ -57,20 +57,7 @@
 		    시스템수정자 AS SYS_MODIFIER,
 		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
 		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
-		    (
-		    	SELECT COUNT(1)
-		    	FROM META.TB007
-		    	WHERE 1 = 1
-		    	<if test="domainSno != null and domainSno != ''">
-				AND 도메인일련번호 = #{domainSno} :: BIGINT
-				</if>
-		    	<if test="domainName != null and domainName != ''">
-				AND 도메인명 LIKE '%'||#{domainName}||'%'
-				</if>
-		    	<if test="domainType != null and domainType != ''">
-				AND 도메인타입 LIKE '%'||#{domainType}||'%'
-				</if>
-		    )
+		    COUNT(1) OVER() AS COUNT
 		FROM
 		    META.TB007
 		WHERE 1 = 1
@@ -98,16 +85,7 @@
 		    시스템수정자 AS SYS_MODIFIER,
 		    TO_CHAR(시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
 		    TO_CHAR(시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
-		    (
-		    	SELECT COUNT(1)
-		    	FROM
-		    		META.TB007
-		    	
-		    	WHERE 1 = 1
-		    	<if test="domainName != null and domainName != ''">
-				AND 도메인명 LIKE '%'||#{domainName}||'%'
-				</if>
-			) AS COUNT			
+		    COUNT(1) OVER() AS COUNT			
 		FROM
 		    META.TB007
 		WHERE 1 = 1
