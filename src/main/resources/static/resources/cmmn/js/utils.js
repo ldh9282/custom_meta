@@ -145,8 +145,8 @@ const alertUtils = {
 
 		if (!alertModal) {
 			alert(message);
-		} else if (!callback && message.length < 50) {
-			toastPop(message);
+		} else if (message.length < 50) {
+			toastPop(message, callback);
 		} else {
 	        $('#modal-body1').html(message.replace(/\n/g, '<br>'));
 	        // 모달 밖 클릭 허용
@@ -329,7 +329,7 @@ function changeCase(str) {
     }
 }
 
-function toastPop(msg) {
+function toastPop(msg, callback) {
 	let randomId = Math.floor(10000 + Math.random() * 90000);
 	
 	let toastEl = document.createElement('div');
@@ -339,6 +339,8 @@ function toastPop(msg) {
 	toastEl.innerHTML = msg.replace(/\n/g, '<br/>');
 	document.body.appendChild(toastEl);
 	
+	let timeout = msg.length < 30 ? 1500 : 3000;
+	
 	setTimeout(() => {
 		toastEl.classList.add('show');
 		
@@ -347,7 +349,10 @@ function toastPop(msg) {
 			
 			setTimeout(() => {
 				document.body.removeChild(toastEl);
+				if (callback) {
+					callback();
+				}
 			}, 300);
-		}, 3000);
+		}, timeout);
 	}, 100);
 }
