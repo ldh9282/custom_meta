@@ -23,7 +23,7 @@ public class CustomException extends Exception {
     public CustomException(CustomExceptionCode customExceptionCode) {
         super(formatMessage(customExceptionCode.getErrorMessage()));
         this.customExceptionCode = customExceptionCode;
-        if (log.isDebugEnabled()) { printStackTrace(); }
+        if (log.isErrorEnabled()) { printStackTrace(); }
         
     }
     /**
@@ -37,7 +37,7 @@ public class CustomException extends Exception {
     public CustomException(CustomExceptionCode customExceptionCode, Throwable e) {
         super(formatMessage(customExceptionCode.getErrorMessage()), e);
         this.customExceptionCode = customExceptionCode;
-        if (log.isDebugEnabled()) { e.printStackTrace(); }
+        if (log.isErrorEnabled()) { e.printStackTrace(); }
     }
     /**
      * <pre>
@@ -50,7 +50,7 @@ public class CustomException extends Exception {
     public CustomException(CustomExceptionCode customExceptionCode, String[] args) {
     	super(formatMessage(customExceptionCode.getErrorMessage(), (Object[]) args));
     	this.customExceptionCode = customExceptionCode;
-    	if (log.isDebugEnabled()) { printStackTrace(); }
+    	if (log.isErrorEnabled()) { printStackTrace(); }
     }
     /**
      * <pre>
@@ -64,7 +64,7 @@ public class CustomException extends Exception {
     public CustomException(CustomExceptionCode customExceptionCode, String[] args, Throwable e) {
     	super(formatMessage(customExceptionCode.getErrorMessage(), (Object[]) args), e);
     	this.customExceptionCode = customExceptionCode;
-    	if (log.isDebugEnabled()) { e.printStackTrace(); }
+    	if (log.isErrorEnabled()) { e.printStackTrace(); }
     }
 
     public CustomExceptionCode getCustomExceptionCode() {

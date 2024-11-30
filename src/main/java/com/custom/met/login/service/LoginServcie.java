@@ -43,7 +43,7 @@ public class LoginServcie {
 			CustomMap memberCntMap = memberDao.selectMemberCnt(customMap);
 			
 			if (memberCntMap.getInt("cnt") > 0) {
-				throw new CustomException(CustomExceptionCode.ERR501, new String[] {"회원중복"});
+				throw new CustomException(CustomExceptionCode.ERR999, new String[] {"회원아이디 중복입니다."});
 			}
 			
 			
@@ -74,6 +74,8 @@ public class LoginServcie {
 				
 				memberDao.insertMemberAuth(memberAuthMap);
 			}
+		} catch (CustomException e) {
+			throw new CustomException(CustomExceptionCode.ERR999, new String[] {e.getMessage()}, e);
 		} catch (Exception e) {
 			throw new CustomException(CustomExceptionCode.ERR521, new String[] {"회원정보"}, e);
 		}
