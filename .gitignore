@@ -4,6 +4,7 @@ bin
 table-scripts
 util-bash
 .env
+mvnw.cmd
 ########################
 
 HELP.md
