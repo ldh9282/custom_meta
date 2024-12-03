@@ -1,7 +1,10 @@
 package com.custom.met.cmmn.utils;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 import javax.annotation.PostConstruct;
 
@@ -85,7 +88,22 @@ public class CmmnUtils {
 		try {
 			InetAddress localhost = InetAddress.getLocalHost();
 			serverIP = localhost.getHostAddress();
+			if ("127.0.1.1".equals(serverIP)) {
+				Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+				while (networkInterfaces.hasMoreElements()) {
+					NetworkInterface networkInterface = networkInterfaces.nextElement();
+					Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+					while (inetAddresses.hasMoreElements()) {
+						InetAddress inetAddress = inetAddresses.nextElement();
+						if (!inetAddress.isLoopbackAddress() && inetAddress instanceof java.net.Inet4Address) {
+							serverIP = inetAddress.getHostAddress();
+						}
+					}
+				}
+			}
 		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (SocketException e) {
 			e.printStackTrace();
 		}
 		
