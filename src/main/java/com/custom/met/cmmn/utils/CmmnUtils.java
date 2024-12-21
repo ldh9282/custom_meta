@@ -88,13 +88,13 @@ public class CmmnUtils {
 		try {
 			InetAddress localhost = InetAddress.getLocalHost();
 			serverIP = localhost.getHostAddress();
-			if ("127.0.1.1".equals(serverIP)) {
-				Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-				while (networkInterfaces.hasMoreElements()) {
-					NetworkInterface networkInterface = networkInterfaces.nextElement();
-					Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
-					while (inetAddresses.hasMoreElements()) {
-						InetAddress inetAddress = inetAddresses.nextElement();
+			Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+			while (networkInterfaces.hasMoreElements()) {
+				NetworkInterface networkInterface = networkInterfaces.nextElement();
+				Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+				while (inetAddresses.hasMoreElements()) {
+					InetAddress inetAddress = inetAddresses.nextElement();
+					if (!StringUtils.NVL(networkInterface.toString(), "").contains("Virtual Ethernet Adapter")) {
 						if (!inetAddress.isLoopbackAddress() && inetAddress instanceof java.net.Inet4Address) {
 							serverIP = inetAddress.getHostAddress();
 						}
@@ -102,9 +102,9 @@ public class CmmnUtils {
 				}
 			}
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			serverIP = "";
 		} catch (SocketException e) {
-			e.printStackTrace();
+			serverIP = "";
 		}
 		
 		
