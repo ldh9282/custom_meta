@@ -72,7 +72,7 @@
 	        </rollingPolicy>
 	    </appender>
 	
-	    <logger name="com.custom.met" level="DEBUG" />
+	    <logger name="com.custom.met" level="INFO" />
 	    <logger name="com.custom.met.*.dao" level="INFO" />
 	
 	    <root level="WARN">
