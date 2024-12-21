@@ -33,6 +33,11 @@
 	</springProfile>
 	
 	<springProfile name="dev">
+	    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+	        <encoder>
+	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
+	        </encoder>
+	    </appender>
 	    
 	    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	        <encoder>
@@ -52,11 +57,17 @@
 	    <logger name="com.custom.met.*.dao" level="INFO" />
 	
 	    <root level="WARN">
+	        <appender-ref ref="console" />
 	        <appender-ref ref="file" />
 	    </root>
 	</springProfile>
 	
 	<springProfile name="prod">
+		<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+	        <encoder>
+	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
+	        </encoder>
+	    </appender>
 	    
 	    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	        <encoder>
