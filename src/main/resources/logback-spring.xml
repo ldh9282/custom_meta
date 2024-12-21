@@ -87,6 +87,7 @@
 	    <logger name="com.custom.met.*.dao" level="INFO" />
 	
 	    <root level="WARN">
+	    	<appender-ref ref="console" />
 	        <appender-ref ref="file" />
 	    </root>
 	</springProfile>

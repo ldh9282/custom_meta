@@ -10,6 +10,10 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.custom.met.cmmn.exception.CustomException;
+import com.custom.met.cmmn.exception.CustomExceptionCode;
+import com.custom.met.cmmn.security.utils.SecurityUtils;
+
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -59,7 +63,15 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				
 				if (log.isDebugEnabled()) { log.debug(">>> Start Controller ::: " + className + "." + methodName); } 
 //				log.debug("remote ip" + " ::: " + ip + " ::: " + "session" + " ::: " + session); 
-				
+				if (requestUrl.contains("v2")) {
+					if (!identifier.equals("v2/METLG05")) {
+						if (!SecurityUtils.isAuthenticated()) {
+							throw new CustomException(CustomExceptionCode.ERR999, new String[] { "인증되지 않은 요청입니다." });
+						} else {
+							if (log.isDebugEnabled()) { log.debug(">>> SecurityUtils.isAuthenticated ::: true"); }
+						}
+					}
+				}
 				Enumeration<String> parameterNames = request.getParameterNames();
 				while (parameterNames.hasMoreElements()) {
 					String paramName = parameterNames.nextElement();
@@ -70,6 +82,7 @@ public class CustomURLInterceptor implements HandlerInterceptor {
 				String requestUrl = (String) request.getAttribute("requestUrl");
 				if (log.isDebugEnabled()) { log.debug(">>> Exception ::: " + e.getMessage()); }
 				if (log.isDebugEnabled()) { log.debug(">>> error request ::: url ::: " + requestUrl); }
+				return false;
 			}
 		}
 		
