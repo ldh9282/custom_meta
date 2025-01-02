@@ -1,3 +1,5 @@
+<%@page import="com.custom.met.cmmn.utils.DateUtils"%>
+<%@page import="java.util.Date"%>
 <%@page import="com.custom.met.cmmn.security.utils.SecurityUtils"%>
 <%@page import="com.custom.met.cmmn.utils.StringUtils"%>
 <%@page import="org.slf4j.MDC"%>
@@ -11,6 +13,7 @@
 
 	String url = StringUtils.NVL(MDC.get("identifier"), "");
 	String username = StringUtils.NVL(SecurityUtils.getUsername(), "");
+	request.setAttribute("serverTime", DateUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 	request.setAttribute("loginTime", StringUtils.NVL((String) session.getAttribute("loginTime"), ""));
 
 %>
@@ -98,14 +101,19 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var currentTime = new Date('${serverTime}').getTime();
+			var interval = 1000;
 			
-			updateConnectTime();
-			setInterval(updateConnectTime, 1000);
+			updateConnectTime(currentTime);
+			setInterval(function() {
+				currentTime += interval;
+				updateConnectTime(currentTime)
+			}, interval);
 		    
 		});
 		
-		const updateConnectTime = function() {
-			let diffMillis = new Date().getTime() - new Date('${loginTime}').getTime();
+		const updateConnectTime = function(theCurrentTime) {
+			let diffMillis = theCurrentTime - new Date('${loginTime}').getTime();
 			let displayTime = timerUtils.getDisplayTime(diffMillis);
 			
 			$('#connectTime').text(displayTime.hour + ':' + displayTime.min + ':' + displayTime.sec);

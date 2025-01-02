@@ -68,29 +68,7 @@
 		    TB008.시스템수정자 AS SYS_MODIFIER,
 		    TO_CHAR(TB008.시스템생성일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_CREATED_AT,
 		    TO_CHAR(TB008.시스템수정일, 'YYYY-MM-DD HH24:MI:SS') AS SYS_MODIFIED_AT,
-		    (
-		    	SELECT COUNT(1)
-		    	FROM 
-			    	META.TB008 TB008,
-			    	META.TB007 TB007
-		    	WHERE 1 = 1
-		    	AND TB008.도메인일련번호 = TB007.도메인일련번호
-		    	<if test="domainSno != null and domainSno != ''">
-				AND TB008.도메인일련번호 = #{domainSno} :: BIGINT
-				</if>
-		    	<if test="termSno != null and termSno != ''">
-				AND TB008.용어일련번호 = #{termSno} :: BIGINT
-				</if>
-				<if test="termName != null and termName != ''">
-				AND TB008.용어명 LIKE '%'||#{termName}||'%'
-				</if>
-		    	<if test="termCamelName != null and termCamelName != ''">
-				AND TB008.용어카멜명 LIKE '%'||#{termCamelName}||'%'
-				</if>
-		    	<if test="termSnakeName != null and termSnakeName != ''">
-				AND TB008.용어스네이크명 LIKE '%'||#{termSnakeName}||'%'
-				</if>
-			) AS COUNT
+		    COUNT(1) OVER() AS COUNT
 		FROM
 			META.TB008 TB008,
 			META.TB007 TB007
