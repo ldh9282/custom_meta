@@ -145,8 +145,8 @@ const alertUtils = {
 
 		if (!alertModal) {
 			alert(message);
-		} else if (message.length < 50) {
-			toastPop(message, callback);
+//		} else if (message.length < 50) {
+//			toastPop(message, callback);
 		} else {
 	        $('#modal-body1').html(message.replace(/\n/g, '<br>'));
 	        // 모달 밖 클릭 허용
