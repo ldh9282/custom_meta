@@ -17,6 +17,7 @@ import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.paging.PagingCreator;
+import com.custom.met.cmmn.utils.MapUtils;
 import com.custom.met.cmmn.web.CustomController;
 import com.custom.met.meta2024.table.service.TableMetaService;
 
@@ -100,11 +101,17 @@ public class TableMetaController extends CustomController {
 	 * @throws CustomException
 	 */
 	@GetMapping("/METTB03")
-	public ModelAndView mettb03(@RequestParam String tableMetaSno, ModelAndView modelAndView) throws CustomException {
+	public ModelAndView mettb03(@RequestParam Map<String, Object> map, ModelAndView modelAndView) throws CustomException {
 		
-		CustomMap requestMap = new CustomMap();
+		CustomMap requestMap = new CustomMap(map);
+		
+		MapUtils.paramsValidation(requestMap, new String[][] {
+			{"tableMetaSno", "required" }
+			, {"tableMetaSno", "number" }
+		});
+		
 		try {
-			requestMap.put("tableMetaSno", tableMetaSno);
+			
 			CustomMap detail = tableMetaService.getTableMetaDetail(requestMap);
 			modelAndView.addObject("detail", detail);
 		} catch (CustomException e) {

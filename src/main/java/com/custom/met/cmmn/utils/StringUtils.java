@@ -87,4 +87,16 @@ public class StringUtils {
             return str;
         }
     }
+    
+    /**
+     * <pre>
+     * 메서드명: isNumber
+	 * 설명: 숫자 체크
+     * </pre>
+     * @param str
+     * @return
+     */
+    public static boolean isNumber(String str) {
+        return str != null && str.matches("\\d+");
+    }
 }
