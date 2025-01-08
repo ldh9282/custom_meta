@@ -50,16 +50,16 @@ public class CustomController {
 	 * response.header.status != 0000 
 	 * response.header.errorMsg
 	 * </pre>
-	 * @param errorMsg
+	 * @param e
 	 * @return
 	 */
-	public static CustomMap getErrorResponse(String errorMsg) {
+	public static CustomMap getErrorResponse(CustomException e) {
 		
 		CustomMap response = new CustomMap();
 		
 		CustomMap header = new CustomMap();
-		header.put("status", "9999");
-		header.put("errorMsg", errorMsg);
+		header.put("status", e.getCustomExceptionCode().getErrorCode());
+		header.put("errorMsg", e.getMessage());
 		response.put("header", header);
 		
 		return response;

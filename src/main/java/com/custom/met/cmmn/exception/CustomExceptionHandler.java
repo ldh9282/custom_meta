@@ -20,10 +20,11 @@ public class CustomExceptionHandler extends CustomController {
 
         if (isAjaxRequest) {
             // AJAX 요청일 경우, response.header.status != 0000
-            return getErrorResponse(e.getMessage());
+            return getErrorResponse(e);
         } else {
             // AJAX 요청이 아닐 경우, 에러 페이지로 리다이렉션
         	ModelAndView modelAndView = new ModelAndView();
+        	modelAndView.addObject("response", getErrorResponse(e));
         	modelAndView.setViewName("cmmn/error-500");
             return modelAndView;
         }

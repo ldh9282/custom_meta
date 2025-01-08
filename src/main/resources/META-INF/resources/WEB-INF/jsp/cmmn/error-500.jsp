@@ -22,9 +22,25 @@
 		<div class="container">
 		
 			<section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
-				<h1>500</h1>
+				<c:choose>
+					<c:when test="${not empty response.header}">
+					<h1>${response.header.status}</h1>
+					</c:when>
+					<c:otherwise>
+					<h1>500</h1>
+					</c:otherwise>
+				</c:choose>
+				
 				<br><br>
-				<h2>시스템 내부 처리중 오류가 발생했습니다 (잠시후 시도해주세요)</h2>
+				
+				<c:choose>
+					<c:when test="${not empty response.header}">
+					<h2>${response.header.errorMsg}</h2>
+					</c:when>
+					<c:otherwise>
+					<h2>시스템 내부 처리중 오류가 발생했습니다 (잠시후 시도해주세요)</h2>
+					</c:otherwise>
+				</c:choose>
 				<a class="btn" href="${pageContext.request.contextPath}/">홈페이지로 가기</a>
 			</section>
 		
