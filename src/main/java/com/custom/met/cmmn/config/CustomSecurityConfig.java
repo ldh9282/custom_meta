@@ -1,4 +1,4 @@
-package com.custom.met.config;
+package com.custom.met.cmmn.config;
 
 import javax.sql.DataSource;
 

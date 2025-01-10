@@ -1,4 +1,4 @@
-package com.custom.met.config;
+package com.custom.met.cmmn.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
