@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class CustomException extends Exception {
+public class CustomException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
