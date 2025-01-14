@@ -70,10 +70,10 @@
 	            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%X{identifier}] [%logger{0}.%method:%line]: %msg%n</pattern>
 	        </encoder>
 	        
-	        <file>custom_met/logs/prod/app.log</file>
+	        <file>/custom_met/logs/prod/app.log</file>
 	        
 	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-	            <fileNamePattern>custom_met/logs/prod/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+	            <fileNamePattern>/custom_met/logs/prod/app.%d{yyyy-MM-dd}.log</fileNamePattern>
 	            <maxHistory>30</maxHistory>
 	        </rollingPolicy>
 	    </appender>

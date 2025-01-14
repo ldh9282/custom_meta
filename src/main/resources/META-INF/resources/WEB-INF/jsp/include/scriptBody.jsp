@@ -50,24 +50,6 @@
         }
     });
 	
-	// 엔터입력 이벤트 : 부트스트랩 모달뜰때 엔터연타시 무한 딤처리현상 해결
-	$(document).on('show.bs.modal', function(e) {
-	    $(document).off('keydown.disableEnter').on('keydown.disableEnter', function (e) {
-	        if (e.keyCode === 13) {
-	            e.preventDefault();
-	            if ($('#alertModal').hasClass('show')) {
-		            $("#btnCloseAlertModal").trigger('click');
-		        }
-		        if ($('#alertModal2').hasClass('show')) {
-		            $("#btnConfirmAlertModal2").trigger('click');
-		        }
-		        if ($('#alertModal3').hasClass('show')) {
-		            $("#btnConfirmAlertModal3").trigger('click');
-		        }
-	        }
-	    });
-	});
-	
 	</script>
 
     <!-- Excel Export JS File-->
