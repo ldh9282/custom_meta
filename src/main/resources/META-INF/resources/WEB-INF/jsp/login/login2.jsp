@@ -79,9 +79,11 @@
                       <button class="btn btn-primary w-100" type="button" id="btnLogin">로그인</button>
                       <security:csrfInput/>
                     </div>
+                    <%-- 
                     <div class="col-12">
                       <p class="small mb-0">계정이 없으신가요? <a href="${pageContext.request.contextPath}/METLG02">계정만들기</a></p>
                     </div>
+                    --%>
                     <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
                   </form>
 
