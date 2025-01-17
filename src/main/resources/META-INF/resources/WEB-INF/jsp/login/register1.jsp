@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<%-- 임시 가입방지 Start
+
   <main>
     <div class="container">
 
@@ -153,8 +153,6 @@
   </script>
 
 	<jsp:include page="/WEB-INF/jsp/include/scriptBody.jsp"></jsp:include>
-
-임시 가입방지 End --%>	
 </body>
 
 </html>
