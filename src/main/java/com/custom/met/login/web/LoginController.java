@@ -45,7 +45,7 @@ public class LoginController extends CustomController {
 	public Object METLG03(@RequestBody CustomMap customMap) throws CustomException {
 		CustomMap resultMap = new CustomMap();
 		if (CmmnUtils.isProd()) {
-//			throw new CustomException(CustomExceptionCode.ERR999, new String[] { "운영서버는 당분간 회원가입이 보안상 불가합니다." });
+			throw new CustomException(CustomExceptionCode.ERR999, new String[] { "운영서버는 당분간 회원가입이 보안상 불가합니다." });
 		}
 		resultMap = loginService.insertMemberDetail(customMap);
 		
