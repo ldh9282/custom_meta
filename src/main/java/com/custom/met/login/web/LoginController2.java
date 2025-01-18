@@ -22,6 +22,7 @@ import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
 import com.custom.met.cmmn.security.utils.SecurityUtils;
+import com.custom.met.cmmn.utils.CmmnUtils;
 import com.custom.met.cmmn.utils.DateUtils;
 import com.custom.met.cmmn.utils.StringUtils;
 import com.custom.met.cmmn.web.CustomController;
@@ -59,9 +60,11 @@ public class LoginController2 extends CustomController {
 	
 	@PostMapping("/v2/METLG03")
 	@ResponseBody
-	public Object METLG03(@RequestBody CustomMap customMap) throws CustomException {
+	public Object METLG03(@RequestBody CustomMap customMap) {
 		CustomMap resultMap = new CustomMap();
-		
+		if (CmmnUtils.isProd()) {
+			throw new CustomException(CustomExceptionCode.ERR999, new String[] { "운영서버는 당분간 회원가입이 보안상 불가합니다." });
+		}
 		resultMap = loginService.insertMemberDetail(customMap);
 		
 		return getResponse(resultMap);

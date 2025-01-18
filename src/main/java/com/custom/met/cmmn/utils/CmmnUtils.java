@@ -27,6 +27,9 @@ public class CmmnUtils {
 	@Value("${aes-key}")
 	private String aesKey;
 	
+	@Value("${spring.profiles.active:default}")
+    private String activeProfile;
+	
 	
 	/**
 	 * <pre>
@@ -40,6 +43,7 @@ public class CmmnUtils {
 		initMap.put("contextPath", contextPath);
 		initMap.put("serverPort", serverPort);
 		initMap.put("aesKey", aesKey);
+		initMap.put("activeProfile", activeProfile);
 	}
 	
 	/**
@@ -73,6 +77,16 @@ public class CmmnUtils {
 	 */
 	public static String getAesKey() {
 		return initMap.getString("aesKey");
+	}
+	/**
+	 * <pre>
+	 * 메서드명: getActiveProfile
+	 * 설명: 프로필 반환
+	 * </pre>
+	 * @return
+	 */
+	public static String getActiveProfile() {
+		return initMap.getString("activeProfile").toLowerCase();
 	}
 	
 	/**
@@ -111,4 +125,51 @@ public class CmmnUtils {
 		return serverIP; 
 	}
 	
+	/**
+	 * <pre>
+	 * 메서드명: isLocal
+	 * 설명: 프로필 로컬서버 유무
+	 * </pre>
+	 * @return
+	 */
+	public static boolean isLocal() {
+		boolean result = false;
+		
+		if ("default".equals(initMap.getString("activeProfile").toLowerCase())) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: isDev
+	 * 설명: 프로필 개발서버 유무
+	 * </pre>
+	 * @return
+	 */
+	public static boolean isDev() {
+		boolean result = false;
+		
+		if ("dev".equals(initMap.getString("activeProfile").toLowerCase())) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/**
+	 * <pre>
+	 * 메서드명: isProd
+	 * 설명: 프로필 운영서버 유무
+	 * </pre>
+	 * @return
+	 */
+	public static boolean isProd() {
+		boolean result = false;
+		
+		if ("prod".equals(initMap.getString("activeProfile").toLowerCase())) {
+			result = true;
+		}
+		return result;
+	}
 }

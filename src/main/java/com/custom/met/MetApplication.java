@@ -28,6 +28,7 @@ public class MetApplication {
 		return runner -> {
 			if (log.isDebugEnabled()) { log.debug(CmmnUtils.getServerIP() +  ":" + CmmnUtils.getServerPort() + CmmnUtils.getContextPath()); }
 			if (log.isDebugEnabled()) { log.debug("localhost" +  ":" + CmmnUtils.getServerPort() + CmmnUtils.getContextPath()); }
+			if (log.isDebugEnabled()) { log.debug("profile" +  ":" + CmmnUtils.getActiveProfile()); }
 			if (log.isDebugEnabled()) { log.debug("서버구동이 시작되었습니다"); }
 			
 		};
