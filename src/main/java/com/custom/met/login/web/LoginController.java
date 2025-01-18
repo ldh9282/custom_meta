@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.custom.met.cmmn.exception.CustomException;
 import com.custom.met.cmmn.exception.CustomExceptionCode;
 import com.custom.met.cmmn.model.CustomMap;
+import com.custom.met.cmmn.utils.CmmnUtils;
 import com.custom.met.cmmn.utils.DateUtils;
 import com.custom.met.cmmn.web.CustomController;
 import com.custom.met.login.service.LoginServcie;
@@ -43,7 +44,9 @@ public class LoginController extends CustomController {
 	@ResponseBody
 	public Object METLG03(@RequestBody CustomMap customMap) throws CustomException {
 		CustomMap resultMap = new CustomMap();
-		
+		if (CmmnUtils.isProd()) {
+			throw new CustomException(CustomExceptionCode.ERR999, new String[] { "운영서버는 당분간 회원가입이 보안상 불가합니다." });
+		}
 		resultMap = loginService.insertMemberDetail(customMap);
 		
 		return getResponse(resultMap);
