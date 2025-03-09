@@ -40,7 +40,7 @@
 	</select>
 	
 	<insert id="insertMember">
-		INSERT INTO 
+		INSERT INTO /* Member.insertMember */
 			META.TB001 (
 				회원일련번호
 				, 회원아이디
@@ -61,7 +61,7 @@
 			)
 	</insert>
 	<insert id="insertMemberAuth">
-		INSERT INTO 
+		INSERT INTO /* Member.insertMemberAuth */
 			META.TB002 (
 				회원일련번호
 				, 회원권한일련번호
