@@ -1,12 +1,11 @@
 package com.custom.met.cmmn.model;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.jdbc.support.JdbcUtils;
 
 /**
  * <pre>
@@ -33,10 +32,70 @@ public class CustomMap extends LinkedHashMap<String, Object> {
         }
 	}
 	
+	public static class Builder {
+		private final CustomMap instance;
+		
+		private Builder() {
+			this.instance = new CustomMap();
+		}
+		
+		private Builder(Map<String, Object> map) {
+			this.instance = new CustomMap(map);
+		}
+		
+		public Builder put(String key, Object value) {
+			this.instance.put(key, value);
+			return this;
+		}
+		public Builder set(String key, String value) {
+			this.instance.put(key, value);
+			return this;
+		}
+		public Builder set(String key, int value) {
+			this.instance.put(key, Integer.valueOf(value));
+			return this;
+		}
+		public Builder set(String key, long value) {
+			this.instance.put(key, Long.valueOf(value));
+			return this;
+		}
+		public Builder set(String key, float value) {
+			this.instance.put(key, Float.valueOf(value));
+			return this;
+		}
+		public Builder set(String key, double value) {
+			this.instance.put(key, Double.valueOf(value));
+			return this;
+		}
+		public Builder set(String key, boolean value) {
+			this.instance.put(key, Boolean.valueOf(value));
+			return this;
+		}
+		public Builder set(String key, Object value) {
+			this.instance.put(key, value);
+			return this;
+		}
+		
+		public CustomMap build() {
+			return this.instance;
+		}
+		
+	}
+	
+	public static Builder builder() {
+		Builder builder = new Builder();
+		return builder;
+	}
+	
+	public static Builder builder(Map<String, Object> map) {
+		Builder builder = new Builder(map);
+		return builder;
+	}
+	
 	@Override
 	public Object put(String key, Object value) {
 		if (key != null && key.contains("_")) {
-	        key = JdbcUtils.convertUnderscoreNameToPropertyName(key);
+	        key = snakeToCamel(key);
 	    }
 	    return super.put(key, value);
 	}
@@ -90,6 +149,9 @@ public class CustomMap extends LinkedHashMap<String, Object> {
 	        } else {
 	            value = "List<" + list.get(0).getClass().getSimpleName() + "> [" + list.size() + "]";
 	        }
+//		} else if (object instanceof CustomEntity) {
+//			CustomMap customMap = ((CustomEntity) object).toCustomMap();
+//			value = object.getClass().getSimpleName() + " " + customMap.toHashMap().toString();
 		} else {
 			value = object.toString();
 		}
@@ -467,7 +529,7 @@ public class CustomMap extends LinkedHashMap<String, Object> {
 	                if (item instanceof CustomMap) {
 	                    newList.add(((CustomMap) item).toHashMap());
 	                } else if (item instanceof List<?>) {
-	                    newList.add(convertListToHashMap((List<?>) item));
+	                    newList.add(convertListToHashMapList((List<?>) item));
 	                } else {
 	                    newList.add(item);
 	                }
@@ -480,20 +542,19 @@ public class CustomMap extends LinkedHashMap<String, Object> {
 	    return hashMap;
 	}
 	
-    private List<Object> convertListToHashMap(List<?> list) {
+    private List<Object> convertListToHashMapList(List<?> list) {
         List<Object> newList = new ArrayList<>();
         for (Object item : list) {
             if (item instanceof CustomMap) {
                 newList.add(((CustomMap) item).toHashMap());
             } else if (item instanceof List<?>) {
-                newList.add(convertListToHashMap((List<?>) item));
+                newList.add(convertListToHashMapList((List<?>) item));
             } else {
                 newList.add(item);
             }
         }
         return newList;
     }
-    
     
     @Override
     public String toString() {
@@ -579,5 +640,158 @@ public class CustomMap extends LinkedHashMap<String, Object> {
             return sb.toString();
         }
     }
+    
+    private static String snakeToCamel(String input) {
+        if (input == null || input.isEmpty()) return input;
+
+        StringBuilder result = new StringBuilder();
+        boolean nextIsUpper = false;
+
+        for (char c : input.toCharArray()) {
+            if (c == '_') {
+                nextIsUpper = true;
+            } else {
+                if (nextIsUpper) {
+                    result.append(Character.toUpperCase(c));
+                    nextIsUpper = false;
+                } else {
+                    result.append(Character.toLowerCase(c));
+                }
+            }
+        }
+
+        return result.toString();
+    }
+    
+    /**
+     * <pre>
+     * 메서드명: objectToCustomMap
+	 * 설명: 객체를 맵으로 변환
+     * </pre>
+     * @param obj 객체
+     * @param ignoredKeys 생략필드
+     * @return
+     */
+    public static CustomMap objectToCustomMap(Object obj, String[] ignoredKeys) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Class<?> theClass = obj.getClass();
+
+        Field[] fields = theClass.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object value = field.get(obj);
+                boolean isSkipped = false;
+                if (ignoredKeys != null) {
+                	for (String ignoredKey : ignoredKeys) {
+                		if (field.getName().equals(ignoredKey)) {
+                			isSkipped = true;
+                		}
+                	}
+                }
+                if (!isSkipped) {
+                	map.put(field.getName(), value);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+            	e.printStackTrace();
+			}
+        }
+        return new CustomMap(map);
+    }
+    
+    /**
+     * <pre>
+     * 메서드명: objectToCustomMap
+	 * 설명: 객체를 맵으로 변환 (상속 필드도 같이)
+     * </pre>
+     * @param obj 객체
+     * @param ignoredKeys 생략필드
+     * @param isSuperContained 상속필드 포함여부
+     * @return
+     */
+    public static CustomMap objectToCustomMap(Object obj, String[] ignoredKeys, boolean isSuperContained) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Class<?> theClass = obj.getClass();
+
+        Field[] fields = theClass.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object value = field.get(obj);
+                boolean isSkipped = false;
+                if (ignoredKeys != null) {
+                	for (String ignoredKey : ignoredKeys) {
+                		if (field.getName().equals(ignoredKey)) {
+                			isSkipped = true;
+                		}
+                	}
+                }
+                if (!isSkipped) {
+                	map.put(field.getName(), value);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+            	e.printStackTrace();
+			}
+        }
+        
+        if (isSuperContained) {
+        	
+        	Field[] superfields = theClass.getSuperclass().getDeclaredFields();
+        	for (Field field : superfields) {
+        		field.setAccessible(true);
+        		try {
+        			Object value = field.get(obj);
+        			boolean isSkipped = false;
+                    if (ignoredKeys != null) {
+                    	for (String ignoredKey : ignoredKeys) {
+                    		if (field.getName().equals(ignoredKey)) {
+                    			isSkipped = true;
+                    		}
+                    	}
+                    }
+                    if (!isSkipped) {
+                    	map.put(field.getName(), value);
+                    }
+        		} catch (IllegalAccessException e) {
+        			e.printStackTrace();
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        	}
+        }
+        return new CustomMap(map);
+    }
+    
+    /**
+     * <pre>
+     * 메서드명: objectToString
+	 * 설명: 객체를 ToString 로 변환
+     * </pre>
+     * @param obj 객체
+     * @param ignoredKeys 생략필드
+     * @return
+     */
+    public static String objectToString(Object obj, String[] ignoreKeys) {
+    	return objectToCustomMap(obj, ignoreKeys).toString().replace("CustomMap", obj.getClass().getSimpleName());
+    }
+    
+    /**
+     * <pre>
+     * 메서드명: objectToString
+	 * 설명: 객체를 ToString 로 변환
+     * </pre>
+     * @param obj 객체
+     * @param ignoredKeys 생략필드
+     * @param isSuperContained 상속필드 포함여부
+     * @return
+     */
+    public static String objectToString(Object obj, String[] ignoreKeys, boolean isSuperContained) {
+    	return objectToCustomMap(obj, ignoreKeys, isSuperContained).toString().replace("CustomMap", obj.getClass().getSimpleName());
+    }
+    
     
 }
